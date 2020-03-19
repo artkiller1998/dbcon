@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
 // указан каталог для сохранения объекта
-@Document(collection = "test1")
+@Document(collection = "egorDB")
 public class MongoModels {
     // генерация уникального ID ( первичный ключ )
     @Id

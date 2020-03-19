@@ -36,7 +36,7 @@ public class Student extends MongoModels {
     @Override
     public String toString() {
         return String.format(
-                "[ class=Student, id=%s, fName='%s', lName='%s', marks='%s']",
+                "{ \"class\"=Student\", \"id\"=\"%s\", \"fName\"=\"%s\", \"lName\"=\"%s\", \"marks\"=%s }",
                 id, firstName, lastName,studentMarks);
     }
 

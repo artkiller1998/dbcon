@@ -33,7 +33,7 @@ public class Mark {
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         return String.format(
-                "[ class=Mark, mark='%s', date='%s', scale ='%s' ]",
+                "{ \"class\"=\"Mark\", \"mark\"=\"%s\", \"date\"=\"%s\", \"scale\" =\"%s\" }",
                 mark, dateFormat.format(date), scale);
     }
 
