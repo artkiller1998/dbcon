@@ -22,18 +22,18 @@ public class Application {
 //        // конкретная реализация интерфейса для объекта Student
         MongoDBPOperations ops = new MongoDBPOperations();
 
-        Student student = new Student("John", "Smith",22);
+//        Student student = new Student("John", "Smith",22);
+//
+//        student.setInstanceMark("3");
+//        student.setInstanceMark("4");
+//        student.setInstanceMark("5");
+//        student.setInstanceMark("+");
+//        student.setInstanceMark("ANY");
+//        student.setInstanceMark("99");
+//        student.setInstanceMark("9");
 
-        student.setInstanceMark("3");
-        student.setInstanceMark("4");
-        student.setInstanceMark("5");
-        student.setInstanceMark("+");
-        student.setInstanceMark("ANY");
-        student.setInstanceMark("99");
-        student.setInstanceMark("9");
 
-
-        ops.saveInstance(mongoOperation, student);
+       // ops.saveInstance(mongoOperation, student);
     }
 }
 

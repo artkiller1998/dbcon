@@ -53,7 +53,7 @@ public class MarkController {
 //        for(Object instance  :listInstance) {
 //            res += instance;
 //        }
-        return mongoOperation.find(searchInstance, MongoModels.class).toString();
+        return mongoOperation.find(searchInstance, Student.class).toString();
     }
 
     @GetMapping("{value}")
@@ -81,14 +81,15 @@ public class MarkController {
 //        return message;
 //    }
 
-    @PutMapping("{id}")
-    public String update(@PathVariable String id, @RequestBody String mark)
+    @PutMapping("/{subject}/{year_group}/{id}")
+    public String update(@PathVariable String id, @RequestBody String mar_des_scl, @PathVariable String subject , @PathVariable String year_group)
             throws ChangeSetPersister.NotFoundException {
         //Map<String, String> messageFromDb = getMessage(id);
-        Query searchInstance = new Query(Criteria.where("id").is(id));
+        Query searchInstance = new Query(Criteria.where("id").is(id).and("ancestors").all(subject,year_group));
         Student temp = mongoOperation.findOne(searchInstance, Student.class);
-        temp.setInstanceMark(mark);
-        ops.updateInstance(mongoOperation, "id", id, "studentMarks", temp.getInstanceMark());
+        String[] values = mar_des_scl.split(",");
+        temp.setInstanceMark(values[0], values[1], values[2]);
+        ops.updateInstance(mongoOperation, "id", id, "mark", temp.getInstanceMark());
 
         return mongoOperation.findOne(searchInstance, Student.class).toString();
     }

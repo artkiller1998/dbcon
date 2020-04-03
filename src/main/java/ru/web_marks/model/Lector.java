@@ -6,7 +6,7 @@ package ru.web_marks.model;
 public class Lector extends MongoModels {
 
     public Lector(String firstName, String lastName, int lectorAge) {
-        super(firstName, lastName);
+        //super(firstName, lastName);
         //this.lectorAge = lectorAge;
     }
     //int lectorAge;
