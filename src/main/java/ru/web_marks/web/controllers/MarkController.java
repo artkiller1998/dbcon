@@ -16,7 +16,9 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("message")
+@RequestMapping("student")
+
+
 public class MarkController {
 
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
@@ -41,14 +43,17 @@ public class MarkController {
 //        }});
 //    }};
 
-    @GetMapping
-    public String list() {
+    @GetMapping("/{subject}/{year_group}")
+    public String list(@PathVariable String subject , @PathVariable String year_group ) throws ChangeSetPersister.NotFoundException {
+
+          Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
+
 //        String res = "Instance = ";
 //        List listInstance = mongoOperation.findAll(MongoModels.class);
 //        for(Object instance  :listInstance) {
 //            res += instance;
 //        }
-        return mongoOperation.findAll(MongoModels.class).toString();
+        return mongoOperation.find(searchInstance, MongoModels.class).toString();
     }
 
     @GetMapping("{value}")

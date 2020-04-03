@@ -9,36 +9,36 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
 // указан каталог для сохранения объекта
-@Document(collection = "egorDB")
+@Document(collection = "egdb")
 public class MongoModels {
     // генерация уникального ID ( первичный ключ )
     @Id
     protected String id;
-    protected String firstName;
-    protected String lastName;
+//    protected String firstName;
+//    protected String lastName;
     //    final Random random = new Random();
     // создается для каждого объекта, вне зависимости от типа
-    public MongoModels(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-//        this.id = random.nextInt();
-    }
-
-    public String getInstanceFirstName() {
-        return firstName;
-    }
-
-    public void setInstanceFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getInstanceLastName() {
-        return firstName;
-    }
-
-    public void setInstanceLastName(String lastName) {
-        this.lastName = lastName;
-    }
+//    public MongoModels(String firstName, String lastName) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+////        this.id = random.nextInt();
+//    }
+//
+//    public String getInstanceFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setInstanceFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getInstanceLastName() {
+//        return firstName;
+//    }
+//
+//    public void setInstanceLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
 
     // форматированный вывод информации о объекте
     @Override
