@@ -38,9 +38,9 @@ public class Mark  extends  MongoModels{
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         return String.format(
-                "{ \"class\":\"Mark\", \"mark\":\"%s\"," +
+                "{ \"id\":\"%s\", \"mark\":\"%s\"," +
                 " \"date\":\"%s\", \"scale\":\"%s\", \"descr\":\"%s\", \"color\":\"%s\" }",
-                mrk, dateFormat.format(date), scale, descr, color);
+                id, mrk, dateFormat.format(date), scale, descr, color);
     }
 
     private enum scales {

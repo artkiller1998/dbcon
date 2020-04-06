@@ -3,25 +3,26 @@
 */
 package ru.web_marks.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Student extends MongoModels{
-
+    public static Map current_group = new HashMap<String, String>();
     //String studentName;
     //int groupNum;
     ArrayList<String> ancestors = new ArrayList<String>();
-    ArrayList<Mark> mark = new ArrayList<Mark>();
-    String u_ident = "";
+    //ArrayList<Mark> mark = new ArrayList<Mark>();
+    String parent = "";
+    String fname = "";
     String g_ident = "";
-    String lesson = "";
-    String semester = "";
-    String subject = "";
-    public Student(ArrayList<String> ancestors) {
-        u_ident = ancestors.get(0);
-        g_ident = ancestors.get(1);
-        lesson = ancestors.get(2);
-        semester = ancestors.get(3);
-        subject = ancestors.get(4);
+    ArrayList<Task> tasks = new ArrayList<Task>();
+    public Student() {
         // выполнение конструктора родителя для инициализации параметров
     }
 
@@ -29,14 +30,14 @@ public class Student extends MongoModels{
 //        return groupNum;
 //    }
 //
-    public ArrayList<Mark> getInstanceMark() {
-        return mark;
-    }
+//    public ArrayList<Mark> getInstanceMark() {
+//        return marks;
+//    }
 //
-    public void setInstanceMark(String s_mark, String descr, String scale) {
-        Mark mark = new Mark(s_mark,descr,scale);
-        this.mark.add(mark);
-    }
+//    public void setInstanceMark(String s_mark, String descr, String scale) {
+//        Mark mark = new Mark(s_mark,descr,scale);
+//        this.mark.add(mark);
+//    }
 //
 //    public void setInstanceAge(int studentAge) {
 //        this.groupNum = groupNum;
@@ -44,12 +45,20 @@ public class Student extends MongoModels{
 
     @Override
     public String toString() {
-        return String.format(
-                "{ \"class\":\"Student\", \"id\":\"%s\", \"u_ident\"" +
-                        ":\"%s\", \"g_ident\":\"%s\", \"lesson\":\"%s\"," +
-                        " \"semester\":\"%s\",  \"subject\":\"%s\", "+
-                        " \"marks\":%s }",
+        g_ident = ancestors.get(1);
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File("src/main/resources/static/json/"+ g_ident +".json");
 
-                id, u_ident, g_ident,lesson,semester,subject,mark);
+        try {
+            current_group = objectMapper.readValue(file, Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        fname = (String) current_group.get(parent);
+
+        return String.format(
+                "{ \"parent\":\"%s\", \"fname\":\"%s\", \"tasks\":%s }",
+                parent, fname, tasks);
     }
 }

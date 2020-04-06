@@ -8,11 +8,13 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.MongoConfig;
+import ru.web_marks.model.Mark;
 import ru.web_marks.model.MongoModels;
 import ru.web_marks.model.Student;
 import ru.web_marks.view.MongoDBPOperations;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -56,13 +58,13 @@ public class MarkController {
         return mongoOperation.find(searchInstance, Student.class).toString();
     }
 
-    @GetMapping("{value}")
-    public String getOne(@PathVariable String value) throws ChangeSetPersister.NotFoundException {
-        Query searchInstance = new Query(Criteria.where("lastName").is(value));
-
-        // find instance based on the query
-        return mongoOperation.findOne(searchInstance, Student.class).toString();
-    }
+//    @GetMapping("{value}")
+//    public String getOne(@PathVariable String value) throws ChangeSetPersister.NotFoundException {
+//        Query searchInstance = new Query(Criteria.where("lastName").is(value));
+//
+//        // find instance based on the query
+//        return mongoOperation.findOne(searchInstance, Student.class).toString();
+//    }
 
 
 //    private Map<String, String> getMessage(@PathVariable String id) throws ChangeSetPersister.NotFoundException {
@@ -82,14 +84,15 @@ public class MarkController {
 //    }
 
     @PutMapping("/{subject}/{year_group}/{id}")
-    public String update(@PathVariable String id, @RequestBody String mar_des_scl, @PathVariable String subject , @PathVariable String year_group)
+    public String update(@PathVariable String id, @RequestBody String mark_id_val, @PathVariable String subject , @PathVariable String year_group)
             throws ChangeSetPersister.NotFoundException {
         //Map<String, String> messageFromDb = getMessage(id);
-        Query searchInstance = new Query(Criteria.where("id").is(id).and("ancestors").all(subject,year_group));
-        Student temp = mongoOperation.findOne(searchInstance, Student.class);
-        String[] values = mar_des_scl.split(",");
-        temp.setInstanceMark(values[0], values[1], values[2]);
-        ops.updateInstance(mongoOperation, "id", id, "mark", temp.getInstanceMark());
+        //Query searchInstance = new Query(Criteria.where("id").is(id).and("ancestors").all(subject,year_group));
+        Query searchInstance = new Query(Criteria.where("id").is(id));
+        Mark temp = mongoOperation.findOne(searchInstance, Mark.class);
+        String[] values = mark_id_val.split(",");
+        //temp.setInstanceMark(values[0], values[1], values[2]);
+        ops.updateInstance(mongoOperation, "id", id, "mrk", values[1]);
 
         return mongoOperation.findOne(searchInstance, Student.class).toString();
     }
