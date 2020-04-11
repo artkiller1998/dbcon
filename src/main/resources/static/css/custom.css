@@ -1,0 +1,65 @@
+.btn-xs {
+  padding: 0.2rem 1rem;
+  font-size: 0.85rem;
+} 
+
+
+.no-width {
+	max-width: 100% !important;
+	width: 100% !important;
+}
+
+.no-height {
+	max-height: : 100% !important;
+	height: : 100% !important;
+}
+
+.va {
+	vertical-align: middle !important;
+}
+
+.btn-box-none:focus {
+    outline: 0;
+    box-shadow: none; }
+
+
+.portlet {
+	height: auto !important;
+}
+
+.w-checkbox {
+	width: 50px !important;
+}
+
+.super-sticky {
+	position: fixed;
+	top: 80px;
+} 
+
+.drag_disabled{
+    pointer-events: none;
+}
+
+.txt-color {
+	color: black !important;
+}
+
+.table th, .table td {
+    vertical-align: middle; 
+    
+}
+
+.focusColor {
+	background-color: #d6d8db !important;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Обзор" !important; }
+
+
+
+.scroller {
+  overflow-x: scroll;
+  scrollbar-color: #0A4C95 #C2D2E4 !important;
+  scrollbar-width: 50px !important;
+}

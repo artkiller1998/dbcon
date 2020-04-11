@@ -8,18 +8,13 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.MongoConfig;
-import ru.web_marks.model.Mark;
 import ru.web_marks.model.MongoModels;
 import ru.web_marks.model.Student;
 import ru.web_marks.view.MongoDBPOperations;
-
 import java.util.List;
-import java.util.Map;
-
 
 @RestController
 @RequestMapping("student")
-
 
 public class MarkController {
 
@@ -28,72 +23,35 @@ public class MarkController {
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
     // конкретная реализация интерфейса для объекта Student
     MongoDBPOperations ops = new MongoDBPOperations();
-    List<MongoModels> listInstance;
-//    private int counter = 4;
-//    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
-//        add(new HashMap<String, String>() {{
-//            put("id", "1");
-//            put("text", "First message");
-//        }});
-//        add(new HashMap<String, String>() {{
-//            put("id", "2");
-//            put("text", "Second message");
-//        }});
-//        add(new HashMap<String, String>() {{
-//            put("id", "3");
-//            put("text", "Third message");
-//        }});
-//    }};
 
     @GetMapping("/{subject}/{year_group}")
     public String list(@PathVariable String subject , @PathVariable String year_group ) throws ChangeSetPersister.NotFoundException {
 
-          Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
-
-//        String res = "Instance = ";
-//        List listInstance = mongoOperation.findAll(MongoModels.class);
-//        for(Object instance  :listInstance) {
-//            res += instance;
-//        }
+        Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
         return mongoOperation.find(searchInstance, Student.class).toString();
     }
 
-//    @GetMapping("{value}")
-//    public String getOne(@PathVariable String value) throws ChangeSetPersister.NotFoundException {
-//        Query searchInstance = new Query(Criteria.where("lastName").is(value));
-//
-//        // find instance based on the query
-//        return mongoOperation.findOne(searchInstance, Student.class).toString();
-//    }
-
-
-//    private Map<String, String> getMessage(@PathVariable String id) throws ChangeSetPersister.NotFoundException {
-//        return messages.stream()
-//                .filter(message -> message.get("id").equals(id))
-//                .findFirst()
-//                .orElseThrow(ChangeSetPersister.NotFoundException::new);
-//    }
-//
-//    @PostMapping
-//    public Map<String, String> create(@RequestBody Map<String, String> message) {
-//        message.put("id", String.valueOf(counter++));
-//
-//        messages.add(message);
-//
-//        return message;
-//    }
-
     @PutMapping("/{subject}/{year_group}/{id}")
-    public String update(@PathVariable String id, @RequestBody String mark_id_val, @PathVariable String subject , @PathVariable String year_group)
-            throws ChangeSetPersister.NotFoundException {
-        //Map<String, String> messageFromDb = getMessage(id);
-        //Query searchInstance = new Query(Criteria.where("id").is(id).and("ancestors").all(subject,year_group));
-        Query searchInstance = new Query(Criteria.where("id").is(id));
-        Mark temp = mongoOperation.findOne(searchInstance, Mark.class);
-        String[] values = mark_id_val.split(",");
-        //temp.setInstanceMark(values[0], values[1], values[2]);
-        ops.updateInstance(mongoOperation, "id", id, "mrk", values[1]);
+    public String update(@PathVariable String id, @RequestBody String mark, @PathVariable String subject ,
+                         @PathVariable String year_group) throws ChangeSetPersister.NotFoundException {
 
+        //Query searchInstance = new Query(Criteria.where("mark.id").is(id));
+        //Query searchInstance2 = new Query();
+        //Student temp = mongoOperation.find(searchInstance, Student.class);
+
+        Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks").elemMatch(Criteria.where("id").is(id))));
+        Student temp = mongoOperation.findOne(searchInstance, Student.class);
+        assert temp != null;
+        temp.setInstanceMark(id,mark);
+        //String[] values = mark_id_val.split(",");
+        //temp.setInstanceMark(values[0], values[1], values[2]);
+        //ops.updateInstance(mongoOperation, "id", id, "mrk", values[0]);
+        //ops.updateInstance(mongoOperation, "id", id, "mrk", mark_id_val);
+        //Update update = new Update();
+        //update.set(null, temp.getStudent());
+        mongoOperation.save(temp.getStudent());
+        //mongoOperation.updateFirst(searchInstance, update, Student.class);
+        //mongoOperation.findAndModify(searchInstance,update,Student.class);
         return mongoOperation.findOne(searchInstance, Student.class).toString();
     }
 }

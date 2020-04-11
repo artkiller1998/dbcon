@@ -5,34 +5,31 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Mark  extends  MongoModels{
-    private String mrk;
-    private Date date;
-    //private scales scale;
-    private String scale;
-    String color = "default";
+    String scale;
+    String mrk;
     String descr;
+    String color;
+    Date date;
 
-    public Mark(String mrk, String descr , String scale) {
-        //super(firstName, lastName, groupNum);
-        date = new Date();
-        this.mrk = mrk;
-        this.descr = descr;
-        this.scale = scale;
-        //scale = predictScale();
-        //setInstanceMark(this);
+    //private scales scale;
+
+
+
+
+//
+//    public scales predictScale() {
+//        scales prediction = scales.Other;
+//        if (mrk.matches("[+-]{1}")) prediction = scales.Symbolic;
+//        if (mrk.matches("\\d+%")) prediction = scales.Percentage;
+//        if (mrk.matches("(\\b[0-9]{1}\\b)|(\\b10{1}\\b)")) prediction = scales.Grade10;
+//        if (mrk.matches("\\b[0-5]{1}\\b")) prediction = scales.Grade5; //(?U)
+//        if (mrk.matches("[отл|хор|уд|неуд]{1}")) prediction = scales.Name;
+//        return prediction;
+//    }
+
+    private void updateMark(String value){
+        mrk = value;
     }
-
-    public scales predictScale() {
-        scales prediction = scales.Other;
-        if (mrk.matches("[+-]{1}")) prediction = scales.Symbolic;
-        if (mrk.matches("\\d+%")) prediction = scales.Percentage;
-        if (mrk.matches("(\\b[0-9]{1}\\b)|(\\b10{1}\\b)")) prediction = scales.Grade10;
-        if (mrk.matches("\\b[0-5]{1}\\b")) prediction = scales.Grade5; //(?U)
-        if (mrk.matches("[отл|хор|уд|неуд]{1}")) prediction = scales.Name;
-        return prediction;
-    }
-
-    ;
 
     @Override
     public String toString() {
@@ -43,13 +40,13 @@ public class Mark  extends  MongoModels{
                 id, mrk, dateFormat.format(date), scale, descr, color);
     }
 
-    private enum scales {
-        Symbolic, // ["+","-"]
-        Percentage, // [0-100]%
-        Grade5, //  [0-5]
-        Grade10, // [0-10]
-        Name, // ["отл","хор","уд","неуд"];
-        Other // any other type
-    }
+//    private enum scales {
+//        Symbolic, // ["+","-"]
+//        Percentage, // [0-100]%
+//        Grade5, //  [0-5]
+//        Grade10, // [0-10]
+//        Name, // ["отл","хор","уд","неуд"];
+//        Other // any other type
+//    }
 
 }

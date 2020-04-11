@@ -19,8 +19,8 @@ public class Student extends MongoModels{
     ArrayList<String> ancestors = new ArrayList<String>();
     //ArrayList<Mark> mark = new ArrayList<Mark>();
     String parent = "";
-    String fname = "";
-    String g_ident = "";
+    //String fname = "";
+    //String g_ident = "";
     ArrayList<Task> tasks = new ArrayList<Task>();
     public Student() {
         // выполнение конструктора родителя для инициализации параметров
@@ -34,10 +34,19 @@ public class Student extends MongoModels{
 //        return marks;
 //    }
 //
-//    public void setInstanceMark(String s_mark, String descr, String scale) {
-//        Mark mark = new Mark(s_mark,descr,scale);
-//        this.mark.add(mark);
-//    }
+    public void setInstanceMark(String id,String value) {
+        for ( Task task  :tasks) {
+            for (Mark mark : task.marks) {
+                if (mark.id.equals(id)) {
+                    mark.mrk = value;
+                }
+            }
+        }
+    }
+
+    public Student getStudent(){
+        return this;
+    }
 //
 //    public void setInstanceAge(int studentAge) {
 //        this.groupNum = groupNum;
@@ -45,7 +54,7 @@ public class Student extends MongoModels{
 
     @Override
     public String toString() {
-        g_ident = ancestors.get(1);
+        String g_ident = ancestors.get(1);
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File("src/main/resources/static/json/"+ g_ident +".json");
 
@@ -55,7 +64,7 @@ public class Student extends MongoModels{
             e.printStackTrace();
         }
 
-        fname = (String) current_group.get(parent);
+        String fname = (String) current_group.get(parent);
 
         return String.format(
                 "{ \"parent\":\"%s\", \"fname\":\"%s\", \"tasks\":%s }",

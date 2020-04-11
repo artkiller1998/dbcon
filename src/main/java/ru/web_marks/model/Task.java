@@ -5,16 +5,17 @@ import java.util.ArrayList;
 public class Task extends Student{
 
     ArrayList<Mark> marks = new ArrayList<Mark>();
-    String lesson  = "";
+    String lesson;
 
-    public ArrayList<Mark> getInstanceMark() {
-        return marks;
-    }
+//    public ArrayList<Mark> getInstanceMark() {
+//        return marks;
+//    }
 
-    public void setInstanceMark(String s_mark, String descr, String scale) {
-        Mark mark = new Mark(s_mark,descr,scale);
-        this.marks.add(mark);
-    }
+//    public void setInstanceMark(String s_mark) {
+//        Mark mark = new Mark(s_mark);
+//        this.marks.add(mark);
+//        this.lesson = lesson;
+//    }
 
 
     @Override

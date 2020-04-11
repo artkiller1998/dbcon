@@ -12,4 +12,11 @@ public class GreetingController {
         model.addAttribute("name", name);
         return "index";
     }
+
+    @GetMapping("/table")
+    public String table_view(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+        model.addAttribute("name", name);
+        return "table";
+    }
 }
+

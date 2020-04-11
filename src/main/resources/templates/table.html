@@ -1,0 +1,293 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Успеваемость</title>
+	<meta name="description" content="" />
+	<meta name="Author" content="mijgvn" />
+	
+	<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="preload" href="/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/vendor_bundle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">
+	<link rel="manifest" href="/img/manifest/manifest.json">
+	<meta name="theme-color" content="#377dff">
+	<link rel="stylesheet" href="/css/custom.css">
+</head>	 
+
+
+
+<body class="layout-admin" data-aos-easing="ease-in-out-sine" data-aos-duration="700" data-aos-delay="0">
+
+		<div id="wrapper" class="d-flex align-items-stretch flex-column">
+
+
+			<header id="header" class="bg-dark">
+				<div class="container-fluid position-relative">
+
+					<nav class="navbar navbar-expand navbar-light justify-content-between justify-content-md-inherit h--50">
+
+						<div class="align-items-start">
+							
+							<a class="navbar-brand aside-width h-60 d-lg-flex align-lg-items-center">
+								<!-- здесь модно добавть что то, что будет на темно сером фоне сверху -->
+							</a>
+
+
+						</div>
+
+
+
+
+						<!-- NAVIGATION -->
+						
+						<!-- /NAVIGATION -->
+
+					</nav>
+					
+				</div>
+				<!-- /NAVBAR -->
+			</header>
+			<!-- /HEADER -->
+
+			<div id="wrapper_content" class="d-flex flex-fill">
+
+				<!-- /SIDEBAR -->
+
+
+				<!-- MIDDLE -->
+				<div id="middle" class="flex-fill  bg-dark-soft">
+					<!-- start:row -->
+					<div class="row gutters-sm">
+
+						<!-- start:col: -->
+						<div class="col-12 mb-3">
+							<div class="portlet">
+
+								<div class="portlet-header border-bottom">
+									<span>Успеваемость</span>
+									<br>
+									<!--<div id="sel" class="form-label-group mb-3 portlet">
+										<select id="select_option" class="form-control bs-select">
+											<option value="java">Java</option>
+											<option value="bos">BOS</option>										
+										</select>
+										<label for="select_options">Предметы</label>
+									</div>
+									<div class="form-label-group mb-3">
+										<input placeholder="Путь к списку группы" id="file_path" type="text" value="" class="form-control">
+										<label for="file_path">Путь к списку группы</label>
+									</div>-->
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-label-group mb-1 ml-1">
+												Номер группы
+											</div>
+											<div class="form-label-group mb-3">
+												<input placeholder="Номер группы, например: s163" id="group_number" type="text" value="" class="form-control">
+												<label for="file_path">Например: s163</label>
+											</div>
+											
+										</div>
+										<div class="col-lg-6">
+											<div class="form-label-group mb-1 ml-1">
+												Название предмета и номер семестра
+											</div>
+											<div class="form-label-group mb-3">
+												<input placeholder="Номер группы, например: s163" id="subject_config" type="text" value="" class="form-control">
+												<label for="file_path">Например: bos_2</label>
+											</div>
+											
+										</div>
+									</div>
+									<br>
+									<button type="button" class="btn btn-success" onclick="showTable();">
+										<i class="fi fi-task-list"></i> 
+										Показать таблицу
+									</button>
+								</div>
+
+								<div class="portlet-body">
+
+									<div id="table_show" class="container no-width py-3">
+										<div id="item_list">
+											<div class="row no-gutters">
+												<div class="col-1">
+													<table id="user_table" class="table table-bordered table-hover">
+														
+													</table>
+												</div>
+												<div class="col-11 scrollable-vertical scrollable-styled-dark">
+													<table id="table"  class="table table-bordered table-hover">
+														
+													</table>
+												</div>
+											</div>
+											<!--<div class="row no-gutters">
+												<div class="col-1">
+													<table class="table table-bordered table-hover">
+														<tr height="82px">
+															<td name="user"></td>
+														</tr>
+														<tr height="82px">
+															<td name="user"></td>
+														</tr>
+
+														<tr height="82px">
+															<td name="user">Петров Петр Петрович</td>
+														</tr>
+														<tr height="82px">
+															<td name="user">Игорев Игорь Игоревич</td>
+														</tr>
+														<tr height="82px">
+															<td name="user">Самойлов Самойл Самойлович</td>
+														</tr>
+														<tr height="82px">
+															<td name="user">Давыдов Климент Демьянович</td>
+														</tr>
+														<tr height="82px">
+															<td name="user">Моисеев Игнатий Семёнович</td>
+														</tr>
+														<tr height="82px">
+															<td name="user">Карпов Леонтий Дмитриевич</td>
+														</tr>
+													</table>
+												</div>
+												<div class="col-11 scrollable-vertical scrollable-styled-dark">
+													<table  class="table table-bordered table-hover">
+														<tr height="82px">
+															<td colspan="3">REFERAT</td>
+															<td colspan="3">Additional_perfomances</td>
+															<td colspan="2">Additional_tasks</td>
+															<td colspan="2">LR_1</td>
+															<td colspan="2">LR_2</td>
+															<td colspan="2">LR_3</td>
+															<td colspan="5">LR_4</td>
+															<td colspan="3">LR_5</td>
+															<td colspan="1">Linux_comands</td>
+														</tr>
+														<tr height="82px">
+															<td>Выступил</td>
+															<td>Сдал печатную версию</td>
+															<td>Сдал электронную версию</td>
+															<td>1</td>
+															<td>2</td>
+															<td>3</td>
+															<td>Взял</td>
+															<td>Сдал</td>
+															<td>Сдал практику</td>
+															<td>Сдал отчет</td>
+															<td>Сдал практику</td>
+															<td>Сдал отчет</td>
+															<td>Сдал практику</td>
+															<td>Сдал отчет</td>
+															<td>Сдал практику</td>
+															<td>роутер</td>
+															<td>VM1</td>
+															<td>теория</td>
+															<td>Сдал отчет</td>
+															<td>Сдал практику</td>
+															<td>беспарольный доступ</td>
+															<td>Сдал отчет</td><td></td>
+														</tr>
+														<tr height="82px">
+															
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Выступил" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал печатную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал электронную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="1" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="2" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="3" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Взял" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал практику" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал отчет" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал практику" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал отчет" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал практику" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал отчет" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал практику" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="роутер" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="VM1" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="теория" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал отчет" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал практику" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="беспарольный доступ" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="Сдал отчет" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Петров Петр Петрович" data-descr="" data-lesson="Linux_comands" width="120px" value="10" onclick="editable(this, 10);"></td>
+														</tr>
+														<tr height="82px">
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Выступил" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал печатную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал электронную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="1" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="2" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="3" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Взял" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал практику" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал отчет" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал практику" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал отчет" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал практику" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал отчет" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал практику" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="роутер" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="VM1" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td>
+															<td name="editable" data-name="Игорев Игорь Игоревич" data-descr="теория" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал отчет" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал практику" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Игорев Игорь Игоревич" data-descr="беспарольный доступ" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Игорев Игорь Игоревич" data-descr="Сдал отчет" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Игорев Игорь Игоревич" data-descr="" data-lesson="Linux_comands" width="120px" value="10" onclick="editable(this, 10);"></td></tr><tr height="82px"><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Выступил" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал печатную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал электронную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="1" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="2" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="3" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Взял" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал практику" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал отчет" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал практику" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал отчет" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал практику" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал отчет" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал практику" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="роутер" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="VM1" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="теория" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал отчет" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал практику" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="беспарольный доступ" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="Сдал отчет" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Самойлов Самойл Самойлович" data-descr="" data-lesson="Linux_comands" width="120px" value="10" onclick="editable(this, 10);"></td></tr><tr height="82px"><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Выступил" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал печатную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал электронную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="1" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="2" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="3" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Взял" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал практику" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал отчет" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал практику" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал отчет" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал практику" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал отчет" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал практику" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="роутер" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="VM1" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="теория" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал отчет" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал практику" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="беспарольный доступ" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="Сдал отчет" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Давыдов Климент Демьянович" data-descr="" data-lesson="Linux_comands" width="120px" value="10" onclick="editable(this, 10);"></td></tr><tr height="82px"><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Выступил" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал печатную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал электронную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="1" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="2" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="3" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Взял" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал практику" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал отчет" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал практику" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал отчет" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал практику" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал отчет" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал практику" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="роутер" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="VM1" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="теория" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал отчет" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал практику" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="беспарольный доступ" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="Сдал отчет" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Моисеев Игнатий Семёнович" data-descr="" data-lesson="Linux_comands" width="120px" value="10" onclick="editable(this, 10);"></td></tr><tr height="82px"><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Выступил" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал печатную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал электронную версию" data-lesson="REFERAT" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="1" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="2" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="3" data-lesson="Additional_perfomances" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Взял" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал" data-lesson="Additional_tasks" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал практику" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал отчет" data-lesson="LR_1" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал практику" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал отчет" data-lesson="LR_2" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал практику" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал отчет" data-lesson="LR_3" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал практику" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="роутер" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="VM1" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="теория" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал отчет" data-lesson="LR_4" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал практику" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="беспарольный доступ" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="Сдал отчет" data-lesson="LR_5" width="120px" value="2" onclick="editable(this, 2);"></td><td name="editable" data-name="Карпов Леонтий Дмитриевич" data-descr="" data-lesson="Linux_comands" width="120px" value="10" onclick="editable(this, 10);"></td></tr></table>
+												</div>
+											</div>-->
+											<!--<div class="row">
+												<button type="button" class="btn btn-success" onclick="saveMarks();">
+													<i class="fi fi-check"></i> 
+													Сохранить изменения
+												</button>
+											</div>-->
+  										</div>
+
+									</div>
+									
+								</div>
+								
+
+							</div>
+							<!-- end:portlet -->
+
+						</div>
+						<!-- end:col: -->
+
+
+					</div>
+					<!-- end:row: -->
+					<!-- doc:end -->
+				</div>
+			<!-- FOOTER -->
+			</div>
+			<footer id="footer" class="bg-dark text-white">
+				<div class="p-3 fs--14">
+					<!-- здесь модно добавть что то, что будет на темно сером фоне снизу -->
+				</div>
+			</footer>
+			<!-- /FOOTER -->
+
+
+		</div><!-- /#wrapper -->
+
+
+
+		<script src="/js/core.js"></script>
+
+		<div id="page_js_files">
+			<!-- specific page javascript files here -->
+			<script type="text/javascript" src="/js/table.js"></script>
+			<script type="text/javascript" src="/js/vendor_bundle.js"></script>
+
+		</div>
+	</body>	
+
