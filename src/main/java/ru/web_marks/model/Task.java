@@ -2,7 +2,7 @@ package ru.web_marks.model;
 
 import java.util.ArrayList;
 
-public class Task extends Student{
+public class Task {
 
     ArrayList<Mark> marks = new ArrayList<Mark>();
     String lesson;

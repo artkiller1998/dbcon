@@ -69,18 +69,40 @@ function saveMarks(elem) {
 	console.log($('#group_number'))
 	console.log(subjectFile)
 
-	subjectFile = subjectFile.toUpperCase()
+	var token = $('#csrfToken').val();
+	var header = $('#csrfHeader').val();
 
+	subjectFile = subjectFile.toUpperCase()
+	//jqXHR.setRequestHeader('CSRFToken', ACC.config.CSRFToken);
 	$.ajax({
-		url: 'http://localhost:8080/student/'+subjectFile+"/"+groupFile, /*название файла, который занимается орабработкой запроса*/
-		type: "PUT",
-		data: {
-			id: elem.attr('data-id'),
-			mark: elem.html(),
+		headers : {
+			Accept : "text/plain",
+			"Content-Type" : "application/json"
 		},
+		url : 'http://localhost:8080/teacher/'+subjectFile+"/"+groupFile+"/"+elem.attr('data-id'),
+		method : "PUT",
+		data : elem.html(),
+		dataType : "text",
+		contentType : "application/json; charset=utf-8",
+		success : function(data) {
+			console.log(data);
+			console.log("Instance has been saved!");
+		},
+		error : function() {
+			console.log("an error has occurred while putting response!");
+		}
+		// url: 'http://localhost:8080/teacher/'+subjectFile+"/"+groupFile+"/"+String(elem.attr('data-id')), /*название файла, который занимается орабработкой запроса*/
+		// type: "GET",
+        // //contentType: 'text/javascript',
+		// //mark: elem.html()
+		// //contentType: "application/json",
+		// data: JSON.stringify({
+		// 	mark: elem.html()
+		// })
+		//id: String(elem.attr('data-id')),
 	});
-	newMarks = [elem.attr('data-id'), elem.html()]
-	console.log(newMarks)
+	//newMarks = [elem.attr('data-id'), elem.html()]
+	//console.log(newMarks)
 }
 
 
@@ -135,7 +157,7 @@ function showTable() {
 
 						//console.log(arrScale[j][1])
 						///onmousedown="getDate(\''+config[i]['tasks'][j]['marks'][k]['date']+'\');"   
-						table = table + '<td name="editable" data-id="'+config[i]['tasks'][j]['marks'][k]['id']+'" width="'+wid+'%" value="'+config[i]['tasks'][j]['marks'][k]['scale']+'" onclick="editable(this, '+config[i]['tasks'][j]['marks'][k]['scale']+');" data-toggle="tooltip" data-placement="top" title="Оценка поставлена: '+config[i]['tasks'][j]['marks'][k]['date']+'">'+config[i]['tasks'][j]['marks'][k]['mark']+'</td>' 
+						table = table + '<td name="editable" data-id="'+config[i]['tasks'][j]['marks'][k]['mrk_id']+'" width="'+wid+'%" value="'+config[i]['tasks'][j]['marks'][k]['scale']+'" onclick="editable(this, '+config[i]['tasks'][j]['marks'][k]['scale']+');" data-toggle="tooltip" data-placement="top" title="Оценка поставлена: '+config[i]['tasks'][j]['marks'][k]['date']+'">'+config[i]['tasks'][j]['marks'][k]['mark']+'</td>'
 						//data-name="'+config[i]['fname']+'" data-descr="'+config[i]['tasks'][j]['marks'][k]['descr']+'" data-lesson="'+config[i]['tasks'][j]['lesson']+'" 
 					}
 				}

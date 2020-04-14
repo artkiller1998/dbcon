@@ -25,38 +25,15 @@ public class MarkController {
     MongoDBPOperations ops = new MongoDBPOperations();
 
     @GetMapping("/{subject}/{year_group}")
-    public String list(@PathVariable String subject , @PathVariable String year_group ) throws ChangeSetPersister.NotFoundException {
-
+    public String list(@PathVariable String subject , @PathVariable String year_group )
+            throws ChangeSetPersister.NotFoundException {
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
         return mongoOperation.find(searchInstance, Student.class).toString();
     }
 
-    @PutMapping("/{subject}/{year_group}/{id}")
-    public String update(@PathVariable String id, @RequestBody String mark, @PathVariable String subject ,
-                         @PathVariable String year_group) throws ChangeSetPersister.NotFoundException {
-
-        //Query searchInstance = new Query(Criteria.where("mark.id").is(id));
-        //Query searchInstance2 = new Query();
-        //Student temp = mongoOperation.find(searchInstance, Student.class);
-
-        Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks").elemMatch(Criteria.where("id").is(id))));
-        Student temp = mongoOperation.findOne(searchInstance, Student.class);
-        assert temp != null;
-        temp.setInstanceMark(id,mark);
-        //String[] values = mark_id_val.split(",");
-        //temp.setInstanceMark(values[0], values[1], values[2]);
-        //ops.updateInstance(mongoOperation, "id", id, "mrk", values[0]);
-        //ops.updateInstance(mongoOperation, "id", id, "mrk", mark_id_val);
-        //Update update = new Update();
-        //update.set(null, temp.getStudent());
-        mongoOperation.save(temp.getStudent());
-        //mongoOperation.updateFirst(searchInstance, update, Student.class);
-        //mongoOperation.findAndModify(searchInstance,update,Student.class);
-        return mongoOperation.findOne(searchInstance, Student.class).toString();
-    }
 }
 
-    //ЧТОБЫ ПРОВЕРИТЬ В БРАУЗЕРЕ
+//ЧТОБЫ ПРОВЕРИТЬ В БРАУЗЕРЕ
 //    fetch(
 //  '/message/5e71d5f70deee42bfe4748b2',        !!!<<< сюда подставить ID студента
 //    {

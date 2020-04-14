@@ -4,12 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Mark  extends  MongoModels{
+public class Mark {
     String scale;
     String mrk;
     String descr;
     String color;
     Date date;
+    String mrk_id;
 
     //private scales scale;
 
@@ -35,9 +36,9 @@ public class Mark  extends  MongoModels{
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         return String.format(
-                "{ \"id\":\"%s\", \"mark\":\"%s\"," +
+                "{ \"mrk_id\":\"%s\", \"mark\":\"%s\"," +
                 " \"date\":\"%s\", \"scale\":\"%s\", \"descr\":\"%s\", \"color\":\"%s\" }",
-                id, mrk, dateFormat.format(date), scale, descr, color);
+                mrk_id, mrk, dateFormat.format(date), scale, descr, color);
     }
 
 //    private enum scales {

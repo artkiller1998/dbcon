@@ -22,8 +22,8 @@ public class MongoConfig extends AbstractMongoConfiguration {
     }
 
     //Задать название пакета
-    @Override
-    protected String getMappingBasePackage() {
-        return "ru.web_marks";
-    }
+    //@Override
+    //protected String getMappingBasePackage() {
+    //    return "ru.web_marks";
+    //}
 }

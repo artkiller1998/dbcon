@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,8 +38,9 @@ public class Student extends MongoModels{
     public void setInstanceMark(String id,String value) {
         for ( Task task  :tasks) {
             for (Mark mark : task.marks) {
-                if (mark.id.equals(id)) {
+                if (mark.mrk_id.equals(id)) {
                     mark.mrk = value;
+                    mark.date = new Date();
                 }
             }
         }
@@ -47,6 +49,7 @@ public class Student extends MongoModels{
     public Student getStudent(){
         return this;
     }
+    public ArrayList<Task> getTasks() {return this.tasks;}
 //
 //    public void setInstanceAge(int studentAge) {
 //        this.groupNum = groupNum;
