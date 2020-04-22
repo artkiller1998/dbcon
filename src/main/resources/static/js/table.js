@@ -1,5 +1,71 @@
 $(function(){
-	//$('#table_show').hide()
+	$('#item_list').hide()
+});
+
+function Color (elem, currentValue, max) {
+ 	
+	if (currentValue > (max / 2)) {
+		cur = currentValue - (max / 2)
+	}
+	else {
+		cur = currentValue
+	}
+
+ 	if (currentValue <= (max / 2)) {
+ 		changeColor(elem, cur, max / 2, [255,0,0], [255,255,0])	
+	}
+	else {
+		changeColor(elem, cur, max / 2, [255,255, 0], [0,255,0])
+	}	
+
+}
+
+
+function changeColor(elem, currentValue, max , start , end) {
+
+	fromR = start[0];
+	fromG = start[1];
+	fromB = start[2];
+
+	toR = end[0];
+	toG = end[1];
+	toB = end[2];
+
+	deltaR = parseInt((toR - fromR) / max);
+	deltaG = parseInt((toG - fromG) / max);
+	deltaB = parseInt((toB - fromB) / max);
+	console.log(deltaR)
+	console.log(deltaG)
+	console.log(deltaB)
+	R = fromR + currentValue * deltaR;
+	G = fromG + currentValue * deltaG;
+	B = fromB + currentValue * deltaB;
+	console.log(R)
+	console.log(G)
+	console.log(B)
+	hexR = Number(R).toString(16).padStart(2, '0');
+	hexG = Number(G).toString(16).padStart(2, '0');
+	hexB = Number(B).toString(16).padStart(2, '0');
+	console.log(hexR)
+	console.log(hexG)
+	console.log(hexB)
+	$(elem).css('background-color','#'+hexR+hexG+hexB);
+	
+}
+
+$(document).keyup(function(e) {
+	if (e.key === "Enter" || e.keyCode === 13) {
+		var val = $('#inputM').val()	//получаем то, что в поле находится
+		console.log(val)
+		//находим ячейку, опустошаем, вставляем значение из поля
+		elem = $('#inputM').closest('td');
+		elem.removeClass('p-0');
+		//elem.attr('name', 'new');
+		elem.html(val);
+		
+		saveMarks(elem)
+		
+	}
 });
 
 function editable(el, scale) {
@@ -27,6 +93,10 @@ function editable(el, scale) {
 		code = code + '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'
 	
 	code = code + '</select></div>'
+
+	if (scale == 100) {
+		code = '<div id="sel" class="form-label-group portlet no-height"><input class="form-control no-height" type="text" id="inputM" value=""/></div>'
+	}
 	//формируем код текстового поля
 	//var code = '<input type="text" id="edit" value="'+val+'" />';
 	//удаляем содержимое ячейки, вставляем в нее сформированное поле   no-height
@@ -34,19 +104,37 @@ function editable(el, scale) {
 	e.addClass('p-0')
 	e.html(code)
 
-	$('#select_option').val(val)
-	$('.filter-option-inner-inner').html(val)
-	//устанавливаем фокус на свеженарисованное поле
-	$('#select_option').focus();
-	$('#select_option').blur(function()	{	//устанавливаем обработчик
-		var val = $('#select_option option:selected').text()	//получаем то, что в поле находится
-		console.log(val)
-		//находим ячейку, опустошаем, вставляем значение из поля
-		e.html(val);
-		e.removeClass('p-0');
-		e.attr('name', 'new')
-		saveMarks(e)
-	});
+	if (scale == 100) {
+		$('#inputM').val(val)
+		//устанавливаем фокус на свеженарисованное поле
+		$('#inputM').focus();
+		$('#inputM').blur(function()	{	//устанавливаем обработчик
+			var val = $('#inputM').val()	//получаем то, что в поле находится
+			console.log(val)
+			//находим ячейку, опустошаем, вставляем значение из поля
+
+			e.html(val);
+			e.removeClass('p-0');
+			//e.attr('name', 'new')
+			saveMarks(e)
+		});
+	}
+	else {
+		$('#select_option').val(val)
+		$('.filter-option-inner-inner').html(val)
+		//устанавливаем фокус на свеженарисованное поле
+		$('#select_option').focus();
+		$('#select_option').blur(function()	{	//устанавливаем обработчик
+			var val = $('#select_option option:selected').text()	//получаем то, что в поле находится
+			console.log(val)
+			//находим ячейку, опустошаем, вставляем значение из поля
+			e.html(val);
+			e.removeClass('p-0');
+			//e.attr('name', 'new')
+			saveMarks(e)
+		});
+	}
+	
 }
 
 function selectMark(e) {
@@ -55,12 +143,27 @@ function selectMark(e) {
 	//находим ячейку, опустошаем, вставляем значение из поля
 	$(e).closest('td').html(val);
 	$(e).closest('td').removeClass('p-0');
-	$(e).closest('td').attr('name', 'new')
+	//$(e).closest('td').attr('name', 'new')
 	saveMarks($(e).closest('td'))
 }
 
 
 function saveMarks(elem) {
+	if ($('#showColor')[0].checked) {
+		currentValue = elem.html()
+		if (elem.attr('value') == 3) {
+			if (elem.html() == "-") currentValue = 0
+			if (elem.html() == "*") currentValue = 2
+			if (elem.html() == "+") currentValue = 3 
+		}
+		if (elem.attr('value') == 2) {
+			if (elem.html() == "-") currentValue = 0
+			if (elem.html() == "+") currentValue = 2 
+		}
+		if (currentValue !== "") {
+			Color(elem, currentValue, elem.attr('value'))	
+		}
+	}
 	elem = $(elem)
 	///////elem.attr('data-lesson'),elem.attr('data-name'),elem.attr('data-descr'), elem.html()
 	groupFile = $('#group_number').val()
@@ -126,10 +229,10 @@ function showTable() {
 			},
         //dataType: "json",//
         success: function(config) {
-        	console.log(config)
+        	//console.log(config)
 			config=JSON.parse(config)
-        	user_table = '<tr height="82px"><td name="user"></td></tr><tr height="82px"><td name="user"></td></tr>'
-			table = '<tr height="82px">'
+        	user_table = '<tr id="heightOneUser"><td name="user"></td></tr><tr id="heightTwoUser"><td name="user"></td></tr>'
+			table = '<tr id="heightOne">'
 			for (var i = 0; i < config[0]['tasks'].length; i++) {
 				for (var j = 0; j < config[0]['tasks'][i]['marks'].length; j++) {
 					if (j == 0) {
@@ -137,7 +240,7 @@ function showTable() {
 					}
 				}
 			}
-			table = table + '</tr><tr height="82px">'
+			table = table + '</tr><tr id="heightTwo">'
 			countCol = 0
 			for (var i = 0; i < config[0]['tasks'].length; i++) {
 				for (var j = 0; j < config[0]['tasks'][i]['marks'].length; j++) {
@@ -166,6 +269,32 @@ function showTable() {
 			}
 			$('#table').html(table)
 			$('#user_table').html(user_table)
+			$('#item_list').show()
+			$('#heightOneUser').height($('#heightOne').height())//
+			$('#heightTwoUser').height($('#heightTwo').height())//
+
+			
+
+			/*if ($('#showColor').checked) {
+				$('[name="editable"]').each(function(){
+					elem = $(this)
+					currentValue = elem.html()
+					if (elem.attr('value') == 3) {
+						if (elem.html() == "-") currentValue = 0
+						if (elem.html() == "*") currentValue = 2
+						if (elem.html() == "+") currentValue = 3 
+					}
+					if (elem.attr('value') == 2) {
+						if (elem.html() == "-") currentValue = 0
+						if (elem.html() == "+") currentValue = 2 
+					}
+					if (currentValue !== "") {
+						Color(elem, currentValue, elem.attr('value'))	
+					}
+				})
+			}*/
+
+
         },
         error: function(config) {
 			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
@@ -179,6 +308,34 @@ function getDate(date) {
 		$.SOW.core.toast.show('primary', '', "Время выставления этой оценки: "+date, 'bottom-center', 3000, true)
 	}
 }
+
+function checkboxChange() {
+	console.log($('#showColor')[0].checked)
+	if ($('#showColor')[0].checked) {
+		$('[name="editable"]').each(function(){
+			elem = $(this)
+			currentValue = elem.html()
+			if (elem.attr('value') == 3) {
+				if (elem.html() == "-") currentValue = 0
+				if (elem.html() == "*") currentValue = 2
+				if (elem.html() == "+") currentValue = 3 
+			}
+			if (elem.attr('value') == 2) {
+				if (elem.html() == "-") currentValue = 0
+				if (elem.html() == "+") currentValue = 2 
+			}
+			if (currentValue !== "") {
+				Color(elem, currentValue, elem.attr('value'))	
+			}
+		})
+	}
+	else {
+		$('[name="editable"]').each(function(){
+			$(this).css('background-color','#fff');
+		})
+	}
+}
+
 
 
 /*function readFile(files, e)
