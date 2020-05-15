@@ -30,7 +30,6 @@ public class StudentMarkController {
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
         return mongoOperation.find(searchInstance, Student.class).toString();
     }
-
 }
 
 //ЧТОБЫ ПРОВЕРИТЬ В БРАУЗЕРЕ
