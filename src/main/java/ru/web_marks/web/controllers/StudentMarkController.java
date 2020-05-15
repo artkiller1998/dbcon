@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("student")
 
-public class MarkController {
+public class StudentMarkController {
 
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate

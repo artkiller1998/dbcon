@@ -4,6 +4,28 @@ $(function(){
 
 function Color (elem, currentValue, max) {
  	
+	if (max == 10) {
+		max = 9
+		currentValue -= 1
+	}
+	else if (max == 5) {
+		max = 3
+		currentValue -= 2
+	}
+	else if (max == 3) {
+		max = 2
+		if (currentValue == "-") currentValue = 0
+		if (currentValue == "*") currentValue = 1
+		if (currentValue == "+") currentValue = 2 
+	}
+	else if (max == 2) {
+		if (currentValue == "-") currentValue = 0
+		if (currentValue == "+") currentValue = 2 
+	}
+
+	console.log('max',max)
+	console.log('currentValue',currentValue)
+
 	if (currentValue > (max / 2)) {
 		cur = currentValue - (max / 2)
 	}
@@ -34,21 +56,15 @@ function changeColor(elem, currentValue, max , start , end) {
 	deltaR = parseInt((toR - fromR) / max);
 	deltaG = parseInt((toG - fromG) / max);
 	deltaB = parseInt((toB - fromB) / max);
-	console.log(deltaR)
-	console.log(deltaG)
-	console.log(deltaB)
+
 	R = fromR + currentValue * deltaR;
 	G = fromG + currentValue * deltaG;
 	B = fromB + currentValue * deltaB;
-	console.log(R)
-	console.log(G)
-	console.log(B)
+
 	hexR = Number(R).toString(16).padStart(2, '0');
 	hexG = Number(G).toString(16).padStart(2, '0');
 	hexB = Number(B).toString(16).padStart(2, '0');
-	console.log(hexR)
-	console.log(hexG)
-	console.log(hexB)
+
 	$(elem).css('background-color','#'+hexR+hexG+hexB);
 	
 }
@@ -151,15 +167,6 @@ function selectMark(e) {
 function saveMarks(elem) {
 	if ($('#showColor')[0].checked) {
 		currentValue = elem.html()
-		if (elem.attr('value') == 3) {
-			if (elem.html() == "-") currentValue = 0
-			if (elem.html() == "*") currentValue = 2
-			if (elem.html() == "+") currentValue = 3 
-		}
-		if (elem.attr('value') == 2) {
-			if (elem.html() == "-") currentValue = 0
-			if (elem.html() == "+") currentValue = 2 
-		}
 		if (currentValue !== "") {
 			Color(elem, currentValue, elem.attr('value'))	
 		}
@@ -212,6 +219,8 @@ function saveMarks(elem) {
 
 
 function showTable() {
+
+	$('#item_list').show()
 	groupFile = $('#group_number').val()
 
 	subjectFile = $('#subject_config').val()
@@ -229,7 +238,7 @@ function showTable() {
 			},
         //dataType: "json",//
         success: function(config) {
-        	//console.log(config)
+        	console.log(config)
 			config=JSON.parse(config)
         	user_table = '<tr id="heightOneUser"><td name="user"></td></tr><tr id="heightTwoUser"><td name="user"></td></tr>'
 			table = '<tr id="heightOne">'
@@ -269,10 +278,10 @@ function showTable() {
 			}
 			$('#table').html(table)
 			$('#user_table').html(user_table)
-			$('#item_list').show()
 			$('#heightOneUser').height($('#heightOne').height())//
 			$('#heightTwoUser').height($('#heightTwo').height())//
-
+			//$('#forWidUser').width(190)
+			//$('#forWid').width($('#item_list').width() - 200)
 			
 
 			/*if ($('#showColor').checked) {
@@ -315,15 +324,6 @@ function checkboxChange() {
 		$('[name="editable"]').each(function(){
 			elem = $(this)
 			currentValue = elem.html()
-			if (elem.attr('value') == 3) {
-				if (elem.html() == "-") currentValue = 0
-				if (elem.html() == "*") currentValue = 2
-				if (elem.html() == "+") currentValue = 3 
-			}
-			if (elem.attr('value') == 2) {
-				if (elem.html() == "-") currentValue = 0
-				if (elem.html() == "+") currentValue = 2 
-			}
 			if (currentValue !== "") {
 				Color(elem, currentValue, elem.attr('value'))	
 			}
