@@ -35,7 +35,7 @@ public class Student extends MongoModels{
         BufferedReader br = null;
         try {
             InputStreamReader input_csv = new InputStreamReader(new
-                    FileInputStream("src/main/resources/static/csv/"+ g_ident +".csv"), "windows-1251");
+                    FileInputStream("src/main/resources/static/csv/"+ g_ident +".csv"), "UTF-8");
             br = new BufferedReader(input_csv);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -50,7 +50,6 @@ public class Student extends MongoModels{
             }
             String str[] = line.split(";");
             for(int i=0;i<str.length;i++){
-                //String arr[] = str[i].split(":");
                 current_group.put(str[0], str[1]);
             }
         }

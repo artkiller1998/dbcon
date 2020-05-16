@@ -28,12 +28,9 @@ public class TeacherMarkController {
 
         Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks").elemMatch(Criteria.where("mrk_id").is(id))));
         Student temp = mongoOperation.findOne(searchInstance, Student.class);
-        //assert temp != null;
         temp.setInstanceMark(id,mark);
-        //mongoOperation.save(temp.getStudent());
         Update update = new Update();
         update.set("tasks", temp.getTasks());
-        //mongoOperation.save(temp.getStudent());
         mongoOperation.updateFirst(searchInstance, update, Student.class);
 
 
