@@ -338,29 +338,52 @@ function checkboxChange() {
 
 
 
-/*function readFile(files, e)
-{
-	file = $(e).attr('name')
+
+function upload() {
 	var reader = new FileReader();
-	tfile = files[0];
+	tfile = $('input[name="groupFile"]')[0].files[0];
 	reader.readAsText(tfile);
 	reader.onload = function(e)
 	{
 		str = e.target.result;
-    	console.log(str)
-    	arr = JSON.parse(str)
-    	console.log(arr)
+		//arrGroup = [str, "groupFile", $('input[name="groupFile"]').val().match(/\.(\w+)/)[1]]
+		arrGroup = [str, $('input[name="groupFile"]').val().match(/fakepath\\([\w\.]+)/)[1], $('input[name="groupFile"]').val().match(/\.(\w+)/)[1]]
+		//resultInfoFromFiles.push("groupFile")
+		var reader1 = new FileReader();
+		tfile1 = $('input[name="configFile"]')[0].files[0];
+		reader1.readAsText(tfile1);
+		reader1.onload = function(el)
+		{
+			console.log('3')
+			str1 = el.target.result;
+			arrConf = [str1, $('input[name="configFile"]').val().match(/fakepath\\([\w\.]+)/)[1], $('input[name="configFile"]').val().match(/\.(\w+)/)[1]]
+			//resultInfoFromFiles.push("configFile")
 
-    	$.ajax({
-			url: 'index.php',
-			type: "POST",
-			data: {
-				file: file,
-				inside: str,
-			},
-		});
-    	
+			resultInfoFromFiles = [arrGroup,arrConf]
+			console.log(resultInfoFromFiles)
+
+			console.log(JSON.stringify(resultInfoFromFiles))
+
+			$.ajax({
+				headers : {
+					Accept : "text/plain",
+					"Content-Type" : "application/json"
+				},
+				url : 'http://localhost:8080/administrator/load',
+				method : "PUT",
+				data : JSON.stringify(resultInfoFromFiles),
+				dataType : "text",
+				contentType : "application/json; charset=utf-8",
+				success : function(data) {
+
+				},
+				error : function() {
+
+				}
+			});
+
+
+		};
 	};
-}
-*/
 
+}

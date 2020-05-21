@@ -1,0 +1,178 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Успеваемость</title>
+	<meta name="description" content="" />
+	<meta name="Author" content="mijgvn" />
+	
+	<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="preload" href="/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/vendor_bundle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+<!--	<link rel="shortcut icon" href="../static/favicon.ico?a=1">-->
+	<link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">
+	<link rel="manifest" href="/img/manifest/manifest.json">
+	<meta name="theme-color" content="#377dff">
+	<link rel="stylesheet" href="/css/custom.css">
+</head>	 
+
+
+
+<body class="layout-admin" data-aos-easing="ease-in-out-sine" data-aos-duration="700" data-aos-delay="0">
+
+		<div id="wrapper" class="d-flex align-items-stretch flex-column">
+
+
+			<header id="header" class="bg-dark">
+				<div class="container-fluid position-relative">
+
+					<nav class="navbar navbar-expand navbar-light justify-content-between justify-content-md-inherit h--50">
+
+						<div class="align-items-start">
+							
+							<a class="navbar-brand aside-width h-60 d-lg-flex align-lg-items-center">
+								<!-- здесь модно добавть что то, что будет на темно сером фоне сверху -->
+							</a>
+
+
+						</div>
+
+
+
+
+						<!-- NAVIGATION -->
+						
+						<!-- /NAVIGATION -->
+
+					</nav>
+					
+				</div>
+				<!-- /NAVBAR -->
+			</header>
+			<!-- /HEADER -->
+
+			<div id="wrapper_content" class="d-flex flex-fill">
+
+				<!-- /SIDEBAR -->
+
+
+				<!-- MIDDLE -->
+				<div id="middle" class="flex-fill  bg-dark-soft">
+					<!-- start:row -->
+					<div class="row gutters-sm">
+
+						<!-- start:col: -->
+						<div class="col-12 mb-3">
+							<div class="portlet">
+
+								<div class="portlet-header border-bottom">
+									Успеваемость
+									
+								</div>
+
+								<div class="portlet-body">
+									
+
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-label-group mb-1 ml-1">
+												Номер группы
+											</div>
+											<div class="form-label-group mb-3">
+												<input placeholder="Номер группы, например: s163" id="group_number" type="text" value="" class="form-control">
+												<label for="file_path">Например: s163</label>
+											</div>
+											
+										</div>
+										<div class="col-lg-6">
+											<div class="form-label-group mb-1 ml-1">
+												Название предмета и номер семестра
+											</div>
+											<div class="form-label-group mb-3">
+												<input placeholder="Номер группы, например: s163" id="subject_config" type="text" value="" class="form-control">
+												<label for="file_path">Например: bos_2</label>
+											</div>
+											
+										</div>
+									</div>
+									<br>
+									<button type="button" class="btn btn-success" onclick="showTable();">
+										<i class="fi fi-task-list"></i> 
+										Показать таблицу
+									</button>
+
+									<div id="table_show" class="container no-width py-3">
+
+										<div id="item_list">
+											<br>
+											<br>
+											<br>
+											<label class="form-checkbox form-checkbox-indigo form-checkbox-bordered">
+												<input id="showColor" type="checkbox" name="checkbox_in" onchange="checkboxChange();">
+												<i></i> Показать выделение цветом
+											</label>
+											<br>
+											<br>
+											<div class="row no-gutters">
+												<div id="forWidUser" class="col-2">
+													<table id="user_table" class="table table-bordered table-hover">
+														
+													</table>
+												</div>
+												<div id="forWid" class="col-10">
+													<div class="scrollable-vertical scrollable-styled-dark">
+														<table id="table"  class="table table-bordered table-hover">
+															
+														</table>
+													</div>
+												</div>
+											</div>
+											
+  										</div>
+
+									</div>
+										
+									
+								</div>
+								
+
+							</div>
+							<!-- end:portlet -->
+
+						</div>
+						<!-- end:col: -->
+
+
+					</div>
+					<!-- end:row: -->
+					<!-- doc:end -->
+				</div>
+			<!-- FOOTER -->
+			</div>
+			<footer id="footer" class="bg-dark text-white">
+				<div class="p-3 fs--14">
+					<!-- здесь модно добавть что то, что будет на темно сером фоне снизу -->
+				</div>
+			</footer>
+			<!-- /FOOTER -->
+
+
+		</div><!-- /#wrapper -->
+
+
+
+		<script src="/js/core.js"></script>
+
+		<div id="page_js_files">
+			<!-- specific page javascript files here -->
+			<script type="text/javascript" src="/js/studentsTable.js"></script>
+			<script type="text/javascript" src="/js/vendor_bundle.js"></script>
+
+		</div>
+	</body>	
+

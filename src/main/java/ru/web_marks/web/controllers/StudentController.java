@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class StudentController {
     @GetMapping("")
     public String student() {
-        return "table";
+        return "studentsTable";
     }
+//    @GetMapping("/table")
+//    public String studentsTable() {
+//        return "table";
+//    }
 }

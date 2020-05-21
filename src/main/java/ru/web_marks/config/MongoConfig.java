@@ -9,18 +9,18 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Configuration
+@Configuration("mongo-config")
 @PropertySource(name = "ConfigurationFromFile", value = "application.properties")
 public class MongoConfig extends AbstractMongoConfiguration {
 
     @Value("${mongodb.connection.addr:127.0.0.1}")
-    private String u_addr;
+    public String u_addr;
 
     @Value("${mongodb.connection.port:27017}")
-    private Integer u_port;
+    public Integer u_port;
 
     @Value("${mongodb.connection.dbname:test}")
-    private String u_dbname;
+    public String u_dbname;
 
 //    @Value("${mongodb.connection.collection}")
 //    private static String u_collection;

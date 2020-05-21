@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 
 
-@Document(collection = "ttt")
+@Document(collection = "default")
 
 public class MongoModels {
 
