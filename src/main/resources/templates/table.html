@@ -10,15 +10,15 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link rel="preload" href="/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/css/core.css">
-    <link rel="stylesheet" href="/css/vendor_bundle.css">
+    <link rel="preload" href="./fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="./css/core.css">
+    <link rel="stylesheet" href="./css/vendor_bundle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
 <!--	<link rel="shortcut icon" href="../static/favicon.ico?a=1">-->
 	<link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">
-	<link rel="manifest" href="/img/manifest/manifest.json">
+	<link rel="manifest" href="./img/manifest/manifest.json">
 	<meta name="theme-color" content="#377dff">
-	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="stylesheet" href="./css/custom.css">
 </head>	 
 
 
@@ -78,6 +78,9 @@
 
 										<li class="nav-item">
 											<a class="nav-link bg-secondary-active" id="pills-downloads-tab" data-toggle="pill" href="#pills-downloads" role="tab" aria-controls="pills-downloads" aria-selected="false" >Загрузить предмет</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link bg-secondary-active" id="pills-delitions-tab" data-toggle="pill" href="#pills-delitions" role="tab" aria-controls="pills-downloads" aria-selected="false" >Удалить предмет</a>
 										</li>
 									</ul>
 									
@@ -222,6 +225,44 @@
 											</button>
 											<br>
 											<br>
+											
+										</div>
+										
+										<div class="tab-pane fade" id="pills-delitions" role="tabpanel" aria-labelledby="pills-delitions-tab">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-label-group mb-1 ml-1">
+														Название предмета и номер семестра / номер группы 
+													</div>
+													<div class="form-label-group mb-3">
+														<input placeholder="Номер группы, например: s163" id="subject_config_del" type="text" value="" class="form-control">
+														<label for="file_path">Например: bos_2</label>
+													</div>
+													
+												</div>
+												<div class="col-lg-6">
+													<div class="form-label-group mb-1 ml-1">
+															Выбор удаляемого файла
+													</div>
+
+													<div id="sel" class="form-label-group mb-3 portlet">
+														<select id="select_option" class="form-control bs-select">
+															<option value="configFile">Файл конфигурации</option>
+															<option value="groupFile">Файл группы</option>
+														</select>
+														<label for="select_options">Тип файла</label>
+													</div>
+													
+												</div>
+											</div>
+											
+
+											<br>
+											<button type="button" class="btn btn-youtube" onclick="delition();">
+												<i class="fi fi-minus"></i> Удалить
+											</button>
+											<br>
+											<br>
 										
 											
 										</div>
@@ -257,12 +298,12 @@
 
 
 
-		<script src="/js/core.js"></script>
+		<script src="./js/core.js"></script>
 
 		<div id="page_js_files">
 			<!-- specific page javascript files here -->
-			<script type="text/javascript" src="/js/table.js"></script>
-			<script type="text/javascript" src="/js/vendor_bundle.js"></script>
+			<script type="text/javascript" src="./js/table.js"></script>
+			<script type="text/javascript" src="./js/vendor_bundle.js"></script>
 
 		</div>
 	</body>	
