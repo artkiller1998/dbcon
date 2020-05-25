@@ -1,4 +1,4 @@
-package ru.web_marks.web.controllers;
+package ru.web_marks.web;
 
 import org.springframework.stereotype.Component;
 

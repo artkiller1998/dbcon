@@ -1,4 +1,4 @@
-package ru.web_marks.config;
+package ru.web_marks.config.base;
 
 import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,13 +13,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @PropertySource(name = "ConfigurationFromFile", value = "application.properties")
 public class MongoConfig extends AbstractMongoConfiguration {
 
-    @Value("${mongodb.connection.addr:127.0.0.1}")
+    @Value("${spring.data.mongodb.host:127.0.0.1}")
     public String u_addr;
 
-    @Value("${mongodb.connection.port:27017}")
+    @Value("${spring.data.mongodb.port:27017}")
     public Integer u_port;
 
-    @Value("${mongodb.connection.dbname:test}")
+    @Value("${spring.data.mongodb.database:test}")
     public String u_dbname;
 
 //    @Value("${mongodb.connection.collection}")

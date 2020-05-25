@@ -17,8 +17,6 @@ import org.springframework.stereotype.Component;
 @Document(collection = "default")
 
 public class MongoModels {
-
-
     // генерация уникального ID ( первичный ключ )
     @Id
     protected String id;

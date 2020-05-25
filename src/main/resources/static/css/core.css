@@ -5,6 +5,28 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+
+
+html {
+  height: 100%; //позволит растянуть сайт на 100% высоты
+}
+body {
+  height: 100%; //позволит растянуть сайт на 100% высоты
+}
+#wrapper {
+  min-height: 100%; //выставляем минимальную высоту в 100%
+height: auto; // позволяем сайту тянуться если он больше по высоте
+margin: -50px auto 0; // поднимаем сайт вверх на высоту футера, тем самым освободив место под футер
+}
+#header {
+  padding-top: 10px; //опустим содержимое хедера на высоту футера - вернув сайт на свое место
+}
+#footer {
+  height: 50px; //задаем высоту футера
+margin: 0 auto; //убираем подтягивание вверх которое сейчас присутствует
+}
+
 :root {
   --blue: #377dff;
   --indigo: #533be2;
@@ -3290,11 +3312,11 @@ input[type="button"].btn-block {
     color: #fff; }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.5); }
+  color: rgba(255, 255, 255, 0.6); }
   .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
     color: rgba(255, 255, 255, 0.75); }
   .navbar-dark .navbar-nav .nav-link.disabled {
-    color: rgba(255, 255, 255, 0.25); }
+    color: rgba(255, 255, 255, 0.7); }
 
 .navbar-dark .navbar-nav .show > .nav-link,
 .navbar-dark .navbar-nav .active > .nav-link,
@@ -3304,7 +3326,7 @@ input[type="button"].btn-block {
 
 .navbar-dark .navbar-toggler {
   color: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.1); }
+  border-color: rgba(255, 255, 255, 0.3); }
 
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
@@ -7324,14 +7346,14 @@ a.text-pink:hover, a.text-pink:focus {
     color: inherit;
     border-color: #e9ecef; } }
 
-html, body {
+/*html, body {
   direction: ltr;
-  /*text-align: left;*/
+  /*text-align: left;
   min-height: 100vh;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
   -webkit-font-smoothing: "antialiased";
-  letter-spacing: 0; }
+  letter-spacing: 0; }*/
 
 a, textarea, input, button, *:focus, *:active {
   outline: none !important; }
@@ -14988,6 +15010,61 @@ aside .nav-item.nav-item-extended.active > .aside-item {
 .input-group select {
   border-radius: 0 !important; }
 
+/*input {*/
+/*  align-content: center;*/
+/*  position: relative;*/
+/*  margin: 0 auto;*/
+/*  width: 70px;*/
+/*  font-size: 13px;*/
+/*  padding: 6px 0 4px 10px;*/
+/*  border: 1px solid #cecece;*/
+/*  background: #F6F6f6;*/
+/*  border-radius: 2px;*/
+/*}*/
+
+.atuin-btn {
+  display: inline-flex;
+  margin: 10px;
+  border-radius: 25px;
+  text-decoration: none;
+  border: 2px solid #BFE2FF;
+  position: relative;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 12px 20px;
+  color: #FFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed', Тahoma, sans-serif;
+  background: #6dbb3008;
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+.atuin-btn:hover,
+.atuin-btn:active,
+.atuin-btn:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2);
+  color: #FFF;
+}
+.atuin-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, transparent, rgba(191, 226, 255, 0.3), transparent);
+  transition: left 0.7s;
+}
+.atuin-btn:hover:before,
+.atuin-btn:active:before,
+.atuin-btn:focus:before {
+  left: 100%;
+}
+
+
 /* 
 
 	2. Link over input/textarea
@@ -15927,6 +16004,57 @@ nav.nav-deep > ul > li > a.nav-link > i.nav-icon {
   float: left;
   margin-right: 10px;
   text-align: left; }
+
+
+a.button17 {
+  display: inline-block;
+  font-family: arial,sans-serif;
+  font-size: 16px;
+  color: rgb(205,216,228);
+  text-shadow: 0 -1px rgb(46,53,58);
+  text-decoration: none;
+  user-select: none;
+  line-height: 2em;
+  padding: 1px 1.2em;
+  outline: none;
+  border: 1px solid rgba(33,43,52,1);
+  border-radius: 3px;
+  background: rgb(81,92,102) linear-gradient(rgb(81,92,102), rgb(69,78,87));
+  box-shadow:
+          inset 0 1px rgba(101,114,126,1),
+          inset 0 0 1px rgba(140,150,170,.8),
+          0 1px rgb(83,94,104),
+          0 0 1px rgb(86,96,106);
+}
+a.button17:active {
+  box-shadow:
+          inset 0 1px 3px rgba(0,10,20,.5),
+          0 1px rgb(83,94,104),
+          0 0 1px rgb(86,96,106);
+}
+a.button17:focus:not(:active) {
+  border: 1px solid rgb(22,32,43);
+  border-bottom: 1px solid rgb(25,34,45);
+  background: rgb(53,61,71);
+  box-shadow:
+          inset 0 1px 3px rgba(0,10,20,.5),
+          0 1px rgb(83,94,104),
+          0 0 1px rgb(86,96,106);
+  pointer-events: none;
+}
+
+
+li {
+  list-style-type: none;
+  /* Убираем маркеры */
+}
+
+ul {
+  margin-left: 0;
+  /* Отступ слева в браузере IE и Opera */
+  padding-left: 0;
+  /* Отступ слева в браузере Firefox, Safari, Chrome */
+}
 
 /* childs main link icon (and no main icon, but there is an icon) */
 nav.nav-deep > ul > li > a.nav-link > i:not(.nav-icon),

@@ -86,6 +86,7 @@ $(document).keyup(function(e) {
 
 function editable(el, scale) {
 	//ловим элемент, по которому кликнули
+
 	e = $(el)
 	//если это инпут - ничего не делаем
 
@@ -140,7 +141,7 @@ function editable(el, scale) {
 		//устанавливаем фокус на свеженарисованное поле
 		$('#select_option').focus();
 		$('#select_option').blur(function()	{	//устанавливаем обработчик
-			var val = $('#select_option option:selected').text() //получаем то, что в поле находится
+			var val = $('#select_option option:selected').text()	//получаем то, что в поле находится
 			console.log(val)
 			//находим ячейку, опустошаем, вставляем значение из поля
 			e.html(val);
@@ -188,7 +189,7 @@ function saveMarks(elem) {
 			Accept : "text/plain",
 			"Content-Type" : "application/json"
 		},
-		url : 'http://localhost:8080/teacher/'+subjectFile+"/"+groupFile+"/"+elem.attr('data-id'),
+		url : '/teacher/'+subjectFile+"/"+groupFile+"/"+elem.attr('data-id'),
 		method : "PUT",
 		data : elem.html(),
 		dataType : "text",
@@ -219,20 +220,18 @@ function saveMarks(elem) {
 
 function showTable() {
 
-
+	//$('#item_list').show()
 	groupFile = $('#group_number').val()
 	groupFile = groupFile.toUpperCase()
 
 	subjectFile = $('#subject_config').val()
-	subjectFile = subjectFile.toUpperCase()
-
 	console.log($('#group_number'))
 	console.log(subjectFile)
 
-
+	subjectFile = subjectFile.toUpperCase()
 	$.ajax({
         //cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
-        url: 'http://localhost:8080/student/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
+        url: '/student/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
         type: "GET",
         data: {
 				subject: subjectFile,
@@ -240,20 +239,19 @@ function showTable() {
 			},
         //dataType: "json",//
         success: function(config) {
-        	console.log(config)
 			if (config == "[]")
 			{
 				$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
 			}
 			else {
-				$('#item_list').show()
-				config = JSON.parse(config)
+				console.log(config)
+				config=JSON.parse(config)
 				user_table = '<tr id="heightOneUser"><td name="user"></td></tr><tr id="heightTwoUser"><td name="user"></td></tr>'
 				table = '<tr id="heightOne">'
 				for (var i = 0; i < config[0]['tasks'].length; i++) {
 					for (var j = 0; j < config[0]['tasks'][i]['marks'].length; j++) {
 						if (j == 0) {
-							table = table + '<td colspan="' + config[0]['tasks'][i]['marks'].length + '">' + config[0]['tasks'][i]['lesson'] + '</td>'
+							table = table + '<td colspan="'+config[0]['tasks'][i]['marks'].length+'">' + config[0]['tasks'][i]['lesson'] + '</td>'	
 						}
 					}
 				}
@@ -276,9 +274,9 @@ function showTable() {
 							//"'+config[i]['tasks'][j]['marks'][k]['date']+'"
 
 							//console.log(arrScale[j][1])
-							///onmousedown="getDate(\''+config[i]['tasks'][j]['marks'][k]['date']+'\');"
-							table = table + '<td name="editable" data-id="' + config[i]['tasks'][j]['marks'][k]['mrk_id'] + '" width="' + wid + '%" value="' + config[i]['tasks'][j]['marks'][k]['scale'] + '" onclick="editable(this, ' + config[i]['tasks'][j]['marks'][k]['scale'] + ');" data-toggle="tooltip" data-placement="top" title="Оценка поставлена: ' + config[i]['tasks'][j]['marks'][k]['date'] + '">' + config[i]['tasks'][j]['marks'][k]['mark'] + '</td>'
-							//data-name="'+config[i]['fname']+'" data-descr="'+config[i]['tasks'][j]['marks'][k]['descr']+'" data-lesson="'+config[i]['tasks'][j]['lesson']+'"
+							///onmousedown="getDate(\''+config[i]['tasks'][j]['marks'][k]['date']+'\');"   
+							table = table + '<td name="editable" data-id="'+config[i]['tasks'][j]['marks'][k]['mrk_id']+'" width="'+wid+'%" value="'+config[i]['tasks'][j]['marks'][k]['scale']+'" onclick="editable(this, '+config[i]['tasks'][j]['marks'][k]['scale']+');" data-toggle="tooltip" data-placement="top" title="Оценка поставлена: '+config[i]['tasks'][j]['marks'][k]['date']+'">'+config[i]['tasks'][j]['marks'][k]['mark']+'</td>'
+							//data-name="'+config[i]['fname']+'" data-descr="'+config[i]['tasks'][j]['marks'][k]['descr']+'" data-lesson="'+config[i]['tasks'][j]['lesson']+'" 
 						}
 					}
 
@@ -289,6 +287,7 @@ function showTable() {
 				$('#heightOneUser').height($('#heightOne').height())//
 				$('#heightTwoUser').height($('#heightTwo').height())//
 			}
+
         },
         error: function(config) {
 			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
@@ -336,82 +335,72 @@ function delition() {
 					Accept : "text/plain",
 					"Content-Type" : "application/json"
 				},
-				url : 'http://localhost:8080/administrator/delete',
+				url : '/administrator/delete',
 				method : "PUT",
 				data : JSON.stringify(resultInfoFromFiles),
 				dataType : "text",
 				contentType : "application/json; charset=utf-8",
-				success : function(response) {
-					console.log('AJAX response : ',response)
-					//alert(response.responseText);
+				success : function(data) {
 					$.SOW.core.toast.show('success', '', "Удаление прошло успешно", 'bottom-right', 4000, true)
 				},
-				error : function(response) {
-					console.log('AJAX response : ',response)
-
-					//alert(response.responseText);
+				error : function(data) {
 					$.SOW.core.toast.show('danger', '', "Что то пошло не так, файл или коллекция не найдены!", 'bottom-right', 4000, true)
 				}
 			});
 	
 }
 
+
 function upload() {
-	var reader = new FileReader();
-	tfile = $('input[name="groupFile"]')[0].files[0];
-	reader.readAsText(tfile);
-	reader.onload = function(e)
-	{
-		str = e.target.result;
-		//arrGroup = [str, "groupFile", $('input[name="groupFile"]').val().match(/\.(\w+)/)[1]]
-		arrGroup = [str, $('input[name="groupFile"]').val().match(/fakepath\\([\w\.]+)/)[1].toUpperCase(), $('input[name="groupFile"]').val().match(/\.(\w+)/)[1]]
-		//resultInfoFromFiles.push("groupFile")
-		var reader1 = new FileReader();
-		tfile1 = $('input[name="configFile"]')[0].files[0];
-		reader1.readAsText(tfile1);
-		reader1.onload = function(el)
-		{
-			console.log('3')
-			str1 = el.target.result;
-			arrConf = [str1, $('input[name="configFile"]').val().match(/fakepath\\([\w\.]+)/)[1].toUpperCase(), $('input[name="configFile"]').val().match(/\.(\w+)/)[1]]
-			//resultInfoFromFiles.push("configFile")
+  var reader = new FileReader();
+  tfile = $('input[name="groupFile"]')[0].files[0];
+  reader.readAsText(tfile);
+  reader.onload = function(e)
+  {
+    str = e.target.result;
+	  arrGroup = [str, $('input[name="groupFile"]').val().match(/fakepath\\([\w\.]+)/)[1].toUpperCase(), $('input[name="groupFile"]').val().match(/\.(\w+)/)[1]]
+      //resultInfoFromFiles.push("groupFile")
+      var reader1 = new FileReader();
+    tfile1 = $('input[name="configFile"]')[0].files[0];
+    reader1.readAsText(tfile1);
+    reader1.onload = function(el)
+    {
+      console.log('3')
+      str1 = el.target.result;
+		arrConf = [str1, $('input[name="configFile"]').val().match(/fakepath\\([\w\.]+)/)[1].toUpperCase(), $('input[name="configFile"]').val().match(/\.(\w+)/)[1]]
+        //resultInfoFromFiles.push("configFile")
 
-			resultInfoFromFiles = [arrGroup,arrConf]
-			console.log(resultInfoFromFiles)
+      resultInfoFromFiles = [arrGroup,arrConf]
+      console.log(resultInfoFromFiles)
 
-			console.log(JSON.stringify(resultInfoFromFiles))
+      console.log(JSON.stringify(resultInfoFromFiles))
 
-			$.ajax({
-				headers : {
-					Accept : "text/plain",
-					"Content-Type" : "application/json"
-				},
-				url : 'http://localhost:8080/administrator/load',
-				method : "PUT",
-				data : JSON.stringify(resultInfoFromFiles),
-				dataType : "text",
-				contentType : "application/json; charset=utf-8",
-				success : function(response) {
-					console.log('AJAX response : ',response)
-
-					//alert(response.responseText);
-					$.SOW.core.toast.show('success', '', "Добавление прошло успешно", 'bottom-right', 4000, true)
-				},
-				error : function(response) {
-					console.log('AJAX response : ',response)
-					//alert(response.responseText);
-					if (response.responseText == "Collection exists")
-					{
-						$.SOW.core.toast.show('danger', '', "Что то пошло не так, коллекция уже существует!", 'bottom-right', 4000, true)
-					}
-					else {
-						$.SOW.core.toast.show('danger', '', "Что то пошло не так, неверный формат входных данных!", 'bottom-right', 4000, true)
-					}
-				}
-			});
+      $.ajax({
+        headers : {
+          Accept : "text/plain",
+          "Content-Type" : "application/json"
+        },
+        url : "/administrator/load",
+        method : "PUT",
+        data : JSON.stringify(resultInfoFromFiles),
+        dataType : "text",
+        contentType : "application/json; charset=utf-8",
+        success : function(data) {
+			$.SOW.core.toast.show('success', '', "Добавление прошло успешно", 'bottom-right', 4000, true)
+        },
+        error : function(data) {
+			if (data.responseText == "Collection exists")
+			{
+				$.SOW.core.toast.show('danger', '', "Что то пошло не так, коллекция уже существует!", 'bottom-right', 4000, true)
+			}
+			else {
+				$.SOW.core.toast.show('danger', '', "Что то пошло не так, неверный формат входных данных!", 'bottom-right', 4000, true)
+			}
+        }
+      });
 
 
-		};
-	};
+    };
+  };
 
 }

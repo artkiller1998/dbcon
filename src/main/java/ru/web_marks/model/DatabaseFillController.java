@@ -9,7 +9,8 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.web_marks.config.MongoConfig;
+import org.springframework.context.annotation.ComponentScan;
+import ru.web_marks.config.base.MongoConfig;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -109,91 +110,90 @@ public class DatabaseFillController {
         }
     }
 
-     class LoadData {
 
-        public LoadData (String config_content, String group_content, String group_name) throws IOException {
-            ApplicationContext context =
-                    new AnnotationConfigApplicationContext("ru.web_marks.config");
-            MongoConfig configure = (MongoConfig) context.getBean("mongo-config");
-
-            String u_addr = configure.u_addr;
-            int u_port = configure.u_port;
-            String u_dbname = configure.u_dbname;
-
-            Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
-            mongoLogger.setLevel(Level.SEVERE);
-            String MONGODB_HOST = u_addr;
-            int MONGODB_PORT = u_port;
-            MongoCollection collection = null;
-
-            try {
-                /**
-                 *  Connect to MongoDB
-                 */
-                MongoClient mongo = new MongoClient(MONGODB_HOST, MONGODB_PORT);
-                /**
-                 * Get DB
-                 *
-                 * If it doesn't exist, MongoDB will create it
-                 */
-                MongoDatabase db = mongo.getDatabase(u_dbname);   //НАЗВАНИЕ БД
-                /**
-                 * Get Collection
-                 *
-                 * If it doesn't exist, MongoDB will create it
-                 */
-                collection = db.getCollection("default");           //НАЗВАНИЕ КОЛЛЕКЦИИ
-                System.out.println("Done");
-
-            } catch (MongoException e) {
-                e.printStackTrace();
-            }
-
-            Gson g = new Gson();
-
-            Config[] configs = g.fromJson(config_content, Config[].class);
-
-            List<String> names = new ArrayList<String>();
-
-            //  простое чтение csv как текстового файла, для разделения стобцов используются простой разделитель строки ";"
-
-            String line;
-            Reader group_content_r = new StringReader(group_content);
-            BufferedReader br = new BufferedReader(group_content_r);
-            while ((line = br.readLine()) != null) {
-                // use comma as separator
-                String[] cols = line.split(";");
-                names.add(cols[0]);
-            }
-            System.out.println("names: " + names);
-            System.out.println("config size =  " + configs.length);
-
-            List<MarkNote> ListMN = new ArrayList<>();
-            for (int j = 0; j < configs.length; j++) {
-                MarkNote m = new MarkNote(configs[j]);
-                ListMN.add(m);
-            }
-
-            String mxd = "";
-            for (int i = 0; i < names.size(); i++) {
-                if (names.get(i).equals("MIXED")) {
-                    mxd = names.get(0);
-                    continue;
-                }
-
-                String fname = group_name.substring(group_name.lastIndexOf('/') + 1, group_name.lastIndexOf('.')).toUpperCase();
-                Note note = new Note(ListMN, names.get(i), names.get(i).substring(0, 4), mxd, fname); //MIXED
-                Gson gson = new Gson();
-                String json = gson.toJson(note);
-                Document doc = Document.parse(json);
-                collection.insertOne(doc);
-            }
-        }
-    }
 
     public DatabaseFillController(String config_content, String group_content, String group_name) throws IOException {
         new LoadData(config_content,  group_content, group_name);
     }
 }
 
+class LoadData {
 
+    public LoadData (String config_content, String group_content, String group_name) throws IOException {
+        ApplicationContext context = new AnnotationConfigApplicationContext("ru.web_marks.config.base");
+        MongoConfig configure = (MongoConfig) context.getBean("mongo-config");
+
+        String u_addr = configure.u_addr;
+        int u_port = configure.u_port;
+        String u_dbname = configure.u_dbname;
+
+        Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
+        mongoLogger.setLevel(Level.SEVERE);
+        String MONGODB_HOST = u_addr;
+        int MONGODB_PORT = u_port;
+        MongoCollection collection = null;
+
+        try {
+            /**
+             *  Connect to MongoDB
+             */
+            MongoClient mongo = new MongoClient(MONGODB_HOST, MONGODB_PORT);
+            /**
+             * Get DB
+             *
+             * If it doesn't exist, MongoDB will create it
+             */
+            MongoDatabase db = mongo.getDatabase(u_dbname);   //НАЗВАНИЕ БД
+            /**
+             * Get Collection
+             *
+             * If it doesn't exist, MongoDB will create it
+             */
+            collection = db.getCollection("default");           //НАЗВАНИЕ КОЛЛЕКЦИИ
+            System.out.println("Done");
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+
+        Gson g = new Gson();
+
+        DatabaseFillController.Config[] configs = g.fromJson(config_content, DatabaseFillController.Config[].class);
+
+        List<String> names = new ArrayList<String>();
+
+        //  простое чтение csv как текстового файла, для разделения стобцов используются простой разделитель строки ";"
+
+        String line;
+        Reader group_content_r = new StringReader(group_content);
+        BufferedReader br = new BufferedReader(group_content_r);
+        while ((line = br.readLine()) != null) {
+            // use comma as separator
+            String[] cols = line.split(";");
+            names.add(cols[0]);
+        }
+        System.out.println("names: " + names);
+        System.out.println("config size =  " + configs.length);
+
+        List<DatabaseFillController.MarkNote> ListMN = new ArrayList<>();
+        for (int j = 0; j < configs.length; j++) {
+            DatabaseFillController.MarkNote m = new DatabaseFillController.MarkNote(configs[j]);
+            ListMN.add(m);
+        }
+
+        String mxd = "";
+        for (int i = 0; i < names.size(); i++) {
+            if (names.get(i).equals("MIXED")) {
+                mxd = names.get(0);
+                continue;
+            }
+
+            String fname = group_name.substring(group_name.lastIndexOf('/') + 1, group_name.lastIndexOf('.')).toUpperCase();
+            DatabaseFillController.Note note = new DatabaseFillController.Note(ListMN, names.get(i), names.get(i).substring(0, 4), mxd, fname); //MIXED
+            Gson gson = new Gson();
+            String json = gson.toJson(note);
+            Document doc = Document.parse(json);
+            collection.insertOne(doc);
+        }
+    }
+}

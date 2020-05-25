@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.web_marks.config.MongoConfig;
+import ru.web_marks.config.base.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
 import ru.web_marks.model.MongoModels;
 import ru.web_marks.view.MongoDBPOperations;
@@ -28,7 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "administrator", method = RequestMethod.PUT)
-public class AdministrarorController {
+public class AdministratorController {
 
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
