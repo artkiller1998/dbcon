@@ -244,6 +244,7 @@ function showTable() {
 				$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
 			}
 			else {
+				$('#item_list').show()
 				console.log(config)
 				config=JSON.parse(config)
 				user_table = '<tr id="heightOneUser"><td name="user"></td></tr><tr id="heightTwoUser"><td name="user"></td></tr>'

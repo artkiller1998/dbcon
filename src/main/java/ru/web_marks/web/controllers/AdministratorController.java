@@ -68,6 +68,12 @@ public class AdministratorController {
         }
 
         String csvFile = "src\\main\\resources\\static\\csv\\" + group_name;
+
+        File f = new File(csvFile);
+        if(!f.exists() || f.isDirectory()) {
+            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
+        }
+
         final Path path = Paths.get(csvFile);
 
         if (!Files.isReadable(path) && !Files.isWritable(path) && !Files.isExecutable(path))
@@ -103,7 +109,23 @@ public class AdministratorController {
             }
             else  {
                 String csvFile = "src\\main\\resources\\static\\csv\\" + delition_value + ".CSV";
+
+                File f = new File(csvFile);
+                if(!f.exists() || f.isDirectory()) {
+                    csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + delition_value + ".CSV";
+                }
+
                 Path path  = Paths.get(csvFile);
+
+
+//                try {
+//                    input_csv = new InputStreamReader(new
+//                            FileInputStream(csvFile), "UTF-8");
+//                }
+//                catch (FileNotFoundException e) {
+//                    input_csv = new InputStreamReader(new
+//                            FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), "UTF-8");
+//                }
                 if(Files.isRegularFile(path))
                 {
                    Files.delete(path);

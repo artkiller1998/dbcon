@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Configuration("mongo-config")
-@PropertySource(name = "ConfigurationFromFile", value = "application.properties")
+//@PropertySource(name = "ConfigurationFromFile", value = "application.properties")
 public class MongoConfig extends AbstractMongoConfiguration {
 
     @Value("${spring.data.mongodb.host:127.0.0.1}")
