@@ -9,8 +9,4 @@ public class StudentController {
     public String student() {
         return "studentsTable";
     }
-//    @GetMapping("/table")
-//    public String studentsTable() {
-//        return "table";
-//    }
 }

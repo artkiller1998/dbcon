@@ -3,8 +3,6 @@
 */
 package ru.web_marks.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.*;
 import java.util.*;
 

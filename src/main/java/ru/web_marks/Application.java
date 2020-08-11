@@ -15,9 +15,8 @@ import ru.web_marks.repository.RoleRepository;
 @SpringBootApplication
 @ComponentScan({"ru.web_marks.*"})
 @EntityScan("ru.web_marks.*")
-//@PropertySource(name = "ConfigurationFromFile", value = "/classes/application.properties")
+
 public class Application extends SpringBootServletInitializer {
-   // public class Application  {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -28,20 +27,6 @@ public class Application extends SpringBootServletInitializer {
         SpringApplication.run(Application.class, args); }
 
 
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-//        templateResolver.setTemplateMode("XHTML");
-//        templateResolver.setPrefix("views/");
-//        templateResolver.setSuffix(".html");
-//
-//        SpringTemplateEngine engine = new SpringTemplateEngine();
-//        engine.setTemplateResolver(templateResolver);
-//
-//        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-//        viewResolver.setTemplateEngine(engine);
-//        return viewResolver;
-//    }
 
     @Bean
     CommandLineRunner init(RoleRepository roleRepository) {
