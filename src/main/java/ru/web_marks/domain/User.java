@@ -23,8 +23,18 @@ public class User {
     private String password;
     private String fullname;
     private boolean enabled;
+    private String email;
     @DBRef
     private Set<Role> roles;
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getId() {
         return id;

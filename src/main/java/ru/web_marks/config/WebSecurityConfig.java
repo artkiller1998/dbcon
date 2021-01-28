@@ -5,6 +5,12 @@
  */
 package ru.web_marks.config;
 
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.web_marks.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +23,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.security.Principal;
 
 
 @Configuration
@@ -33,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService mongoUserDetails() {
         return new CustomUserDetailsService();
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -60,11 +69,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").failureUrl("/login?error=true")
                 .usernameParameter("login")
                 .passwordParameter("password")
+                .and()
+                .oauth2Login()
+                //.loginPage("/oauth_login")
+                //.defaultSuccessUrl("/loginSuccess")
+                .failureUrl("/loginFailure")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").and().exceptionHandling();
 
     }
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {

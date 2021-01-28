@@ -16,6 +16,7 @@ import ru.web_marks.repository.RoleRepository;
 @ComponentScan({"ru.web_marks.*"})
 @EntityScan("ru.web_marks.*")
 
+
 public class Application extends SpringBootServletInitializer {
 
     @Override
@@ -25,8 +26,6 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args); }
-
-
 
     @Bean
     CommandLineRunner init(RoleRepository roleRepository) {
