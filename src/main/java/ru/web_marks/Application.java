@@ -15,9 +15,14 @@ import ru.web_marks.repository.RoleRepository;
 @SpringBootApplication
 @ComponentScan({"ru.web_marks.*"})
 @EntityScan("ru.web_marks.*")
+<<<<<<< HEAD
 
 
+=======
+//@PropertySource(name = "ConfigurationFromFile", value = "/classes/application.properties")
+>>>>>>> parent of 7fc04e6... Works perfect + tomcat support
 public class Application extends SpringBootServletInitializer {
+   // public class Application  {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -27,6 +32,25 @@ public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args); }
 
+<<<<<<< HEAD
+=======
+
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+//        templateResolver.setTemplateMode("XHTML");
+//        templateResolver.setPrefix("views/");
+//        templateResolver.setSuffix(".html");
+//
+//        SpringTemplateEngine engine = new SpringTemplateEngine();
+//        engine.setTemplateResolver(templateResolver);
+//
+//        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+//        viewResolver.setTemplateEngine(engine);
+//        return viewResolver;
+//    }
+
+>>>>>>> parent of 7fc04e6... Works perfect + tomcat support
     @Bean
     CommandLineRunner init(RoleRepository roleRepository) {
 

@@ -1,5 +1,16 @@
-package ru.web_marks.web.controllers;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ru.web_marks.controller;
 
+<<<<<<< HEAD:src/main/java/ru/web_marks/web/controllers/LoginController.java
+=======
+import ru.web_marks.domain.User;
+import ru.web_marks.service.CustomUserDetailsService;
+import javax.validation.Valid;
+>>>>>>> parent of 7fc04e6... Works perfect + tomcat support:src/main/java/ru/web_marks/controller/LoginController.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.base.MongoConfig;
 import ru.web_marks.model.Student;
+import ru.web_marks.view.MongoDBPOperations;
 
 @RestController
 @RequestMapping("student")
@@ -19,7 +20,7 @@ public class StudentMarkController {
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
     // конкретная реализация интерфейса для объекта Student
-
+    MongoDBPOperations ops = new MongoDBPOperations();
 
     @GetMapping("/{subject}/{year_group}")
     public String list(@PathVariable String subject , @PathVariable String year_group )
@@ -39,13 +40,10 @@ public class StudentMarkController {
 //    }
 //);
 
-//    fetch(
-// '/teacher/S163/CSA_BOS_2018/5ece570fa363b728881c4727',
-//    {
-//        method: 'PUT',
-//                headers: { 'Content-Type': 'text/html'},
-//        body: '+'
+//    @DeleteMapping("{id}")
+//    public void delete(@PathVariable String id) throws ChangeSetPersister.NotFoundException {
+//        Map<String, String> message = getMessage(id);
+//
+//        messages.remove(message);
 //    }
-//)
-//        .then(response => response.json())
-//        .then(data => console.log(data))
+//}

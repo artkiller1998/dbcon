@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.base.MongoConfig;
 import ru.web_marks.model.Student;
+import ru.web_marks.view.MongoDBPOperations;
 
 @RestController
 @RequestMapping(value = "teacher", method = RequestMethod.PUT)
@@ -19,6 +20,7 @@ public class TeacherMarkController {
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
     // конкретная реализация интерфейса для объекта Student
+    MongoDBPOperations ops = new MongoDBPOperations();
 
     @PutMapping(path="/{subject}/{year_group}/{id}")
 

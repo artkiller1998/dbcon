@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.base.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
 import ru.web_marks.model.MongoModels;
+import ru.web_marks.view.MongoDBPOperations;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -33,6 +34,7 @@ public class AdministratorController {
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
     // конкретная реализация интерфейса для объекта Student
+    MongoDBPOperations ops = new MongoDBPOperations();
 
     @PutMapping(path="/load")
     public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException {
@@ -67,16 +69,10 @@ public class AdministratorController {
 
         String csvFile = "src\\main\\resources\\static\\csv\\" + group_name;
 
-        final Path csv_path = Paths.get(csvFile);
-
-        if (Files.notExists(csv_path))
-        {
+        File f = new File(csvFile);
+        if(!f.exists() || f.isDirectory()) {
             csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
         }
-//        File f = new File(csvFile);
-//        if(!f.exists() || f.isDirectory()) {
-//            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
-//        }
 
         final Path path = Paths.get(csvFile);
 
@@ -121,6 +117,15 @@ public class AdministratorController {
 
                 Path path  = Paths.get(csvFile);
 
+
+//                try {
+//                    input_csv = new InputStreamReader(new
+//                            FileInputStream(csvFile), "UTF-8");
+//                }
+//                catch (FileNotFoundException e) {
+//                    input_csv = new InputStreamReader(new
+//                            FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), "UTF-8");
+//                }
                 if(Files.isRegularFile(path))
                 {
                    Files.delete(path);
