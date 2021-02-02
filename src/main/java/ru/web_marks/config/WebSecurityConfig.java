@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/admin", "/login").permitAll()
                 .antMatchers("/student/**").permitAll()
                 .antMatchers("/fonts/**").permitAll()
                 //.antMatchers("/table/**", "permit_all_url").hasAuthority("USER")
@@ -82,7 +82,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/").and().exceptionHandling();
 
     }
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {

@@ -24,7 +24,7 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // At this point, you would load your data (e.g. from database) and modify the authorities as you wish
         // For the sake of testing, we'll just add the role 'ADMIN' to the user
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("ADMIN"));
 
         return new DefaultOAuth2User(authorities, attributes, "username");
     }

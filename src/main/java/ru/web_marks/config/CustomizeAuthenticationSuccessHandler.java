@@ -29,15 +29,15 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
 
-    @GetMapping("/loginSuccess")
-    public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
-        OAuth2AuthorizedClient client = authorizedClientService
-                .loadAuthorizedClient(
-                        authentication.getAuthorizedClientRegistrationId(),
-                        authentication.getName());
-        //...
-        return "loginSuccess";
-    }
+//    @GetMapping("/loginSuccess")
+//    public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
+//        OAuth2AuthorizedClient client = authorizedClientService
+//                .loadAuthorizedClient(
+//                        authentication.getAuthorizedClientRegistrationId(),
+//                        authentication.getName());
+//        //...
+//        return "loginSuccess";
+//    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

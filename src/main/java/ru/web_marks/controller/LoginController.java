@@ -7,7 +7,7 @@ package ru.web_marks.controller;
 
 
 import ru.web_marks.domain.User;
-import ru.web_marks.service.CustomUserDetailsService;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ru.web_marks.domain.User;
-
-import javax.validation.Valid;
 
 @Controller
 public class LoginController {
@@ -28,10 +25,10 @@ public class LoginController {
     @Autowired
     private ru.web_marks.service.CustomUserDetailsService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("admin");
         return modelAndView;
     }
 
@@ -59,7 +56,7 @@ public class LoginController {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("login");
+            modelAndView.setViewName("admin");
 
         }
         return modelAndView;
@@ -93,9 +90,8 @@ public class LoginController {
 //    @Autowired
 //    private ClientRegistrationRepository clientRegistrationRepository;
 //
-//    @RequestMapping(value = {"/oauth_login"}, method = RequestMethod.GET)
+//    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
 //    public String getLoginPage() {
-//        // ...
 //
 //        return "oauth_login";
 //    }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExampleController {
 
-    @GetMapping("/conn")
+    @GetMapping("/me")
     public String index() {
         OAuth2User user = getCurrentUser();
 
