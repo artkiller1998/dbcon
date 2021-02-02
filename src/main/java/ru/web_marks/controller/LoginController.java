@@ -6,6 +6,9 @@
 package ru.web_marks.controller;
 
 
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import ru.web_marks.domain.User;
 
 import javax.validation.Valid;
@@ -15,28 +18,51 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ru.web_marks.repository.RoleRepository;
+import ru.web_marks.web.controllers.ExampleController;
 
 @Controller
 public class LoginController {
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private ru.web_marks.service.CustomUserDetailsService userService;
+
+    @Autowired
+    private ExampleController exampleController;
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
+
         modelAndView.setViewName("admin");
         return modelAndView;
     }
 
+//    @GetMapping("/table")
+//    public ModelAndView table_view() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        auth.getAuthorities();
+//        auth.getDetails();
+//        //OAuth2User user = exampleController.getCurrentUser();
+////        String login = (String) user.getAttributes().get("name");
+////        User _user = userService.findUserByLogin(login);
+////        modelAndView.addObject("currentUser", _user);
+////        modelAndView.addObject("fullName", "Welcome " + _user.getFullname());
+//        modelAndView.setViewName("table");
+//        return modelAndView;
+//    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView signup() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
+
+
+        ///modelAndView.addObject("user", user);
         modelAndView.setViewName("signup");
         return modelAndView;
     }
@@ -53,6 +79,10 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("signup");
         } else {
+//            Set<Role> authorities = new HashSet<>(user.getRoles());
+//            Role teacherRole = roleRepository.findByRole("TEACHER");
+//            authorities.add(teacherRole);
+
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
@@ -77,6 +107,13 @@ public class LoginController {
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
+        //OAuth2User user = exampleController.getCurrentUser();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String login = (String) auth.;
+
+//        User _user = userService.findUserByLogin(login);
+//        modelAndView.addObject("currentUser", _user);
+//        modelAndView.addObject("fullName", "Welcome " + _user.getFullname());
         modelAndView.setViewName("studentsTable");
         return modelAndView;
     }
@@ -90,10 +127,20 @@ public class LoginController {
 //    @Autowired
 //    private ClientRegistrationRepository clientRegistrationRepository;
 //
-//    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-//    public String getLoginPage() {
-//
-//        return "oauth_login";
-//    }
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    public ModelAndView loginOauth(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+
+//        OAuth2User user = exampleController.getCurrentUser();
+//        StringBuffer authorities = new StringBuffer();
+//        user.getAuthorities().forEach((a) -> authorities.append(a.toString()).append(","));
+////        modelAndView.addObject("user", user);
+//        System.out.println(user);
+//        model.addAttribute("currentUser", user);
+//        model.addAttribute("fullName", user.getAttributes().get("username"));
+
+        modelAndView.setViewName("studentsTable");
+        return modelAndView;
+    }
 
 }

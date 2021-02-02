@@ -53,6 +53,9 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
             else if ("TEACHER".equals(auth.getAuthority())) {
                 response.sendRedirect("/table");
             }
+            else if ("USER".equals(auth.getAuthority())) {
+                response.sendRedirect("/");
+            }
         }
     }
 

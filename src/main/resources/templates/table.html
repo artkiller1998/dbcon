@@ -44,8 +44,13 @@
 
 						</div>
 
-							<li class="nav-item" th:if="${currentUser == null}"><a class="button17" th:href="@{/logout}">Выйти</a></li>
-
+						<li class="nav-item" th:if="${currentUser == null}"><a class="button17" th:href="@{/login}">Войти</a></li>
+						<li class="nav-item" th:if="${currentUser}">
+							<a class="nav-link" th:text="${fullName}"></a>
+							<form th:action="@{/logout}" method="post">
+								<input type="submit" value="Sign Out"/>
+							</form>
+						</li>
 
 						<!-- NAVIGATION -->
 
