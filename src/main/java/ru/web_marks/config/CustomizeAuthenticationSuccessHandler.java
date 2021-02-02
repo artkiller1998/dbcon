@@ -26,18 +26,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
-//    @Autowired
-//    private OAuth2AuthorizedClientService authorizedClientService;
-//
-//    @GetMapping("/loginSuccess")
-//    public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
-//        OAuth2AuthorizedClient client = authorizedClientService
-//                .loadAuthorizedClient(
-//                        authentication.getAuthorizedClientRegistrationId(),
-//                        authentication.getName());
-//        //...
-//        return "loginSuccess";
-//    }
+    @Autowired
+    private OAuth2AuthorizedClientService authorizedClientService;
+
+    @GetMapping("/loginSuccess")
+    public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
+        OAuth2AuthorizedClient client = authorizedClientService
+                .loadAuthorizedClient(
+                        authentication.getAuthorizedClientRegistrationId(),
+                        authentication.getName());
+        //...
+        return "loginSuccess";
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

@@ -5,12 +5,9 @@
  */
 package ru.web_marks.config;
 
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import ru.web_marks.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,11 +21,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.security.Principal;
 
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableOAuth2Client
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -42,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomUserDetailsService();
     }
 
+    @Autowired
+    private MyCustomOAuth2UserService userService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -51,7 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bCryptPasswordEncoder);
 
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -64,15 +63,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/table/**", "permit_all_url").hasAuthority("USER")
                 .antMatchers( "permit_all_url").hasAuthority("TEACHER")
                 //.antMatchers( "/administrator/load").hasAuthority("TEACHER")
-                .antMatchers("/dashboard/**","/signup/**").hasAuthority("ADMIN").anyRequest()
-                .authenticated().and().csrf().disable().formLogin().successHandler(customizeAuthenticationSuccessHandler)
+                .antMatchers("/dashboard/**","/signup/**").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and().csrf().disable()
+                .formLogin()//.successHandler(customizeAuthenticationSuccessHandler)
                 .loginPage("/login").failureUrl("/login?error=true")
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .and()
                 .oauth2Login()
-                //.loginPage("/oauth_login")
-                //.defaultSuccessUrl("/loginSuccess")
+                .defaultSuccessUrl("/table")
+                .userInfoEndpoint()
+                .userService(userService)
+                .and()
                 .failureUrl("/loginFailure")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
