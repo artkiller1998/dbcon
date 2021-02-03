@@ -53,7 +53,6 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             userRepository.save(_user);
         }
 
-
         return new DefaultOAuth2User(authorities, attributes, "username");
     }
 

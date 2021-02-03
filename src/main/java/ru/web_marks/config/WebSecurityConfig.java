@@ -8,6 +8,7 @@ package ru.web_marks.config;
 
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import ru.web_marks.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
+//    @Autowired
+//    CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
 
     @Bean
     public UserDetailsService mongoUserDetails() {
@@ -52,27 +53,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new CustomizeAuthenticationSuccessHandler();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-               // .antMatchers("/").permitAll()
-                .antMatchers("/admin", "/login").permitAll()
-               // .antMatchers("/student/**").permitAll()
-                .antMatchers("/fonts/**").permitAll()
-                //.antMatchers("/table/**", "permit_all_url").hasAuthority("USER")
+                .antMatchers("/admin", "/login", "/favicon.ico", "/fonts/**").permitAll()
                 .antMatchers( "permit_all_url", "/signup").hasAuthority("ADMIN")
                 .antMatchers( "/administrator/load", "/table").hasAuthority("TEACHER")
-               // .antMatchers("/dashboard/**","/signup/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
-                .formLogin()//.successHandler(customizeAuthenticationSuccessHandler)
+                .formLogin()
+                .successHandler(myAuthenticationSuccessHandler())
                 .loginPage("/login").failureUrl("/login?error=true")
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .and()
                 .oauth2Login()
-                .defaultSuccessUrl("/table")
+                //.defaultSuccessUrl("/table")
                 .userInfoEndpoint()
                 .userService(userService)
                 .and()
