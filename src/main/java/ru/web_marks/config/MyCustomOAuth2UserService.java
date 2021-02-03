@@ -39,7 +39,7 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
         // For the sake of testing, we'll just add the role 'ADMIN' to the user
         authorities.add(new SimpleGrantedAuthority("USER"));
 
-        User user_temp = userRepository.findByLogin((String) user.getAttributes().get("name"));
+        User user_temp = userRepository.findByLogin((String) user.getAttributes().get("username"));
         if(user_temp == null) {
             User _user = new User();
 

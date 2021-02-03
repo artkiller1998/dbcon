@@ -6,7 +6,6 @@
 package ru.web_marks.controller;
 
 
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.web_marks.domain.User;
@@ -23,8 +22,6 @@ import ru.web_marks.repository.RoleRepository;
 import ru.web_marks.web.controllers.ExampleController;
 
 import java.security.Principal;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 public class LoginController {
@@ -108,38 +105,7 @@ public class LoginController {
         return modelAndView;
     }
     
-    @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
-    public ModelAndView home(Principal principal) {
-        ModelAndView modelAndView = new ModelAndView();
-        String princ_str = principal.getName();
-        User user = userService.findUserByLogin(princ_str);
-        String email = user.getEmail();
 
-
-
-//        Pattern pattern;
-//        Matcher matcher;
-//
-//        String EMAIL_PATTERN = ",.?email=(\\w+@\\w+.\\w+)";
-////
-//        pattern = Pattern.compile(EMAIL_PATTERN);
-//        matcher = pattern.matcher(princ_str);
-//        matcher.find();
-//        int start=matcher.start()+8;
-//        int end=matcher.end();
-//       // System.out.println("Найдено совпадение " +  + " с "+ start + " по " + (end-1) + " позицию");
-//        String email = princ_str.substring(start,end);
-//
-////        //OAuth2User user = exampleController.getCurrentUser();
-//////        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//////        String login = (String) auth.;
-////
-//        User _user = userService.findUserByEmail(email);
-        modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("fullName", "Welcome " + user.getFullname());
-        modelAndView.setViewName("studentsTable");
-        return modelAndView;
-    }
 
 
 //    private static String authorizationRequestBaseUri
