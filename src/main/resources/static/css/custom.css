@@ -63,3 +63,8 @@
   scrollbar-color: #0A4C95 #C2D2E4 !important;
   scrollbar-width: 50px !important;
 }
+
+.navbar {
+	padding-left: 15px;
+	padding-right: 15px;
+}

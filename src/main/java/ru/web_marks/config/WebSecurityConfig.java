@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                // "/fonts/**" "/**"
                 .authorizeRequests()
                 .antMatchers("/admin", "/login", "/favicon.ico", "/fonts/**").permitAll()
                 .antMatchers( "permit_all_url", "/signup").hasAuthority("ADMIN")

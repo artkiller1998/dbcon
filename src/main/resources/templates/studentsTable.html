@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/vendor_bundle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
 <!--	<link rel="shortcut icon" href="../static/favicon.ico?a=1">-->
-	<link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">
+<!--	<link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">-->
 	<link rel="manifest" href="/img/manifest/manifest.json">
 	<meta name="theme-color" content="#377dff">
 	<link rel="stylesheet" href="/css/custom.css">
@@ -38,28 +38,24 @@
 					<nav class="navbar navbar-expand navbar-dark justify-content-between justify-content-md-inherit h--50">
 
 						<div class="align-items-start">
-
-							<a class="button17" href="/table"><span style="color: white">Панель администратора </span><span class="sr-only">(current)</span></a>
-
-
+							<a class="button17" href="/table"><span style="color: white">Панель преподавателя</span><span class="sr-only">(current)</span></a>
 						</div>
-
-
-							<li class="nav-item" th:if="${currentUser == null}"><a class="button17" th:href="@{/login}">Войти</a></li>
-							<li class="nav-item" th:if="${currentUser}">
-								<a class="nav-link" th:text="${fullName}"></a>
-								<form th:action="@{/logout}" method="post">
-									<input type="submit" value="Sign Out"/>
-								</form>
-							</li>
-
-
-						<!-- NAVIGATION -->
-						
-						<!-- /NAVIGATION -->
-
+							<div class="align-items-end">
+								<li class="nav-item" th:if="${currentUser == null}">
+									<a class="button17" th:href="@{/login}">Войти</a>
+								</li>
+								<nav class="nav" th:if="${currentUser}">
+									<a style="color: whitesmoke" class="nav-link" href="/me"
+									   th:if="${fullName} != 'administrator'"
+									   th:text="${fullName}">che-123-123</a>
+									<a style="color: whitesmoke" class="nav-link"
+									   th:if="${fullName} == 'administrator'" >administrator</a>
+									<form th:action="@{/logout}" method="post">
+										<input class="button17" type="submit" value="Выйти"/>
+									</form>
+								</nav>
+							</div>
 					</nav>
-					
 				</div>
 				<!-- /NAVBAR -->
 			</header>

@@ -16006,7 +16006,7 @@ nav.nav-deep > ul > li > a.nav-link > i.nav-icon {
   text-align: left; }
 
 
-a.button17 {
+.button17 {
   display: inline-block;
   font-family: arial,sans-serif;
   font-size: 16px;
@@ -16026,13 +16026,13 @@ a.button17 {
           0 1px rgb(83,94,104),
           0 0 1px rgb(86,96,106);
 }
-a.button17:active {
+.button17:active {
   box-shadow:
           inset 0 1px 3px rgba(0,10,20,.5),
           0 1px rgb(83,94,104),
           0 0 1px rgb(86,96,106);
 }
-a.button17:focus:not(:active) {
+.button17:focus:not(:active) {
   border: 1px solid rgb(22,32,43);
   border-bottom: 1px solid rgb(25,34,45);
   background: rgb(53,61,71);

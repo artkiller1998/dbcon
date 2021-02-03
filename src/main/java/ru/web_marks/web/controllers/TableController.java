@@ -21,11 +21,16 @@ public class TableController {
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     public ModelAndView home(Principal principal) {
         ModelAndView modelAndView = new ModelAndView();
-        String princ_str = principal.getName();
-        User user = userService.findUserByLogin(princ_str);
+        try {
+            String princ_str = principal.getName();
+            User user = userService.findUserByLogin(princ_str);
 
-        modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("fullName", "Welcome " + user.getFullname());
+            modelAndView.addObject("currentUser", user);
+            modelAndView.addObject("fullName", user.getFullname());
+        }
+        catch (Exception ex) {
+
+        }
         modelAndView.setViewName("studentsTable");
         return modelAndView;
     }
@@ -33,11 +38,18 @@ public class TableController {
     @RequestMapping(value = {"/table"}, method = RequestMethod.GET)
     public ModelAndView table_view(Principal principal) {
         ModelAndView modelAndView = new ModelAndView();
-        String princ_str = principal.getName();
-        User user = userService.findUserByLogin(princ_str);
+        try {
+            String princ_str = principal.getName();
+            User user = userService.findUserByLogin(princ_str);
 
-        modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("fullName", "Welcome " + user.getFullname());
+            modelAndView.addObject("currentUser", user);
+            modelAndView.addObject("fullName", user.getFullname());
+        }
+        catch (Exception ex) {
+
+        }
+
+
         modelAndView.setViewName("table");
         return modelAndView;
     }
