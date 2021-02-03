@@ -22,6 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.web_marks.repository.RoleRepository;
 import ru.web_marks.web.controllers.ExampleController;
 
+import java.security.Principal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Controller
 public class LoginController {
 
@@ -105,15 +109,34 @@ public class LoginController {
     }
     
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
-    public ModelAndView home() {
+    public ModelAndView home(Principal principal) {
         ModelAndView modelAndView = new ModelAndView();
-        //OAuth2User user = exampleController.getCurrentUser();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String login = (String) auth.;
+        String princ_str = principal.getName();
+        User user = userService.findUserByLogin(princ_str);
+        String email = user.getEmail();
 
-//        User _user = userService.findUserByLogin(login);
-//        modelAndView.addObject("currentUser", _user);
-//        modelAndView.addObject("fullName", "Welcome " + _user.getFullname());
+
+
+//        Pattern pattern;
+//        Matcher matcher;
+//
+//        String EMAIL_PATTERN = ",.?email=(\\w+@\\w+.\\w+)";
+////
+//        pattern = Pattern.compile(EMAIL_PATTERN);
+//        matcher = pattern.matcher(princ_str);
+//        matcher.find();
+//        int start=matcher.start()+8;
+//        int end=matcher.end();
+//       // System.out.println("Найдено совпадение " +  + " с "+ start + " по " + (end-1) + " позицию");
+//        String email = princ_str.substring(start,end);
+//
+////        //OAuth2User user = exampleController.getCurrentUser();
+//////        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//////        String login = (String) auth.;
+////
+//        User _user = userService.findUserByEmail(email);
+        modelAndView.addObject("currentUser", user);
+        modelAndView.addObject("fullName", "Welcome " + user.getFullname());
         modelAndView.setViewName("studentsTable");
         return modelAndView;
     }
