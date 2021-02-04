@@ -30,6 +30,8 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
     private UserRepository userRepository;
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -46,12 +48,6 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
 
         User user_temp = userRepository.findByLogin((String) user.getAttributes().get("username"));
 
-        if (teacherRepository.findByEmail(user_temp.getEmail()) != null) {
-            Role userRole = roleRepository.findByRole("TEACHER");
-            user_temp.setRoles(new HashSet<>(Arrays.asList(userRole)));
-            authorities.add(new SimpleGrantedAuthority("TEACHER"));
-        }
-
         if(user_temp == null) {
             User _user = new User();
 
@@ -62,18 +58,27 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             _user.setAvatar_url((String) user.getAttributes().get("avatar_url"));
 
             if (teacherRepository.findByEmail(_user.getEmail()) != null) {
-                Role userRole = roleRepository.findByRole("TEACHER");
-                _user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+                Role teacherRole = roleRepository.findByRole("TEACHER");
+                _user.setRoles(new HashSet<>(Arrays.asList(teacherRole)));
                 authorities.add(new SimpleGrantedAuthority("TEACHER"));
-            }
-            else {
+            } else {
                 Role userRole = roleRepository.findByRole("USER");
                 _user.setRoles(new HashSet<>(Arrays.asList(userRole)));
                 authorities.add(new SimpleGrantedAuthority("USER"));
             }
-
             userRepository.save(_user);
         }
+
+        if (user_temp != null && teacherRepository.findByEmail(user_temp.getEmail()) != null) {
+            Role teacherRole = roleRepository.findByRole("TEACHER");
+            if (!user_temp.getRoles().contains(teacherRole)) {
+                user_temp.setRoles(new HashSet<>(Arrays.asList(teacherRole)));
+                authorities.add(new SimpleGrantedAuthority("TEACHER"));
+            }
+            userRepository.save(user_temp);
+        }
+
+
 
         return new DefaultOAuth2User(authorities, attributes, "username");
     }
