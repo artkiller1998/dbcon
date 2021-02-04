@@ -45,12 +45,23 @@
 									<a class="button17" th:href="@{/login}">Войти</a>
 								</li>
 								<nav class="nav" th:if="${currentUser}">
-									<a style="color: whitesmoke" class="nav-link" href="/me"
-									   th:if="${fullName} != 'administrator'"
-									   th:text="${fullName}">che-123-123</a>
-									<a style="color: whitesmoke" class="nav-link"
-									   th:if="${fullName} == 'administrator'" >administrator</a>
-									<form th:action="@{/logout}" method="post">
+
+									<div class="nav" th:if="${fullName} == 'administrator'">
+										<img class="rounded-circle h--50"
+											 th:src="@{/favicon.ico}">
+										<a style="color: whitesmoke" class="nav-link">
+											administrator</a>
+									</div>
+
+									<div class="nav" th:if="${fullName} != 'administrator'">
+										<img class="rounded-circle h--50"
+											 th:src="@{{avatarUrl}(avatarUrl = ${avatarUrl})}">
+										<a style="color: whitesmoke" class="nav-link" href="/me"
+										   th:if="${fullName} != 'administrator'"
+										   th:text="${fullName}">che-123-123</a>
+									</div>
+
+									<form  th:action="@{/logout}" method="post">
 										<input class="button17" type="submit" value="Выйти"/>
 									</form>
 								</nav>

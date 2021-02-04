@@ -47,6 +47,8 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             _user.setEmail((String) user.getAttributes().get("email"));
             _user.setFullname((String) user.getAttributes().get("name"));
             _user.setLogin((String) user.getAttributes().get("username"));
+            _user.setAvatar_url((String) user.getAttributes().get("avatar_url"));
+
 
             Role userRole = roleRepository.findByRole("USER");
             _user.setRoles(new HashSet<>(Arrays.asList(userRole)));

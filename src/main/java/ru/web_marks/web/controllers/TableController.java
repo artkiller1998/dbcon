@@ -27,6 +27,7 @@ public class TableController {
 
             modelAndView.addObject("currentUser", user);
             modelAndView.addObject("fullName", user.getFullname());
+            modelAndView.addObject("avatarUrl", user.getAvatar_url());
         }
         catch (Exception ex) {
 
@@ -44,6 +45,7 @@ public class TableController {
 
             modelAndView.addObject("currentUser", user);
             modelAndView.addObject("fullName", user.getFullname());
+            modelAndView.addObject("avatarUrl", user.getAvatar_url());
         }
         catch (Exception ex) {
 
