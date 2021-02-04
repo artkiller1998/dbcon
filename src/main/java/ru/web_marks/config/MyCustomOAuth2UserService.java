@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import ru.web_marks.domain.Role;
 import ru.web_marks.domain.User;
 import ru.web_marks.repository.RoleRepository;
+import ru.web_marks.repository.TeacherRepository;
 import ru.web_marks.repository.UserRepository;
 import ru.web_marks.service.CustomUserDetailsService;
 
@@ -27,6 +28,8 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
     private RoleRepository roleRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -37,9 +40,18 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // At this point, you would load your data (e.g. from database) and modify the authorities as you wish
         // For the sake of testing, we'll just add the role 'ADMIN' to the user
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        //authorities.add(new SimpleGrantedAuthority("USER"));
+
+
 
         User user_temp = userRepository.findByLogin((String) user.getAttributes().get("username"));
+
+        if (teacherRepository.findByEmail(user_temp.getEmail()) != null) {
+            Role userRole = roleRepository.findByRole("TEACHER");
+            user_temp.setRoles(new HashSet<>(Arrays.asList(userRole)));
+            authorities.add(new SimpleGrantedAuthority("TEACHER"));
+        }
+
         if(user_temp == null) {
             User _user = new User();
 
@@ -49,9 +61,17 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             _user.setLogin((String) user.getAttributes().get("username"));
             _user.setAvatar_url((String) user.getAttributes().get("avatar_url"));
 
+            if (teacherRepository.findByEmail(_user.getEmail()) != null) {
+                Role userRole = roleRepository.findByRole("TEACHER");
+                _user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+                authorities.add(new SimpleGrantedAuthority("TEACHER"));
+            }
+            else {
+                Role userRole = roleRepository.findByRole("USER");
+                _user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+                authorities.add(new SimpleGrantedAuthority("USER"));
+            }
 
-            Role userRole = roleRepository.findByRole("USER");
-            _user.setRoles(new HashSet<>(Arrays.asList(userRole)));
             userRepository.save(_user);
         }
 

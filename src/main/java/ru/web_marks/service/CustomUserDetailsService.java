@@ -1,10 +1,10 @@
 package ru.web_marks.service;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
 import ru.web_marks.domain.Role;
+import ru.web_marks.domain.Teacher;
 import ru.web_marks.domain.User;
 import ru.web_marks.repository.RoleRepository;
+import ru.web_marks.repository.TeacherRepository;
 import ru.web_marks.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,14 +30,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User findUserByLogin(String login) {
         return userRepository.findByLogin(login);
     }
 
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Teacher findTeacherByEmail(String email) {
+        return teacherRepository.findByEmail(email);
     }
 
     public void saveUser(User user) {
@@ -46,6 +48,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         Role userRole = roleRepository.findByRole("TEACHER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
+    }
+
+    public void saveTeacher(Teacher teacher) {
+        teacherRepository.save(teacher);
     }
 
     @Override

@@ -9,14 +9,20 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import ru.web_marks.domain.Role;
+import ru.web_marks.domain.Teacher;
+import ru.web_marks.domain.User;
 import ru.web_marks.repository.RoleRepository;
+import ru.web_marks.repository.TeacherRepository;
+import ru.web_marks.repository.UserRepository;
+import ru.web_marks.service.CustomUserDetailsService;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 
 @SpringBootApplication
 @ComponentScan({"ru.web_marks.*"})
 @EntityScan("ru.web_marks.*")
-
-
 public class Application extends SpringBootServletInitializer {
    // public class Application  {
 
@@ -30,10 +36,12 @@ public class Application extends SpringBootServletInitializer {
 
 
     @Bean
-    CommandLineRunner init(RoleRepository roleRepository) {
+    CommandLineRunner init(RoleRepository roleRepository,
+                           TeacherRepository teacherRepository,
+                           UserRepository userRepository,
+                            CustomUserDetailsService customUserDetailsService) {
 
         return args -> {
-
             Role adminRole = roleRepository.findByRole("ADMIN");
             if (adminRole == null) {
                 Role newAdminRole = new Role();
@@ -52,6 +60,26 @@ public class Application extends SpringBootServletInitializer {
                 Role newUserRole = new Role();
                 newUserRole.setRole("USER");
                 roleRepository.save(newUserRole);
+            }
+
+            Teacher teacher = teacherRepository.findByEmail("artkiller1998@1.ru");
+            if (teacher == null) {
+                Teacher newTeacher = new Teacher();
+                newTeacher.setEmail("artkiller1998@1.ru");
+                teacherRepository.save(newTeacher);
+            }
+
+            User user = userRepository.findByLogin("admin");
+            if (user == null) {
+                User newUser = new User();
+                newUser.setLogin("admin");
+                newUser.setFullname("admin");
+                newUser.setEmail("admin@1.rus");
+                newUser.setPassword("a");
+                newUser.setAvatar_url("/favicon.ico");
+                Role newAdminRole = roleRepository.findByRole("ADMIN");
+                newUser.setRoles(new HashSet<>(Arrays.asList(newAdminRole)));
+                customUserDetailsService.saveUser(newUser);
             }
         };
 

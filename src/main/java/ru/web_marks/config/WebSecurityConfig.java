@@ -33,9 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @Autowired
-//    CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
-
     @Bean
     public UserDetailsService mongoUserDetails() {
         return new CustomUserDetailsService();
@@ -64,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // "/fonts/**" "/**"
                 .authorizeRequests()
                 .antMatchers("/admin", "/login", "/favicon.ico", "/fonts/**").permitAll()
-                .antMatchers( "/signup", "permit_all_url", "/table" ).hasAuthority("ADMIN")
+                .antMatchers( "/signup", "permit_all_url" ).hasAuthority("ADMIN")
                 .antMatchers( "/administrator/load", "/table").hasAnyAuthority("TEACHER","ADMIN")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
