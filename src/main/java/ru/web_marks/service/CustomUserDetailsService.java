@@ -1,8 +1,8 @@
 package ru.web_marks.service;
 
-import ru.web_marks.domain.Role;
-import ru.web_marks.domain.Teacher;
-import ru.web_marks.domain.User;
+import ru.web_marks.model.domain.Role;
+import ru.web_marks.model.domain.Teacher;
+import ru.web_marks.model.domain.User;
 import ru.web_marks.repository.RoleRepository;
 import ru.web_marks.repository.TeacherRepository;
 import ru.web_marks.repository.UserRepository;

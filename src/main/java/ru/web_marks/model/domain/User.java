@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.web_marks.domain;
+package ru.web_marks.model.domain;
 
 import java.util.Set;
 import org.springframework.data.annotation.Id;

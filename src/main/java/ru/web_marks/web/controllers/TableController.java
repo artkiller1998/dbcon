@@ -2,14 +2,11 @@ package ru.web_marks.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ru.web_marks.domain.Role;
-import ru.web_marks.domain.User;
+import ru.web_marks.model.domain.Role;
+import ru.web_marks.model.domain.User;
 import ru.web_marks.repository.RoleRepository;
 
 import java.security.Principal;

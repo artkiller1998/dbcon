@@ -8,7 +8,7 @@ package ru.web_marks.web.controllers;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.web_marks.domain.User;
+import ru.web_marks.model.domain.User;
 
 import javax.validation.Valid;
 

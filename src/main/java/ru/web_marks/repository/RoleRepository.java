@@ -1,6 +1,6 @@
 package ru.web_marks.repository;
 
-import ru.web_marks.domain.Role;
+import ru.web_marks.model.domain.Role;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 

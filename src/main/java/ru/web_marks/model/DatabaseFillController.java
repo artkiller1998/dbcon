@@ -9,8 +9,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import ru.web_marks.config.base.MongoConfig;
+import ru.web_marks.config.MongoConfig;
 
 import java.io.*;
 import java.util.ArrayList;

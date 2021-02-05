@@ -1,17 +1,13 @@
-package ru.web_marks.config.base;
+package ru.web_marks.config;
 
 import com.mongodb.MongoClient;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 @Configuration("mongo-config")
-//@PropertySource(name = "ConfigurationFromFile", value = "application.properties")
 public class MongoConfig extends AbstractMongoConfiguration {
 
     @Value("${spring.data.mongodb.host:127.0.0.1}")
@@ -22,9 +18,6 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     @Value("${spring.data.mongodb.database:test}")
     public String u_dbname;
-
-//    @Value("${mongodb.connection.collection}")
-//    private static String u_collection;
 
     //Задать имя базы данных
     @Override
