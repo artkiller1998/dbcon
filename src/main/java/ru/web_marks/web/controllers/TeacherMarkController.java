@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.base.MongoConfig;
 import ru.web_marks.model.Student;
-import ru.web_marks.view.MongoDBPOperations;
 
 @RestController
 @RequestMapping(value = "teacher", method = RequestMethod.PUT)
@@ -19,14 +18,13 @@ public class TeacherMarkController {
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-    // конкретная реализация интерфейса для объекта Student
-    MongoDBPOperations ops = new MongoDBPOperations();
 
     @PutMapping(path="/{subject}/{year_group}/{id}")
 
-    public String update(@PathVariable String subject , @PathVariable String year_group, @RequestBody String mark, @PathVariable String id) throws ChangeSetPersister.NotFoundException {
-
-        Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks").elemMatch(Criteria.where("mrk_id").is(id))));
+    public String update(@PathVariable String subject , @PathVariable String year_group,
+                         @RequestBody String mark, @PathVariable String id) throws ChangeSetPersister.NotFoundException {
+        Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks")
+                .elemMatch(Criteria.where("mrk_id").is(id))));
         Student temp = mongoOperation.findOne(searchInstance, Student.class);
         temp.setInstanceMark(id,mark);
         Update update = new Update();

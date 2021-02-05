@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.base.MongoConfig;
 import ru.web_marks.model.Student;
-import ru.web_marks.view.MongoDBPOperations;
 
 @RestController
 @RequestMapping("student")
@@ -19,8 +18,7 @@ public class StudentMarkController {
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-    // конкретная реализация интерфейса для объекта Student
-    MongoDBPOperations ops = new MongoDBPOperations();
+
 
     @GetMapping("/{subject}/{year_group}")
     public String list(@PathVariable String subject , @PathVariable String year_group )

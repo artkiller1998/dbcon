@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ru.web_marks.domain.Role;
 import ru.web_marks.domain.User;
+import ru.web_marks.repository.RoleRepository;
 
 import java.security.Principal;
 
@@ -18,12 +20,23 @@ public class TableController {
     @Autowired
     private ru.web_marks.service.CustomUserDetailsService userService;
 
-    @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
-    public ModelAndView home(Principal principal) {
+    @Autowired
+    private RoleRepository roleRepository;
+
+    public ModelAndView fillModel(Principal principal){
         ModelAndView modelAndView = new ModelAndView();
         try {
-            String princ_str = principal.getName();
-            User user = userService.findUserByLogin(princ_str);
+            String login = principal.getName();
+
+            User user = userService.findUserByLogin(login);;
+            Role userRole = roleRepository.findByRole("USER");
+
+            if (user.getRoles().contains(userRole)) {
+                modelAndView.addObject("role", "USER");
+            }
+            else {
+                modelAndView.addObject("role", "TEACHER");
+            }
 
             modelAndView.addObject("currentUser", user);
             modelAndView.addObject("fullName", user.getFullname());
@@ -32,25 +45,20 @@ public class TableController {
         catch (Exception ex) {
 
         }
+        return  modelAndView;
+    }
+
+    @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
+    public ModelAndView home(Principal principal) {
+        ModelAndView modelAndView = fillModel(principal);
+
         modelAndView.setViewName("studentsTable");
         return modelAndView;
     }
 
     @RequestMapping(value = {"/table"}, method = RequestMethod.GET)
     public ModelAndView table_view(Principal principal) {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            String princ_str = principal.getName();
-            User user = userService.findUserByLogin(princ_str);
-
-            modelAndView.addObject("currentUser", user);
-            modelAndView.addObject("fullName", user.getFullname());
-            modelAndView.addObject("avatarUrl", user.getAvatar_url());
-        }
-        catch (Exception ex) {
-
-        }
-
+        ModelAndView modelAndView = fillModel(principal);
 
         modelAndView.setViewName("table");
         return modelAndView;

@@ -1,8 +1,5 @@
 package ru.web_marks.web.controllers;
 
-//import org.json.JSONArray;
-//import org.json.JSONException;
-//import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.context.ApplicationContext;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.web_marks.config.base.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
 import ru.web_marks.model.MongoModels;
-import ru.web_marks.view.MongoDBPOperations;
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -33,8 +28,6 @@ public class AdministratorController {
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-    // конкретная реализация интерфейса для объекта Student
-    MongoDBPOperations ops = new MongoDBPOperations();
 
     @PutMapping(path="/load")
     public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException {

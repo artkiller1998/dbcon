@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class ExampleController {
+public class UserinfoController {
 
     @GetMapping("/me")
     public String index() {
@@ -24,7 +24,6 @@ public class ExampleController {
                 + "You have the following attributes: " + authorities.toString() + "<br />"
                 + "<a href='/logout'>logout</a>";
     }
-
 
     public OAuth2User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
