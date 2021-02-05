@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html
-		xmlns:th="http://www.thymeleaf.org">
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{default.html}"
+>
 
 <head>
-
-	<meta charset="utf-8" />
+	<meta charset="utf-8"/>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>Успеваемость</title>
 	<meta name="description" content="" />
-	<meta name="Author" content="mijgvn" />
-	
 	<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -18,82 +17,22 @@
     <link rel="stylesheet" href="/css/core.css">
     <link rel="stylesheet" href="/css/vendor_bundle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
-<!--	<link rel="shortcut icon" href="../static/favicon.ico?a=1">-->
-<!--	<link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">-->
 	<link rel="manifest" href="/img/manifest/manifest.json">
 	<meta name="theme-color" content="#377dff">
 	<link rel="stylesheet" href="/css/custom.css">
-</head>	 
-
-
+</head>
 
 <body class="layout-admin" data-aos-easing="ease-in-out-sine" data-aos-duration="700" data-aos-delay="0">
-
 		<div id="wrapper" class="d-flex align-items-stretch flex-column">
-
-
-			<header id="header" class="bg-dark">
-				<div class="container-fluid position-relative">
-
-					<nav class="navbar navbar-expand navbar-dark justify-content-between justify-content-md-inherit h--50">
-
-						<div class="align-items-start">
-							<a class="button17" href="/admin"><span style="color: white">
-								Панель администратора</span><span class="sr-only">(current)</span></a>
-						</div>
-
-
-						<div class="align-items-end">
-						<li class="nav-item" th:if="${currentUser == null}">
-							<a class="button17" th:href="@{/login}">Войти</a>
-						</li>
-							<nav class="nav" th:if="${currentUser}">
-
-								<div class="nav" th:if="${fullName} == 'administrator'">
-									<img class="rounded-circle h--50"
-										 th:src="@{/favicon.ico}">
-									<a style="color: whitesmoke" class="nav-link">
-										administrator</a>
-								</div>
-								<div class="nav" th:if="${fullName} != 'administrator'">
-									<img class="rounded-circle h--50"
-										 th:src="@{{avatarUrl}(avatarUrl = ${avatarUrl})}">
-									<a style="color: whitesmoke" class="nav-link" href="/me"
-									   th:if="${fullName} != 'administrator'"
-									   th:text="${fullName}">che-123-123</a>
-								</div>
-
-								<form  th:action="@{/logout}" method="post">
-									<input class="button17" type="submit" value="Выйти"/>
-								</form>
-							</nav>
-						</div>
-
-						<!-- NAVIGATION -->
-
-						<!-- /NAVIGATION -->
-
-					</nav>
-					
-				</div>
-				<!-- /NAVBAR -->
-			</header>
-			<!-- /HEADER -->
-
-			<div id="wrapper_content" class="d-flex flex-fill">
-
+			<div id="wrapper_content" layout:fragment="container" class="d-flex flex-fill">
 				<!-- /SIDEBAR -->
-
-
 				<!-- MIDDLE -->
 				<div id="middle" class="flex-fill  bg-dark-soft">
 					<!-- start:row -->
 					<div class="row gutters-sm">
-
 						<!-- start:col: -->
 						<div class="col-12 mb-3">
 							<div class="portlet">
-
 								<div class="portlet-header border-bottom">
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 										<li class="nav-item">
@@ -107,13 +46,9 @@
 											<a class="nav-link bg-secondary-active" id="pills-delitions-tab" data-toggle="pill" href="#pills-delitions" role="tab" aria-controls="pills-downloads" aria-selected="false" >Удалить предмет</a>
 										</li>
 									</ul>
-									
 								</div>
-
 								<div class="portlet-body">
-									
 									<div class="tab-content" id="pills-tabContent">
-
 										<div class="tab-pane fade show active" id="pills-progeress" role="tabpanel" aria-labelledby="pills-progeress-tab">
 											<div class="row">
 												<div class="col-lg-6">
@@ -124,7 +59,6 @@
 														<input placeholder="Номер группы, например: s163" id="group_number" type="text" value="" class="form-control">
 														<label for="file_path">Например: s163</label>
 													</div>
-													
 												</div>
 												<div class="col-lg-6">
 													<div class="form-label-group mb-1 ml-1">
@@ -142,9 +76,7 @@
 												<i class="fi fi-task-list"></i> 
 												Показать таблицу
 											</button>
-
 											<div id="table_show" class="container no-width py-3">
-
 												<div id="item_list">
 													<br>
 													<br>
@@ -158,29 +90,23 @@
 													<div class="row no-gutters">
 														<div id="forWidUser" class="col-2">
 															<table id="user_table" class="table table-bordered table-hover">
-																
 															</table>
 														</div>
 														<div id="forWid" class="col-10">
 															<div class="scrollable-vertical scrollable-styled-dark">
 																<table id="table"  class="table table-bordered table-hover">
-																	
 																</table>
 															</div>
 														</div>
 													</div>
-													
 		  										</div>
-
 											</div>
-											
 										</div>
 										<div class="tab-pane fade" id="pills-downloads" role="tabpanel" aria-labelledby="pills-downloads-tab">
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="input-group">
 													  <div class="custom-file custom-file-secondary">
-													
 													    <input 	name="groupFile"
 													    		type="file"
 													    		data-file-ext=" txt, json, csv"
@@ -196,9 +122,7 @@
 
 													    		class="custom-file-input"
 													    		id="groupFile">
-
 													    <label class="custom-file-label" for="groupFile">Выбрать файл с группой</label>
-
 													  </div>
 													</div>
 													<div class="js-file-input-preview-single-container1 ml--n6 mr--n6"><!-- preview container --></div>
@@ -207,12 +131,10 @@
 															Удалить
 														</a>
 													</div>
-													
 												</div>
 												<div class="col-lg-6">
 													<div class="input-group">
 													  <div class="custom-file custom-file-primary">
-													
 													    <input 	name="configFile"
 													    		type="file"
 													    		data-file-ext=" txt, json, csv"
@@ -225,10 +147,8 @@
 													    		data-file-preview-img-height="120"
 													    		data-file-preview-show-info="true"
 													    		data-file-btn-clear="a.js-file-upload-clear2"
-
 													    		class="custom-file-input"
 													    		id="configFile">
-
 													    <label class="custom-file-label" for="configFile">Выбрать файл с конфигурацией предмета</label>
 
 													  </div>
@@ -275,59 +195,32 @@
 														</select>
 														<label for="select_options">Тип файла</label>
 													</div>
-													
 												</div>
 											</div>
-											
-
 											<br>
 											<button type="button" class="btn btn-youtube" onclick="delition();">
 												<i class="fi fi-minus"></i> Удалить
 											</button>
 											<br>
 											<br>
-										
-											
 										</div>
-
-
 									</div>
-									
 								</div>
-								
-
 							</div>
 							<!-- end:portlet -->
-
 						</div>
 						<!-- end:col: -->
-
-
 					</div>
 					<!-- end:row: -->
 					<!-- doc:end -->
 				</div>
-			<!-- FOOTER -->
-			</div>
-			<footer id="footer" class="bg-dark text-white">
-				<div class="p-3 fs--14">
-					<!-- здесь модно добавть что то, что будет на темно сером фоне снизу -->
-				</div>
-			</footer>
-			<!-- /FOOTER -->
-
-
 		</div><!-- /#wrapper -->
 
-
-<!--	favicon-->
-		<script src="/js/core.js"></script>
-
-		<div id="page_js_files">
+		<div layout:fragment="container_js" id="page_js_files">
 			<!-- specific page javascript files here -->
+			<script src="/js/core.js"></script>
 			<script type="text/javascript" src="/js/table.js"></script>
 			<script type="text/javascript" src="/js/vendor_bundle.js"></script>
-
 		</div>
-	</body>	
+</body>
 

@@ -1,6 +1,7 @@
 package ru.web_marks.config.base;
 
 import com.mongodb.MongoClient;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +39,9 @@ public class MongoConfig extends AbstractMongoConfiguration {
         return new MongoClient(u_addr,u_port);
     }
 
-
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
 
 }
