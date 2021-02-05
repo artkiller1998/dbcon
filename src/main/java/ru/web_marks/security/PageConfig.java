@@ -1,4 +1,4 @@
-package ru.web_marks.config;
+package ru.web_marks.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

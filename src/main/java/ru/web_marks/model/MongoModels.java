@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 // указан каталог для сохранения объекта
 
-
-
 @Document(collection = "default")
 
 public class MongoModels {

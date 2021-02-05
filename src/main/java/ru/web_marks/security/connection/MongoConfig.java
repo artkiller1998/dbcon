@@ -1,4 +1,4 @@
-package ru.web_marks.config;
+package ru.web_marks.security.connection;
 
 import com.mongodb.MongoClient;
 import nz.net.ultraq.thymeleaf.LayoutDialect;

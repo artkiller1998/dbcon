@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.web_marks.config.MongoConfig;
+import ru.web_marks.security.connection.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
 import ru.web_marks.model.MongoModels;
 import java.io.*;
@@ -30,6 +30,10 @@ public class AdministratorController {
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
     @PutMapping(path="/load")
+//    @RequestMapping(
+//            value = "/load",
+//            produces = "application/json",
+//            method = {RequestMethod.GET, RequestMethod.PUT})
     public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException {
 
         System.out.println("\nLoad detected!\n");

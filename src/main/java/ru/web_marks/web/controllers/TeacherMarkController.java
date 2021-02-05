@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
-import ru.web_marks.config.MongoConfig;
+import ru.web_marks.security.connection.MongoConfig;
 import ru.web_marks.model.Student;
 
 @RestController

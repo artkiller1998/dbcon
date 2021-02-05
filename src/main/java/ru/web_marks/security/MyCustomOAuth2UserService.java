@@ -1,4 +1,4 @@
-package ru.web_marks.config;
+package ru.web_marks.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

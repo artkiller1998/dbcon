@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.web_marks.config;
+package ru.web_marks.security;
 
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
@@ -58,6 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // "/fonts/**" "/**"
                 .authorizeRequests()
                 .antMatchers("/admin", "/login", "/favicon.ico", "/fonts/**").permitAll()
+                .antMatchers("/").hasAnyAuthority("USER","TEACHER","ADMIN")
                 .antMatchers( "/signup", "permit_all_url" ).hasAuthority("ADMIN")
                 .antMatchers( "/administrator/load", "/table").hasAnyAuthority("TEACHER","ADMIN")
                 .anyRequest().authenticated()

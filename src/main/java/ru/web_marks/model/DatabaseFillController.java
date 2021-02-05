@@ -9,7 +9,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.web_marks.config.MongoConfig;
+import ru.web_marks.security.connection.MongoConfig;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -119,7 +119,8 @@ public class DatabaseFillController {
 class LoadData {
 
     public LoadData (String config_content, String group_content, String group_name) throws IOException {
-        ApplicationContext context = new AnnotationConfigApplicationContext("ru.web_marks.config.base");
+
+        ApplicationContext context = new AnnotationConfigApplicationContext("ru.web_marks.security.connection");
         MongoConfig configure = (MongoConfig) context.getBean("mongo-config");
 
         String u_addr = configure.u_addr;
