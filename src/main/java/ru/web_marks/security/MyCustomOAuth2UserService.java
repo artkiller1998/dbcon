@@ -71,8 +71,8 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             Role teacherRole = roleRepository.findByRole("TEACHER");
             if (!user_temp.getRole().getId().equals(teacherRole.getId())) {
                 user_temp.setRole(teacherRole);
-                authorities.add(new SimpleGrantedAuthority("TEACHER"));
             }
+            authorities.add(new SimpleGrantedAuthority("TEACHER"));
             userRepository.save(user_temp);
         }
         else {
