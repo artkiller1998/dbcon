@@ -1,7 +1,6 @@
 package ru.web_marks.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,8 +10,6 @@ import ru.web_marks.model.domain.User;
 import ru.web_marks.repository.RoleRepository;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Set;
 
 @Controller
 public class TableController {
@@ -30,9 +27,9 @@ public class TableController {
             User user = userService.findUserByLogin(login);;
             Role userRole = roleRepository.findByRole("USER");
 
-            List<GrantedAuthority> authorities = userService.getUserAuthority(user.getRoles());
+            Role role = user.getRole();
 
-            if (authorities.contains(userRole)) {
+            if (role.getId().equals(userRole.getId())) {
                 modelAndView.addObject("role", "USER");
             }
             else {

@@ -7,7 +7,6 @@ import ru.web_marks.repository.RoleRepository;
 import ru.web_marks.repository.TeacherRepository;
 import ru.web_marks.repository.UserRepository;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +44,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
         Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setRole(userRole);
         userRepository.save(user);
     }
 
@@ -55,21 +54,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-
         User user = userRepository.findByLogin(login);
         if(user != null) {
-            List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
+            List<GrantedAuthority> authorities = getUserAuthority(user.getRole());
             return buildUserForAuthentication(user, authorities);
         } else {
             throw new UsernameNotFoundException("username not found");
         }
     }
 
-    public List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
+    public List<GrantedAuthority> getUserAuthority(Role userRole) {
         Set<GrantedAuthority> roles = new HashSet<>();
-        userRoles.forEach((role) -> {
-            roles.add(new SimpleGrantedAuthority(role.getRole()));
-        });
+        roles.add(new SimpleGrantedAuthority(userRole.getRole()));
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
         return grantedAuthorities;

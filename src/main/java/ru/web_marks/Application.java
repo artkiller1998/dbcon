@@ -18,9 +18,6 @@ import ru.web_marks.repository.TeacherRepository;
 import ru.web_marks.repository.UserRepository;
 import ru.web_marks.service.CustomUserDetailsService;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 
 @SpringBootApplication
 @ComponentScan({"ru.web_marks.*"})
@@ -89,7 +86,7 @@ public class Application extends SpringBootServletInitializer {
                 newUser.setEmail("admin@1.rus");
                 newUser.setPassword(bCryptPasswordEncoder.encode("a"));
                 newUser.setAvatar_url("/favicon.ico");
-                newUser.setRoles(new HashSet<>(Arrays.asList(newAdminRole)));
+                newUser.setRole(newAdminRole);
                 userRepository.save(newUser);
             }
         };
