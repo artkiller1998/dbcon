@@ -1,5 +1,6 @@
 package ru.web_marks;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.web_marks.model.domain.Role;
 import ru.web_marks.model.domain.Teacher;
 import ru.web_marks.model.domain.User;
@@ -26,6 +28,11 @@ import java.util.HashSet;
 public class Application extends SpringBootServletInitializer {
    // public class Application  {
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(Application.class);
@@ -43,10 +50,14 @@ public class Application extends SpringBootServletInitializer {
 
         return args -> {
             Role adminRole = roleRepository.findByRole("ADMIN");
+            Role newAdminRole;
             if (adminRole == null) {
-                Role newAdminRole = new Role();
+                newAdminRole = new Role();
                 newAdminRole.setRole("ADMIN");
                 roleRepository.save(newAdminRole);
+            }
+            else {
+                newAdminRole = adminRole;
             }
 
             Role teacherRole = roleRepository.findByRole("TEACHER");
@@ -73,13 +84,13 @@ public class Application extends SpringBootServletInitializer {
             if (user == null) {
                 User newUser = new User();
                 newUser.setLogin("admin");
+                newUser.setEnabled(true);
                 newUser.setFullname("admin");
                 newUser.setEmail("admin@1.rus");
-                newUser.setPassword("a");
+                newUser.setPassword(bCryptPasswordEncoder.encode("a"));
                 newUser.setAvatar_url("/favicon.ico");
-                Role newAdminRole = roleRepository.findByRole("ADMIN");
                 newUser.setRoles(new HashSet<>(Arrays.asList(newAdminRole)));
-                customUserDetailsService.saveUser(newUser);
+                userRepository.save(newUser);
             }
         };
 

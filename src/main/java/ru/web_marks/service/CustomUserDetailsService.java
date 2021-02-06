@@ -44,7 +44,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
-        Role userRole = roleRepository.findByRole("TEACHER");
+        Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
@@ -65,7 +65,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
     }
 
-    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
+    public List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         userRoles.forEach((role) -> {
             roles.add(new SimpleGrantedAuthority(role.getRole()));
@@ -74,6 +74,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
         return grantedAuthorities;
     }
+
+//    public List<Role> getUserRole(Set<Role> userRoles) {
+//        Set<Role> roles = new HashSet<>();
+//        userRoles.forEach((role) -> {
+//            roles.add(new SimpleGrantedAuthority(role.getRole()));
+//        });
+//
+//        List<Role> grantedRoles = new ArrayList<Role>(roles);
+//        return grantedRoles;
+//    }
 
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);

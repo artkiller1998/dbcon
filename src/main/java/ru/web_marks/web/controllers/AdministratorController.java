@@ -50,7 +50,8 @@ public class AdministratorController {
             group_content = posts.get(0).get(0);
             group_name = posts.get(0).get(1).toUpperCase();
 
-            Query searchInstance = new Query(Criteria.where("ancestors").all(config_name.substring(0, config_name.lastIndexOf('.'))));
+            Query searchInstance = new Query(Criteria.where("ancestors")
+                    .all(config_name.substring(0, config_name.lastIndexOf('.'))));
             MongoModels resultInstance = mongoOperation.findOne(searchInstance, MongoModels.class);
             if (resultInstance != null) {
                 return ResponseEntity.badRequest().body("Collection exists");
@@ -86,7 +87,8 @@ public class AdministratorController {
     }
 
     @PutMapping(path="/delete")
-    public ResponseEntity<String> delete(@RequestBody List<String> data) throws ChangeSetPersister.NotFoundException, IOException {
+    public ResponseEntity<String> delete(@RequestBody List<String> data)
+            throws ChangeSetPersister.NotFoundException, IOException {
 
         System.out.println("\nDelition detected!\n");
         System.out.println("\n"+ data +"\n");

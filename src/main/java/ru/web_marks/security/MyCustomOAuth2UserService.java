@@ -58,26 +58,26 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
 
             if (teacherRepository.findByEmail(_user.getEmail()) != null) {
                 Role teacherRole = roleRepository.findByRole("TEACHER");
-                _user.setRoles(new HashSet<>(Arrays.asList(teacherRole)));
+                _user.setRoles(new HashSet<Role>(Arrays.asList(teacherRole)));
                 authorities.add(new SimpleGrantedAuthority("TEACHER"));
             } else {
                 Role userRole = roleRepository.findByRole("USER");
-                _user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+                _user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
                 authorities.add(new SimpleGrantedAuthority("USER"));
             }
             userRepository.save(_user);
         }
-
-        if (user_temp != null && teacherRepository.findByEmail(user_temp.getEmail()) != null) {
+        else if (teacherRepository.findByEmail(user_temp.getEmail()) != null) {
             Role teacherRole = roleRepository.findByRole("TEACHER");
             if (!user_temp.getRoles().contains(teacherRole)) {
-                user_temp.setRoles(new HashSet<>(Arrays.asList(teacherRole)));
+                user_temp.setRoles(new HashSet<Role>(Arrays.asList(teacherRole)));
                 authorities.add(new SimpleGrantedAuthority("TEACHER"));
             }
             userRepository.save(user_temp);
         }
-
-
+        else {
+            authorities.add(new SimpleGrantedAuthority("USER"));
+        }
 
         return new DefaultOAuth2User(authorities, attributes, "username");
     }
