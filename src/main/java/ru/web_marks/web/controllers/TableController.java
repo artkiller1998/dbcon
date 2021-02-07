@@ -46,6 +46,14 @@ public class TableController {
         return  modelAndView;
     }
 
+    @RequestMapping(value = {"/table"}, method = RequestMethod.GET)
+    public ModelAndView table_view(Principal principal) {
+        ModelAndView modelAndView = fillModel(principal);
+
+        modelAndView.setViewName("table");
+        return modelAndView;
+    }
+
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     public ModelAndView home(Principal principal) {
         ModelAndView modelAndView = fillModel(principal);
@@ -54,13 +62,7 @@ public class TableController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/table"}, method = RequestMethod.GET)
-    public ModelAndView table_view(Principal principal) {
-        ModelAndView modelAndView = fillModel(principal);
 
-        modelAndView.setViewName("table");
-        return modelAndView;
-    }
 
 }
 

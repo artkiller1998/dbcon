@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>Успеваемость</title>
+    <title>Вход администратора</title>
     <meta name="description" content="" />
         <link rel="stylesheet" href="/css/style_s.css" />
 </head>
@@ -19,7 +19,7 @@
 
         <!-- MIDDLE -->
         <div layout:fragment="container">
-            <form class="form-signin" th:action="@{/login}" method="post">
+            <form class="form-signin" th:action="@{/oauth_login}" method="post">
                 <h1 class="h3 mb-3 font-weight-normal text-center">Вход в панель администратора</h1>
                 <div th:if="${param.error}">
                     Неверный логин или пароль.

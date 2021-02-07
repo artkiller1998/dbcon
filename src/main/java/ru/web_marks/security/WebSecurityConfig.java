@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // "/fonts/**" "/**"
                 .authorizeRequests()
-                .antMatchers("/admin", "/login", "/favicon.ico", "/fonts/**").permitAll()
+                .antMatchers("/admin", "/oauth_login", "/favicon.ico", "/fonts/**").permitAll()
                 .antMatchers("/").hasAnyAuthority("USER","TEACHER","ADMIN")
                 .antMatchers( "/signup", "permit_all_url" ).hasAuthority("ADMIN")
                 .antMatchers( "/administrator/load", "/table").hasAnyAuthority("TEACHER","ADMIN")
@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .formLogin()
                 .successHandler(myAuthenticationSuccessHandler())
-                .loginPage("/login").failureUrl("/login?error=true")
+                .loginPage("/oauth_login").failureUrl("/oauth_login?error=true")
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .and()

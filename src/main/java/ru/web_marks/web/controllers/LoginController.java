@@ -61,12 +61,14 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-    public ModelAndView loginOauth(Model model) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("studentsTable");
+//    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+//    public ModelAndView loginOauth(Model model) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("table");
+//
+//        return modelAndView;
+//    }
 
-        return modelAndView;
-    }
+
 
 }
