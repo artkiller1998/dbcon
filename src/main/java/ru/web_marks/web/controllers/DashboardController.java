@@ -1,5 +1,6 @@
 package ru.web_marks.web.controllers;
 
+import java.util.AbstractMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -17,7 +18,10 @@ import ru.web_marks.model.domain.Teacher;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 
 @Controller
 @RequestMapping(value = "dashboard", method = RequestMethod.PUT)
@@ -60,19 +64,25 @@ public class DashboardController {
     @RequestMapping(value = {"/subjects"}, method = RequestMethod.GET)
     public ModelAndView dashboard_subjects(Principal principal) {
         ModelAndView modelAndView = tableController.fillModel(principal);
+        Set<AbstractMap.SimpleEntry<String,String>> subjects_set = new HashSet<>();
 
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
-        List<Student> subjectsList = new ArrayList<>();
+        List<Student> subjectsList;
 
         Query searchInstance = new Query(Criteria.where("ancestors").exists(true));
         subjectsList = mongoOperation.find(searchInstance, Student.class);
-        modelAndView.addObject("subjects_list", subjectsList);
-        modelAndView.addObject("subjects_list_size", subjectsList.size());
         for (Student el : subjectsList) {
-
+            subjects_set.add(new AbstractMap.SimpleEntry<>(el.getSubject(), el.getGroup()));
+        }
+        for (AbstractMap.SimpleEntry<String,String> entry : subjects_set) {
+            //System.out.println(entry.getKey(), entry.getValue());
         }
         System.out.println(subjectsList);
+        System.out.println(subjects_set);
+
+        modelAndView.addObject("subjects_set", subjects_set);
+        modelAndView.addObject("subjects_list_size", subjects_set.size());
         modelAndView.setViewName("/dashboard/subjects_list");
         return modelAndView;
     }

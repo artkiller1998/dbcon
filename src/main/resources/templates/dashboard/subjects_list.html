@@ -24,23 +24,23 @@
             <h2 th:text="|Cписок предметов (${subjects_list_size})|">Список предметов ()</h2>
             <br/>
             <table id="subjects_table" class=
-                    "table table-hover table-teacher" style="width: 100%;">
+                    "table table-hover table-teacher" style="width: 95%;">
                 <thead class="thead-light">
                 <tr>
-                    <th>Id</th>
                     <th>Предмет</th>
-                    <th>Предмет</th>
+                    <th>Группа</th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody style="background-color: rgba(165,177,166,0.55)">
-                <tr th:each="subject : ${subjects_list}">
-                    <td  th:text="${subject.getId()}">Id</td>
-                    <td class="font-weight-bold" th:text="${subject.getGroup()}">Subject</td>
-                    <td class="font-weight-bold" th:text="${subject.getSubject()}">Group</td>
+                <tr th:each="subject : ${subjects_set}">
+<!--                    <td  th:text="${subject.getId()}">Id</td>-->
+                    <td class="font-weight-bold" th:text="${subject.getKey()}">Subject</td>
+                    <td class="font-weight-bold" th:text="${subject.getValue()}">Group</td>
                     <td>
-                        <form th:action="@{/dashboard/subjects/{id}(id=${subject})}" th:method="delete">
-                            <button class="btn-danger rounded" name="id">
+                        <form th:action="@{/administrator/delete/{subject}(subject = ${subject.getKey()})}" th:method="delete">
+                            <button type="submit" class="btn-danger rounded" name="id">
                                 Удалить
                             </button>
                         </form>
