@@ -3,9 +3,8 @@
 */
 package ru.web_marks.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
@@ -19,9 +18,20 @@ public class Student extends MongoModels{
         // выполнение конструктора родителя для инициализации параметров
     }
 
+    public String getSubject() {
+        return ancestors.get(2);
+    }
+
+    public String getGroup() {
+        return  ancestors.get(1);
+    }
+
+    public String getId() {
+        return  this.id;
+    }
 
     public void setInstanceMark(String id,String value) {
-        for ( Task task  :tasks) {
+        for ( Task task  : tasks) {
             for (Mark mark : task.marks) {
                 if (mark.mrk_id.equals(id)) {
                     mark.mrk = value;
@@ -37,15 +47,15 @@ public class Student extends MongoModels{
             InputStreamReader input_csv;
             try {
                 input_csv = new InputStreamReader(new
-                        FileInputStream("src/main/resources/static/csv/" + g_ident + ".csv"), "UTF-8");
+                        FileInputStream("src/main/resources/static/csv/" + g_ident + ".csv"), StandardCharsets.UTF_8);
             }
             catch (FileNotFoundException e) {
                 input_csv = new InputStreamReader(new
-                        FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), "UTF-8");
+                        FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), StandardCharsets.UTF_8);
             }
 
             br = new BufferedReader(input_csv);
-        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         String line = "";
@@ -56,7 +66,7 @@ public class Student extends MongoModels{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String str[] = line.split(";");
+            String[] str = line.split(";");
             for(int i=0;i<str.length;i++){
                 current_group.put(str[0], str[1]);
             }

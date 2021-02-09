@@ -52,6 +52,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         teacherRepository.save(teacher);
     }
 
+    public void deleteTeacher(String id) {
+        teacherRepository.deleteById(id);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(login);

@@ -33,7 +33,7 @@
                     <div class="align-items-start">
 
                         <nav class="nav">
-                            <a class="button17" th:if="${role == 'TEACHER'}" href="/admin" ><span style="color: white">Панель администратора</span><span class="sr-only">(current)</span></a>
+                            <a class="button17" th:if="${role == 'TEACHER'}" href="/dashboard/" ><span style="color: white">Панель администратора</span><span class="sr-only">(current)</span></a>
                             <a class="button17" th:if="${role == 'USER'}" href="/"><span style="color: white">Панель слушателя</span><span class="sr-only">(current)</span></a>
                             <a class="button17 ml-3" th:if="${role == 'TEACHER'}" href="/table"><span style="color: white">Панель преподавателя</span><span class="sr-only">(current)</span></a>
                         </nav>
@@ -45,14 +45,14 @@
                         </li>
                         <nav class="nav" th:if="${currentUser}">
 
-                            <div class="nav" th:if="${fullName} == 'administrator'">
-                                <img class="rounded-circle h--50"
-                                     th:src="@{/favicon.ico}">
-                                <a style="color: whitesmoke" class="nav-link">
-                                    administrator</a>
-                            </div>
+<!--                            <div class="nav" th:if="${fullName} == 'administrator'">-->
+<!--                                <img class="rounded-circle h&#45;&#45;50"-->
+<!--                                     th:src="@{/favicon.ico}">-->
+<!--                                <a style="color: whitesmoke" class="nav-link">-->
+<!--                                    administrator</a>-->
+<!--                            </div>-->
 
-                            <div class="nav" th:if="${fullName} != 'administrator'">
+                            <div class="nav" >
                                 <img class="rounded-circle h--50"
                                      th:src="@{{avatarUrl}(avatarUrl = ${avatarUrl})}">
                                 <a style="color: whitesmoke" class="nav-link" href="/me"
@@ -70,6 +70,17 @@
             <!-- /NAVBAR -->
         </header>
         <!-- /HEADER -->
+
+        <div layout:fragment="extra_navbar" th:if="${fullName} == 'admin'" id="extra_navbar">
+            <!-- EXTRA.NAVBAR -->
+            <nav layout:fragment="extra_navbar" class="nav nav-underline">
+                <a class="nav-link" href="/dashboard/teachers">Преподаватели</a>
+                <a class="nav-link" href="/dashboard/subjects">Предметы</a>
+                <a class="nav-link" href="/dashboard/groups">Группы</a>
+                <a class="nav-link" href="/dashboard/users">Все пользователи</a>
+            </nav>
+            <!-- /EXTRA.NAVBAR -->
+        </div>
 
         <div layout:fragment="container"  id="wrapper_content" class="d-flex flex-fill">
 
