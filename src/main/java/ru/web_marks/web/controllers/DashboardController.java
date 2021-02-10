@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.web_marks.model.Student;
 import ru.web_marks.model.domain.Teacher;
+import ru.web_marks.model.domain.User;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -84,6 +85,43 @@ public class DashboardController {
         modelAndView.addObject("subjects_set", subjects_set);
         modelAndView.addObject("subjects_list_size", subjects_set.size());
         modelAndView.setViewName("/dashboard/subjects_list");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
+    public ModelAndView dashboard_users(Principal principal) {
+        ModelAndView modelAndView = tableController.fillModel(principal);
+        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+        List<User> usersList;
+
+        Query searchInstance = new Query(Criteria.where("login").exists(true));
+        usersList = mongoOperation.find(searchInstance, User.class);
+        modelAndView.addObject("users_list", usersList);
+        System.out.println(usersList);
+
+        //modelAndView.addObject("subjects_set", subjects_set);
+        //modelAndView.addObject("subjects_list_size", subjects_set.size());
+        modelAndView.setViewName("/dashboard/users_list");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/groups"}, method = RequestMethod.GET)
+    public ModelAndView dashboard_groups(Principal principal) {
+        ModelAndView modelAndView = tableController.fillModel(principal);
+
+        Set<String> groups_set = new HashSet<>();
+
+        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+
+        List<Student> subjectsList;
+
+        Query searchInstance = new Query(Criteria.where("ancestors").exists(true));
+        subjectsList = mongoOperation.find(searchInstance, Student.class);
+        for (Student el : subjectsList) {
+            groups_set.add(el.getGroup());
+        }
+        modelAndView.addObject("groups_set", groups_set);
+        modelAndView.setViewName("/dashboard/groups_list");
         return modelAndView;
     }
 
