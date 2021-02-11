@@ -52,7 +52,8 @@ public class AdministratorController {
             group_name = posts.get(0).get(1).toUpperCase();
 
             Query searchInstance = new Query(Criteria.where("ancestors")
-                    .all(config_name.substring(0, config_name.lastIndexOf('.'))));
+                    .all(config_name.substring(0, config_name.lastIndexOf('.'))
+                    , group_name.substring(0, group_name.lastIndexOf('.'))));
             MongoModels resultInstance = mongoOperation.findOne(searchInstance, MongoModels.class);
             if (resultInstance != null) {
                 return ResponseEntity.badRequest().body("Collection exists");
@@ -69,16 +70,19 @@ public class AdministratorController {
         String csvFile = "src\\main\\resources\\static\\csv\\" + group_name;
 
         File f = new File(csvFile);
-        if(!f.exists() || f.isDirectory()) {
-            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
-        }
+//        if(!f.exists() || f.isDirectory()) {
+//            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
+//            f = new File(csvFile);
+//        }
 
         final Path path = Paths.get(csvFile);
 
         if (!Files.isReadable(path) && !Files.isWritable(path) && !Files.isExecutable(path))
         {
+            f.getParentFile().mkdirs();
+            f.createNewFile();
             try (OutputStreamWriter writer =
-                         new OutputStreamWriter(new FileOutputStream(String.valueOf(path)), StandardCharsets.UTF_8))
+                         new OutputStreamWriter(new FileOutputStream(path.toString())))
             {
                 writer.write(group_content);
             }
@@ -87,14 +91,14 @@ public class AdministratorController {
         return ResponseEntity.ok("true");
     }
 
-    @DeleteMapping(path="/delete/{subject}")
-    public RedirectView delete(@PathVariable String subject)
+    @DeleteMapping(path="/delete/{subject}/{year_group}")
+    public RedirectView delete(@PathVariable String subject, @PathVariable String year_group)
             throws ChangeSetPersister.NotFoundException, IOException {
 
         System.out.println("\nDelition detected!\n");
         //System.out.println("\n"+ data +"\n");
         try {
-            Query searchInstance = new Query(Criteria.where("ancestors").all(subject));
+            Query searchInstance = new Query(Criteria.where("ancestors").all(subject, year_group));
             MongoModels resultInstance = mongoOperation.findOne(searchInstance, MongoModels.class);
             if (resultInstance == null) {
                 //return ResponseEntity.badRequest().body("Error");

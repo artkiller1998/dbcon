@@ -82,6 +82,7 @@ public class Student extends MongoModels{
     @Override
     public String toString() {
         String g_ident = ancestors.get(1);
+        //ВЫЗЫВАЕТСЯ всегда, но возможно когда получаем список групп и предметов, это не требуется!
         if (!loaded_gpoups.contains(g_ident)) {
             upload_group(g_ident);
         }

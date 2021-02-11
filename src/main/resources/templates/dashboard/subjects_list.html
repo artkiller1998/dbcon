@@ -39,7 +39,7 @@
                     <td class="font-weight-bold" th:text="${subject.getKey()}">Subject</td>
                     <td class="font-weight-bold" th:text="${subject.getValue()}">Group</td>
                     <td>
-                        <form th:action="@{/administrator/delete/{subject}(subject = ${subject.getKey()})}" th:method="delete">
+                        <form th:action="@{/administrator/delete/{subject}/{year_group}(subject = ${subject.getKey()}, year_group = ${subject.getValue()})}" th:method="delete">
                             <button type="submit" class="btn-danger rounded" name="id">
                                 Удалить
                             </button>
