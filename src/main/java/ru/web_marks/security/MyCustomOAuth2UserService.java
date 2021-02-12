@@ -44,7 +44,8 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
         //authorities.add(new SimpleGrantedAuthority("USER"));
 
 
-
+        Role teacherRole = roleRepository.findByRole("TEACHER");
+        Role userRole = roleRepository.findByRole("USER");
         User user_temp = userRepository.findByLogin((String) user.getAttributes().get("username"));
 
         if(user_temp == null) {
@@ -57,18 +58,17 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             _user.setAvatar_url((String) user.getAttributes().get("avatar_url"));
 
             if (teacherRepository.findByEmail(_user.getEmail()) != null) {
-                Role teacherRole = roleRepository.findByRole("TEACHER");
+
                 _user.setRole(teacherRole);
                 authorities.add(new SimpleGrantedAuthority("TEACHER"));
             } else {
-                Role userRole = roleRepository.findByRole("USER");
+
                 _user.setRole(userRole);
                 authorities.add(new SimpleGrantedAuthority("USER"));
             }
             userRepository.save(_user);
         }
         else if (teacherRepository.findByEmail(user_temp.getEmail()) != null) {
-            Role teacherRole = roleRepository.findByRole("TEACHER");
             if (!user_temp.getRole().getId().equals(teacherRole.getId())) {
                 user_temp.setRole(teacherRole);
             }
@@ -77,6 +77,8 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
         }
         else {
             authorities.add(new SimpleGrantedAuthority("USER"));
+            user_temp.setRole(userRole);
+            userRepository.save(user_temp);
         }
 
         return new DefaultOAuth2User(authorities, attributes, "username");
