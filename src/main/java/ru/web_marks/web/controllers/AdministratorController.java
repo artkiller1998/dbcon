@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import ru.web_marks.security.connection.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
 import ru.web_marks.model.MongoModels;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -82,7 +83,7 @@ public class AdministratorController {
             f.getParentFile().mkdirs();
             f.createNewFile();
             try (OutputStreamWriter writer =
-                         new OutputStreamWriter(new FileOutputStream(path.toString())))
+                         new OutputStreamWriter(new FileOutputStream(path.toString()), StandardCharsets.UTF_8))
             {
                 writer.write(group_content);
             }

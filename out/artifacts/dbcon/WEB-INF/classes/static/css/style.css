@@ -1,0 +1,170 @@
+body {
+
+    background: #24849173;
+    margin: 0;
+    background: url(img/im.jpg);
+    /*background: black;*/
+}
+
+.page_heading {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.container {
+    width: 780px;
+    margin: 0 auto;
+    background: #47acba94;
+    box-shadow: -6px 24px 37px 10px;
+}
+
+.header {
+
+    padding: 45px 0px 20px 40px;
+    /*	border: 4px #248491FF dotted;*/
+    /*text-align: center;*/
+}
+
+.menu {
+    background: #00DDF2;
+    padding: 6px 0 6px 40px;
+}
+
+.menu a {
+    color: #000000;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Arial Narrow", "Myriad Pro";
+
+}
+
+.menu a:hover {
+    background: #6ab7c2;
+    color: white;
+}
+
+aside {
+    float: left;
+    width: 120px;
+    padding: 30px 0 0 40px;
+}
+
+h1 {
+    margin: 0px;
+    color: #444444;
+    font-size: 24px;
+    font-family: "Arial Narrow", "Myriad Pro";
+    font-weight: normal;
+}
+
+h2 {
+
+    color: #000000;
+    font-size: 24px;
+    margin: 20px 0px 5px;
+
+}
+
+.main {
+    margin: 0 0 0 180px;
+    padding: 35px 40px 20px 0;
+    color: #315d5c;
+    font-family: "Georgia";
+}
+
+.main a:hover {
+    color: #444444;
+}
+
+#home_image img {
+    width: 100%
+}
+
+footer {
+    padding: 6px 40px;
+    background: grey;
+    font-family: "Lucida Sans Unicode";
+    color: #444444;
+    font-size: 11px;
+    /*text-decoration: right;*/
+
+}
+
+footer a {
+    text-decoration: none;
+    color: #262626;
+}
+
+.link-title {
+    text-decoration: none;
+    font-size: 36px;
+    color: #444444;
+    font-family: "Times New Roman"
+}
+
+.separator {
+    color: #FFFFFF;
+    font-size: 11px;
+}
+
+/****************	About page style	***************/
+
+#about_page #home_image img {
+    width: 70%;
+    float: left;
+    margin-bottom: 20px;
+    height: 280px;
+}
+
+#about_page .profile_info {
+    float: right;
+    width: 20%;
+    margin: 22px 20px 5px 5px;
+}
+
+#about_page .description {
+    clear: both;
+}
+
+/***********	contact style	**********/
+
+#contact #form {
+    width: 501px;
+    /*	border: 2px solid black;*/
+    padding: 10px 10px 4px 15px;
+    margin: 0 auto;
+    box-shadow: 0px 8px 20px 11px;
+    border-radius: 7px;
+}
+
+#contact .page_heading {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+#contact #form input {
+    width: 100%;
+    border-radius: 5px;
+    height: 28px;
+    background: #315d5c;
+}
+
+#contact #form #message {
+    width: 100%;
+    border-radius: 5px;
+    background: #315d5c;
+}
+
+#contact #form #submit {
+    font-size: x-large;
+    height: 50px;
+    font-family: Arial;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #bdbebe;
+}
+
+input, select, textarea {
+    color: #bdbebe;
+}

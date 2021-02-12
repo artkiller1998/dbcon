@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{default.html}"
+>
+
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Успеваемость</title>
+	<meta name="description" content="" />
+	<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="preload" href="/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/vendor_bundle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+	<link rel="manifest" href="/img/manifest/manifest.json">
+	<meta name="theme-color" content="#377dff">
+	<link rel="stylesheet" href="/css/custom.css">
+</head>
+
+<body class="layout-admin" data-aos-easing="ease-in-out-sine" data-aos-duration="700" data-aos-delay="0">
+		<div id="wrapper" class="d-flex align-items-stretch flex-column">
+			<div id="wrapper_content" layout:fragment="container" class="d-flex flex-fill">
+				<!-- /SIDEBAR -->
+				<!-- MIDDLE -->
+				<div id="middle" class="flex-fill  bg-dark-soft">
+					<!-- start:row -->
+					<div class="row gutters-sm">
+						<!-- start:col: -->
+						<div class="col-12 mb-3">
+							<div class="portlet">
+								<div class="portlet-header border-bottom">
+									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link active bg-secondary-active" id="pills-progeress-tab" data-toggle="pill" href="#pills-progeress" role="tab" aria-controls="pills-progeress" aria-selected="true">Успеваемость</a>
+										</li>
+
+										<li class="nav-item">
+											<a class="nav-link bg-secondary-active" id="pills-downloads-tab" data-toggle="pill" href="#pills-downloads" role="tab" aria-controls="pills-downloads" aria-selected="false" >Загрузить предмет</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link bg-secondary-active" id="pills-delitions-tab" data-toggle="pill" href="#pills-delitions" role="tab" aria-controls="pills-downloads" aria-selected="false" >Удалить предмет</a>
+										</li>
+									</ul>
+								</div>
+								<div class="portlet-body">
+									<div class="tab-content" id="pills-tabContent">
+										<div class="tab-pane fade show active" id="pills-progeress" role="tabpanel" aria-labelledby="pills-progeress-tab">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-label-group mb-1 ml-1">
+														Номер группы
+													</div>
+													<div class="form-label-group mb-3">
+														<input placeholder="Номер группы, например: s163" id="group_number" type="text" value="" class="form-control">
+														<label for="file_path">Например: s163</label>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-label-group mb-1 ml-1">
+														Название предмета и номер семестра
+													</div>
+													<div class="form-label-group mb-3">
+														<input placeholder="Номер группы, например: s163" id="subject_config" type="text" value="" class="form-control">
+														<label for="file_path">Например: bos_2</label>
+													</div>
+													
+												</div>
+											</div>
+											<br>
+											<button type="button" class="btn btn-success" onclick="showTable();">
+												<i class="fi fi-task-list"></i> 
+												Показать таблицу
+											</button>
+											<div id="table_show" class="container no-width py-3">
+												<div id="item_list">
+													<br>
+													<br>
+													<br>
+													<label class="form-checkbox form-checkbox-indigo form-checkbox-bordered">
+														<input id="showColor" type="checkbox" name="checkbox_in" onchange="checkboxChange();">
+														<i></i> Показать выделение цветом
+													</label>
+													<br>
+													<br>
+													<div class="row no-gutters">
+														<div id="forWidUser" class="col-2">
+															<table id="user_table" class="table table-bordered table-hover">
+															</table>
+														</div>
+														<div id="forWid" class="col-10">
+															<div class="scrollable-vertical scrollable-styled-dark">
+																<table id="table"  class="table table-bordered table-hover">
+																</table>
+															</div>
+														</div>
+													</div>
+		  										</div>
+											</div>
+										</div>
+										<div class="tab-pane fade" id="pills-downloads" role="tabpanel" aria-labelledby="pills-downloads-tab">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="input-group">
+													  <div class="custom-file custom-file-secondary">
+													    <input 	name="groupFile"
+													    		type="file"
+													    		data-file-ext=" txt, json, csv"
+													    		data-file-max-size-kb-per-file="30000"
+													    		data-file-ext-err-msg="Допустимый тип:"
+													    		data-file-size-err-item-msg="Файл слишком велик!"
+													    		data-file-size-err-total-msg="Общий допустимый размер превышен!"
+													    		data-file-toast-position="bottom-center"
+													    		data-file-preview-container=".js-file-input-preview-single-container1"
+													    		data-file-preview-img-height="120"
+													    		data-file-preview-show-info="true"
+													    		data-file-btn-clear="a.js-file-upload-clear1"
+
+													    		class="custom-file-input"
+													    		id="groupFile">
+													    <label class="custom-file-label" for="groupFile">Выбрать файл с группой</label>
+													  </div>
+													</div>
+													<div class="js-file-input-preview-single-container1 ml--n6 mr--n6"><!-- preview container --></div>
+													<div class="mt-1">
+														<a href="#" class="hide js-file-upload-clear1 btn btn-light btn-sm">
+															Удалить
+														</a>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="input-group">
+													  <div class="custom-file custom-file-primary">
+													    <input 	name="configFile"
+													    		type="file"
+													    		data-file-ext=" txt, json, csv"
+													    		data-file-max-size-kb-per-file="30000"
+													    		data-file-ext-err-msg="Допустимый тип:"
+													    		data-file-size-err-item-msg="Файл слишком велик!"
+													    		data-file-size-err-total-msg="Общий допустимый размер превышен!"
+													    		data-file-toast-position="bottom-center"
+													    		data-file-preview-container=".js-file-input-preview-single-container2"
+													    		data-file-preview-img-height="120"
+													    		data-file-preview-show-info="true"
+													    		data-file-btn-clear="a.js-file-upload-clear2"
+													    		class="custom-file-input"
+													    		id="configFile">
+													    <label class="custom-file-label" for="configFile">Выбрать файл с конфигурацией предмета</label>
+
+													  </div>
+													</div>
+													<div class="js-file-input-preview-single-container2 ml--n6 mr--n6"><!-- preview container --></div>
+													<div class="mt-1">
+														<a href="#" class="hide js-file-upload-clear2 btn btn-light btn-sm">
+															Удалить
+														</a>
+													</div>
+													
+												</div>
+											</div>
+											<br>
+											<button type="button" class="btn btn-success" onclick="upload();">
+												<i class="fi fi-plus"></i> 
+												Загрузить
+											</button>
+											<br>
+											<br>
+											
+										</div>
+										
+										<div class="tab-pane fade" id="pills-delitions" role="tabpanel" aria-labelledby="pills-delitions-tab">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-label-group mb-1 ml-1">
+														Название предмета и номер семестра / номер группы 
+													</div>
+													<div class="form-label-group mb-3">
+														<input placeholder="Номер группы, например: s163" id="subject_config_del" type="text" value="" class="form-control">
+														<label for="file_path">Например: bos_2</label>
+													</div>
+													
+												</div>
+												<div class="col-lg-6">
+												<div class="form-label-group mb-1 ml-1">
+															Выбор удаляемого файла
+													</div>
+													<div id="sel" class="form-label-group mb-3 portlet">
+														<select id="select_option" class="form-control bs-select">
+															<option value="configFile">Файл конфигурации</option>
+															<option value="groupFile">Файл группы</option>
+														</select>
+														<label for="select_options">Тип файла</label>
+													</div>
+												</div>
+											</div>
+											<br>
+											<button type="button" class="btn btn-youtube" onclick="delition();">
+												<i class="fi fi-minus"></i> Удалить
+											</button>
+											<br>
+											<br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- end:portlet -->
+						</div>
+						<!-- end:col: -->
+					</div>
+					<!-- end:row: -->
+					<!-- doc:end -->
+				</div>
+			</div>
+		</div><!-- /#wrapper -->
+
+		<div layout:fragment="container_js" id="page_js_files">
+			<!-- specific page javascript files here -->
+			<script src="/js/core.js"></script>
+			<script type="text/javascript" src="/js/table.js"></script>
+			<script type="text/javascript" src="/js/vendor_bundle.js"></script>
+		</div>
+</body>
+

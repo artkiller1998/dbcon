@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: User
+Build-Jdk: 11
+Implementation-Title: dbconnector
+Implementation-Version: 1.0.0
+Implementation-Vendor-Id: ru.web_marks
+Main-Class: ${start-class}
+
