@@ -6,6 +6,35 @@ $(".add").click(function() {
     return false;
 });
 
+
+$(".add_mark").click(function() {
+    $("#mark").clone(true).
+    find("input").val("").end()
+        .insertAfter($(this).parent());
+    //$('.task-remove-btn').attr('disabled',false);
+    return false;
+});
+
+// $('#add_mark').on('click', function() {
+//     // while ($(this).val() != $('#form-task > #mark').length) {
+//     //     if ($(this).val() > $('#form-task > #mark').length) {
+//     //         add_mark();
+//     //     }
+//     //     else {
+//     //         remove_mark();
+//     //     }
+//     // }
+//
+//      add_mark();
+//     $(this).val() // get the current value of the input field.
+// });
+
+
+
+$(".remove_mark").click(function() {
+    $(this).parent().remove();
+});
+
 $(".remove").click(function() {
     if ($('#form-task > #task').length == 1) {
         $('.task-remove-btn').attr('disabled',true);
@@ -47,5 +76,4 @@ $(window).on("wheel", function(e) {
         focusedEl.value = value;
     }
 });
-
 
