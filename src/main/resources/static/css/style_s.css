@@ -94,3 +94,7 @@
     background-color: rgba(165,177,166,0.55);
     border: 2px solid rgba(85, 85, 85, 0.35);
 }
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: checkbox;
+}
