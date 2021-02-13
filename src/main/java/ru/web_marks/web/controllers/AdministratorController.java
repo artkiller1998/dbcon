@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.web_marks.security.connection.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
@@ -175,6 +176,13 @@ public class AdministratorController {
 //        return ResponseEntity.ok("true");
 //    }
 
+    @RequestMapping(value = "/create_config", method = RequestMethod.GET)
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView();
 
+        //modelAndView.addObject("role", "USER");
+        modelAndView.setViewName("create_config");
+        return modelAndView;
+    }
 
 }
