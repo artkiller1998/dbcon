@@ -11,15 +11,71 @@ function handleSubmit(event) {
 
     const data = new FormData(event.target);
 
-    const value = Object.fromEntries(data.entries());
-
-    task_names = data.getAll("task_name");
+    // const value = Object.fromEntries(data.entries());
+    //
+    // task_names = data.getAll("task_name");
 
     console.log(JSON.stringify($('form').serializeArray()));
-    console.log(($('form').serializeArray()));
-    console.log({ task_names });
-    console.log({ value });
+    fields = $('form').serializeArray();
+    console.log(fields + fields.length);
+    // $( "#results" ).empty();
+    tasks = [];
+    task = {};
+    marks = [];
+    mark = {};
+    jQuery.each( fields, function( it, field ) {
+        // console.log((field.value));
+        // console.log(JSON.stringify(tasks));
+        // console.log((field.name))
+        // console.log(($('form').serializeArray()));
+        // console.log({ task_names });
+        // console.log({ value });
+        let i;
+        if (field.name == 'task_name') {
+            task = {};
+            marks = [];
+            task._id = field.value;
+            i = it;
+            i++;
+            while (fields[i].name != 'task_name') {
+                mark = {};
+                if (fields[i].name == 'mark_descr') {
+                    mark.descr = fields[i].value;
+                    i++;
+                }
+                if (fields[i].name == 'mark_scale') {
+                    mark.scale = fields[i].value;
+                    i++;
+                }
+                marks.push(mark);
+                if (i >= fields.length)
+                    break;
+            }
+            task.mark = marks;
+            tasks.push(task);
+        }
+
+
+        // $( "#results" ).append( task.value + " " );
+    });
+    console.log(JSON.stringify(tasks));
+
+
+    var json = JSON.stringify(tasks);
+    var blob = new Blob([json], {type: "application/json"});
+    var url  = URL.createObjectURL(blob);
+
+    var a = document.createElement('a');
+    a.download    = "enter_subject_id.json";
+    a.href        = url;
+    a.click();
+    //window.location.href = url;
+    //a.textContent = "Загрузка файла.json";
+
+    document.getElementById('download_button').appendChild(a);
 }
+
+
 
 const form = document.querySelector('form');
 form.addEventListener('submit', handleSubmit);
