@@ -21,15 +21,15 @@
     <div layout:fragment="container">
         <form id="form-task" class="table-center mt--60">
             <p id="task">
-                <label style="font-weight: bold; color: black">Название занятия:</label> <input type="text">
+                <label style="font-weight: bold; color: black">Название занятия:</label> <input name="task_name" type="text">
                 <label class="ml--20">Добавить оценку:</label>
                 <button style="font-size: x-large;"
                         class="add_mark btn-success rounded w--40">+</button>
                 <button id="task-remove-btn" class="remove btn-danger rounded ml--30">Удалить занятие</button>
                 <p id="mark" class="ml--10">
-                    <label>Описание оценки:</label> <input type="text">
+                    <label>Описание оценки:</label> <input name="mark_descr" type="text">
                     <label class="ml--20">Шкала:</label>
-                    <select  class="form-selector-xl h--40 pl--10 pr--10"
+                    <select  class="form-selector-xl h--40 pl--10 pr--10" name="mark_scale"
                              style="text-align: center" size="1">
                         <option value="1">2</option>
                         <option value="2">3</option>
@@ -45,7 +45,7 @@
                 <button class="add btn-success rounded">Добавить занятие</button>
                 <br/>
                 <br/>
-                <button class="btn-indigo rounded">Скачать JSON</button>
+                <button type="submit"  class="btn-indigo rounded">Скачать JSON</button>
             </p>
         </form>
     </div>

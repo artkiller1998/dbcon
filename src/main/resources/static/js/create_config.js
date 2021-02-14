@@ -6,6 +6,53 @@ $(".add").click(function() {
     return false;
 });
 
+function handleSubmit(event) {
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+
+    const value = Object.fromEntries(data.entries());
+
+    task_names = data.getAll("task_name");
+
+    console.log(JSON.stringify($('form').serializeArray()));
+    console.log(($('form').serializeArray()));
+    console.log({ task_names });
+    console.log({ value });
+}
+
+const form = document.querySelector('form');
+form.addEventListener('submit', handleSubmit);
+
+
+// var shipments = [],
+//     task  = {},
+//     _id = {},
+//     mark = {};
+// $(".task").each(function() {
+//     var task = {},
+//         boxes = {};
+//     $(this).children().each(function(){
+//         var boxdata = $(this).data();
+//         mark = {};
+//         $(this).children().each(function(){
+//             var candydata = $(this).data();
+//             mark[candydata["candyid"]] = {
+//                 scale: candydata["color"],
+//                 descr: candydata["flavor"]
+//             };
+//             boxes[boxdata["boxid"]] = candy;
+//         });
+//         //console.log(JSON.stringify(boxes)); // works
+//     });
+//     shipment = {shipment: boxes};
+//     shipments.push(shipment); // for multiples
+// });
+//
+// console.log(JSON.stringify(shipments[0]));
+// console.log(shipments.length);
+
+
 
 $(".add_mark").click(function() {
     $("#mark").clone(true).
@@ -44,7 +91,7 @@ $(".remove").click(function() {
         $(this).parent().remove();
     }
 });
-
+/*
 $(window).on("wheel", function(e) {
     focusedEl = document.activeElement;
     if(focusedEl === excludedEl){
@@ -75,5 +122,5 @@ $(window).on("wheel", function(e) {
         }
         focusedEl.value = value;
     }
-});
+});*/
 
