@@ -56,9 +56,12 @@
                             <div class="nav" >
                                 <img class="rounded-circle h--50"
                                      th:src="@{{avatarUrl}(avatarUrl = ${avatarUrl})}">
-                                <a style="color: whitesmoke" class="nav-link" href="/me"
+                                <a style="color: whitesmoke" class="nav-link"
                                    th:if="${fullName} != 'administrator'"
                                    th:text="${fullName}">che-123-123</a>
+<!--                                <a style="color: whitesmoke" class="nav-link" href="/me"-->
+<!--                                   th:if="${fullName} != 'administrator'"-->
+<!--                                   th:text="${fullName}">che-123-123</a>-->
                             </div>
 
                             <form  th:action="@{/logout}" method="post">

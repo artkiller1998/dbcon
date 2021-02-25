@@ -1,6 +1,9 @@
 package ru.web_marks.web.controllers;
 
-import java.util.AbstractMap;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -18,10 +21,7 @@ import ru.web_marks.model.domain.User;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 
 
 @Controller
@@ -76,11 +76,11 @@ public class DashboardController {
         for (Student el : subjectsList) {
             subjects_set.add(new AbstractMap.SimpleEntry<>(el.getSubject(), el.getGroup()));
         }
-        for (AbstractMap.SimpleEntry<String,String> entry : subjects_set) {
-            //System.out.println(entry.getKey(), entry.getValue());
-        }
-        System.out.println(subjectsList);
-        System.out.println(subjects_set);
+//        for (AbstractMap.SimpleEntry<String,String> entry : subjects_set) {
+//            //System.out.println(entry.getKey(), entry.getValue());
+//        }
+//        System.out.println(subjectsList);
+//        System.out.println(subjects_set);
 
         modelAndView.addObject("subjects_set", subjects_set);
         modelAndView.addObject("subjects_list_size", subjects_set.size());
@@ -111,16 +111,43 @@ public class DashboardController {
 
         Set<String> groups_set = new HashSet<>();
 
-        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+        String[] pathnames;
 
-        List<Student> subjectsList;
+        // Creates a new File instance by converting the given pathname string
+        // into an abstract pathname
+        File f = new File("src/main/resources/static/csv/");
 
-        Query searchInstance = new Query(Criteria.where("ancestors").exists(true));
-        subjectsList = mongoOperation.find(searchInstance, Student.class);
-        for (Student el : subjectsList) {
-            groups_set.add(el.getGroup());
+        FilenameFilter filter = new FilenameFilter() {
+            @Override
+            public boolean accept(File f, String name) {
+                return name.endsWith(".CSV");
+            }
+        };
+
+        // Populates the array with names of files and directories
+        pathnames = f.list(filter);
+
+        for(int i = 0; i < pathnames.length; i++) {
+            pathnames[i] = pathnames[i].split("\\.")[0];
         }
-        modelAndView.addObject("groups_set", groups_set);
+
+        // For each pathname in the pathnames array
+//        for (String pathname : pathnames) {
+//            // Print the names of files and directories
+//            pathname = pathname.split("\\.")[0];
+//        }
+
+        ;
+//        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+
+//        List<Student> subjectsList;
+
+//        Query searchInstance = new Query(Criteria.where("ancestors").exists(true));
+//        subjectsList = mongoOperation.find(searchInstance, Student.class);
+//        for (Student el : subjectsList) {
+//            groups_set.add(el.getGroup());
+//        }
+        modelAndView.addObject("groups_set", pathnames);
         modelAndView.setViewName("/dashboard/groups_list");
         return modelAndView;
     }

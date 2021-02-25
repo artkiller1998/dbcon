@@ -118,6 +118,46 @@ public class AdministratorController {
         return new RedirectView("/dashboard/subjects");
     }
 
+    @DeleteMapping(path="/delete/{year_group}")
+    public RedirectView deleteGroup(@PathVariable String year_group)
+            throws ChangeSetPersister.NotFoundException, IOException {
+
+        System.out.println("\nDelition detected!\n");
+
+        String csvFile = "src\\main\\resources\\static\\csv\\" + year_group + ".CSV";
+
+        File f = new File(csvFile);
+        if(!f.exists() || f.isDirectory()) {
+            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + year_group + ".CSV";
+        }
+
+        Path path  = Paths.get(csvFile);
+
+
+//                try {
+//                    input_csv = new InputStreamReader(new
+//                            FileInputStream(csvFile), "UTF-8");
+//                }
+//                catch (FileNotFoundException e) {
+//                    input_csv = new InputStreamReader(new
+//                            FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), "UTF-8");
+//                }
+        try {
+            if(Files.isRegularFile(path))
+            {
+                Files.delete(path);
+            }
+        }
+
+        catch (Exception exc)
+        {
+            System.out.println("\nDelition error!\n");
+            // return ResponseEntity.badRequest().body("Error");
+        }
+
+        return new RedirectView("/dashboard/groups");
+    }
+
 //    @DeleteMapping(path="/delete")
 //    public ResponseEntity<String> delete(@RequestBody List<String> data)
 //            throws ChangeSetPersister.NotFoundException, IOException {
