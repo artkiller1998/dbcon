@@ -89,4 +89,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
     }
 
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
+    }
 }

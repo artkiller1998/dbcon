@@ -44,7 +44,7 @@
                         <td  th:text="${user.getRole().getRole()}">Роль</td>
 
                         <td>
-                            <form th:action="@{/dashboard/teachers/{id}(id=${user.getId()})}" th:method="delete">
+                            <form th:if="${user.getEmail() != 'admin@1.rus'}" th:action="@{/dashboard/users/{id}(id=${user.getId()})}" th:method="delete">
                                 <button class="btn-danger rounded mine" name="id">
                                     Удалить
                                 </button>

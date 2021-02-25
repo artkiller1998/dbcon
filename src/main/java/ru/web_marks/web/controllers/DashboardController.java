@@ -99,8 +99,6 @@ public class DashboardController {
         modelAndView.addObject("users_list", usersList);
         System.out.println(usersList);
 
-        //modelAndView.addObject("subjects_set", subjects_set);
-        //modelAndView.addObject("subjects_list_size", subjects_set.size());
         modelAndView.setViewName("/dashboard/users_list");
         return modelAndView;
     }
@@ -124,29 +122,12 @@ public class DashboardController {
             }
         };
 
-        // Populates the array with names of files and directories
         pathnames = f.list(filter);
 
         for(int i = 0; i < pathnames.length; i++) {
             pathnames[i] = pathnames[i].split("\\.")[0];
         }
 
-        // For each pathname in the pathnames array
-//        for (String pathname : pathnames) {
-//            // Print the names of files and directories
-//            pathname = pathname.split("\\.")[0];
-//        }
-
-        ;
-//        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-
-//        List<Student> subjectsList;
-
-//        Query searchInstance = new Query(Criteria.where("ancestors").exists(true));
-//        subjectsList = mongoOperation.find(searchInstance, Student.class);
-//        for (Student el : subjectsList) {
-//            groups_set.add(el.getGroup());
-//        }
         modelAndView.addObject("groups_set", pathnames);
         modelAndView.setViewName("/dashboard/groups_list");
         return modelAndView;
@@ -177,6 +158,13 @@ public class DashboardController {
     public ModelAndView deleteTeacher(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/teachers");
         userService.deleteTeacher(id);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    public ModelAndView deleteUser(@PathVariable String id) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/users");
+        userService.deleteUser(id);
         return modelAndView;
     }
 }
