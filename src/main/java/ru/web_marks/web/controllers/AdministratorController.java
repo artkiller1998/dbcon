@@ -166,6 +166,7 @@ public class AdministratorController {
         catch (Exception exc)
         {
             System.out.println("\nDelition error!\n");
+            System.out.println(exc);
             // return ResponseEntity.badRequest().body("Error");
         }
 
