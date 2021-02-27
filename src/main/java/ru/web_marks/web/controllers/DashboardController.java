@@ -5,6 +5,7 @@ import java.io.FilenameFilter;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -36,6 +37,9 @@ public class DashboardController {
 
     @Autowired
     ApplicationContext ctx;
+
+    @Value("${spring.config.profile}:local")
+    public String profile;
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView dashboard(Principal principal) {
@@ -113,7 +117,17 @@ public class DashboardController {
 
         // Creates a new File instance by converting the given pathname string
         // into an abstract pathname
-        File f = new File("src/main/resources/static/csv/");
+
+        String csvFile;
+
+        if (profile.equals("local")) {
+            csvFile = "src/main/resources/static/csv/";
+        }
+        else {
+            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/";
+        }
+
+        File f = new File(csvFile);
 
         FilenameFilter filter = new FilenameFilter() {
             @Override

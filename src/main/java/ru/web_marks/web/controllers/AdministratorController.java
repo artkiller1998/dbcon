@@ -2,6 +2,7 @@ package ru.web_marks.web.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -27,6 +28,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "administrator", method = RequestMethod.PUT)
 public class AdministratorController {
+
+    @Value("${spring.config.profile}:local")
+    public String profile;
 
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
@@ -69,9 +73,16 @@ public class AdministratorController {
             return ResponseEntity.badRequest().body("Error");
         }
 
-        String csvFile = "src\\main\\resources\\static\\csv\\" + group_name;
+        String csvFile;
 
+        if (profile.equals("local")) {
+            csvFile = "src\\main\\resources\\static\\csv\\" + group_name;
+        }
+        else {
+            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
+        }
         File f = new File(csvFile);
+
 //        if(!f.exists() || f.isDirectory()) {
 //            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
 //            f = new File(csvFile);
@@ -124,12 +135,15 @@ public class AdministratorController {
 
         System.out.println("\nDelition detected!\n");
 
-        String csvFile = "src\\main\\resources\\static\\csv\\" + year_group + ".CSV";
+        String csvFile;
 
-        File f = new File(csvFile);
-        if(!f.exists() || f.isDirectory()) {
+        if (profile.equals("local")) {
+            csvFile = "src\\main\\resources\\static\\csv\\" + year_group + ".CSV";
+        }
+        else {
             csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + year_group + ".CSV";
         }
+        File f = new File(csvFile);
 
         Path path  = Paths.get(csvFile);
 
