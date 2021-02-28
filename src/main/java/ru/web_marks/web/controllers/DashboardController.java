@@ -138,11 +138,17 @@ public class DashboardController {
 
         pathnames = f.list(filter);
 
-        for(int i = 0; i < pathnames.length; i++) {
-            pathnames[i] = pathnames[i].split("\\.")[0];
+        if (pathnames != null) {
+            for(int i = 0; i < pathnames.length; i++) {
+                pathnames[i] = pathnames[i].split("\\.")[0];
+            }
+            modelAndView.addObject("groups_count", pathnames.length);
         }
+        else
+            modelAndView.addObject("groups_count", 0);
 
         modelAndView.addObject("groups_set", pathnames);
+
         modelAndView.setViewName("/dashboard/groups_list");
         return modelAndView;
     }
