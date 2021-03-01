@@ -5,9 +5,11 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 
 @Configuration("mongo-config")
+@PropertySource("classpath:application.properties")
 public class MongoConfig extends AbstractMongoConfiguration {
 
     @Value("${spring.data.mongodb.host:127.0.0.1}")

@@ -69,7 +69,7 @@ public class AdministratorController {
         }
         catch (Exception exc)
         {
-            System.out.println("\nLoad error!\n");
+            System.out.println("\nLoad error!\n" + exc);
             return ResponseEntity.badRequest().body("Error");
         }
 

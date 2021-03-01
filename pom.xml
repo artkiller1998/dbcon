@@ -34,6 +34,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 <!--        <java.version>1.8</java.version>-->
+<!--        <start-class>ru.web_marks.Application</start-class>-->
         <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
     </properties>
 
@@ -170,8 +171,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
                 <configuration>
                     <mainClass>ru.web_marks.Application</mainClass>
+
                 </configuration>
             </plugin>
 
