@@ -47,11 +47,11 @@ public class Student extends MongoModels{
             InputStreamReader input_csv;
             try {
                 input_csv = new InputStreamReader(new
-                        FileInputStream("src/main/resources/static/csv/" + g_ident + ".csv"), StandardCharsets.UTF_8);
+                        FileInputStream("src/main/resources/static/csv/" + g_ident + ".CSV"), StandardCharsets.UTF_8);
             }
             catch (FileNotFoundException e) {
                 input_csv = new InputStreamReader(new
-                        FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), StandardCharsets.UTF_8);
+                        FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".CSV"), StandardCharsets.UTF_8);
             }
 
             br = new BufferedReader(input_csv);
