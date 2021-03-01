@@ -7,7 +7,7 @@
     <title layout:title-pattern="$CONTENT_TITLE">Task List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <base href="/dbconnector/">
-<!--    <link rel="stylesheet" th:href="@{css/style_s.css" />-->
+
     <link rel="dns-prefetch" th:href="@{https://fonts.googleapis.com/}">
     <link rel="dns-prefetch" th:href="@{https://fonts.gstatic.com/}">
     <link rel="preconnect" th:href="@{https://fonts.googleapis.com/}">
@@ -19,8 +19,8 @@
     <link rel="manifest" th:href="@{/img/manifest/manifest.json}">
     <meta name="theme-color" content="#377dff">
     <link rel="stylesheet" th:href="@{/css/custom.css}">
-
 </head>
+
 <body class="layout-admin" data-aos-easing="ease-in-out-sine" data-aos-duration="700" data-aos-delay="0">
     <div id="wrapper" class="d-flex align-items-stretch flex-column">
         <!-- HEADER -->
@@ -44,22 +44,12 @@
                         </li>
                         <nav class="nav" th:if="${currentUser}">
 
-<!--                            <div class="nav" th:if="${fullName} == 'administrator'">-->
-<!--                                <img class="rounded-circle h&#45;&#45;50"-->
-<!--                                     th:src="@{/favicon.ico}">-->
-<!--                                <a style="color: whitesmoke" class="nav-link">-->
-<!--                                    administrator</a>-->
-<!--                            </div>-->
-
                             <div class="nav" >
                                 <img class="rounded-circle h--50"
                                      th:src="@{{avatarUrl}(avatarUrl = ${avatarUrl})}">
                                 <a style="color: whitesmoke" class="nav-link"
                                    th:if="${fullName} != 'administrator'"
                                    th:text="${fullName}">che-123-123</a>
-<!--                                <a style="color: whitesmoke" class="nav-link" th:href="@{me"-->
-<!--                                   th:if="${fullName} != 'administrator'"-->
-<!--                                   th:text="${fullName}">che-123-123</a>-->
                             </div>
 
                             <form  th:action="@{/logout}" method="post">
@@ -75,7 +65,7 @@
 
         <div layout:fragment="extra_navbar" th:if="${fullName} == 'admin'" id="extra_navbar">
             <!-- EXTRA.NAVBAR -->
-            <nav layout:fragment="extra_navbar" class="nav nav-underline">
+            <nav layout:fragment="extra_navbar" style="margin-left: 15px;" class="nav nav-underline">
                 <a class="nav-link" th:href="@{/dashboard/teachers}">Преподаватели</a>
                 <a class="nav-link" th:href="@{/dashboard/subjects}">Предметы</a>
                 <a class="nav-link" th:href="@{/dashboard/groups}">Группы</a>

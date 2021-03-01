@@ -2,6 +2,7 @@ package ru.web_marks.web.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -23,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -32,15 +34,14 @@ public class AdministratorController {
     @Value("${spring.config.profile}:local")
     public String profile;
 
+    @Autowired
+    private TableController tableController;
+
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
     @PutMapping(path="/load")
-//    @RequestMapping(
-//            value = "/load",
-//            produces = "application/json",
-//            method = {RequestMethod.GET, RequestMethod.PUT})
     public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException {
 
         System.out.println("\nLoad detected!\n");
@@ -83,11 +84,6 @@ public class AdministratorController {
         }
         File f = new File(csvFile);
 
-//        if(!f.exists() || f.isDirectory()) {
-//            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
-//            f = new File(csvFile);
-//        }
-
         final Path path = Paths.get(csvFile);
 
         if (!Files.isReadable(path) && !Files.isWritable(path) && !Files.isExecutable(path))
@@ -109,7 +105,6 @@ public class AdministratorController {
             throws ChangeSetPersister.NotFoundException, IOException {
 
         System.out.println("\nDelition detected!\n");
-        //System.out.println("\n"+ data +"\n");
         try {
             Query searchInstance = new Query(Criteria.where("ancestors").all(subject, year_group));
             MongoModels resultInstance = mongoOperation.findOne(searchInstance, MongoModels.class);
@@ -123,7 +118,6 @@ public class AdministratorController {
         catch (Exception exc)
         {
             System.out.println("\nDelition error!\n");
-           // return ResponseEntity.badRequest().body("Error");
         }
 
         return new RedirectView("/dashboard/subjects", true);
@@ -147,15 +141,6 @@ public class AdministratorController {
 
         Path path  = Paths.get(csvFile);
 
-
-//                try {
-//                    input_csv = new InputStreamReader(new
-//                            FileInputStream(csvFile), "UTF-8");
-//                }
-//                catch (FileNotFoundException e) {
-//                    input_csv = new InputStreamReader(new
-//                            FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), "UTF-8");
-//                }
         try {
             if(Files.isRegularFile(path))
             {
@@ -174,8 +159,8 @@ public class AdministratorController {
     }
 
     @RequestMapping(value = "/create_config", method = RequestMethod.GET)
-    public ModelAndView login() {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView login(Principal principal) {
+        ModelAndView modelAndView = tableController.fillModel(principal);
 
         //modelAndView.addObject("role", "USER");
         modelAndView.setViewName("create_config");

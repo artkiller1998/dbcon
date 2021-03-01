@@ -38,12 +38,6 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
         Map<String, Object> attributes = user.getAttributes();
         Set<GrantedAuthority> authorities = new HashSet<>(user.getAuthorities());
 
-
-        // At this point, you would load your data (e.g. from database) and modify the authorities as you wish
-        // For the sake of testing, we'll just add the role 'ADMIN' to the user
-        //authorities.add(new SimpleGrantedAuthority("USER"));
-
-
         Role teacherRole = roleRepository.findByRole("TEACHER");
         Role userRole = roleRepository.findByRole("USER");
         User user_temp = userRepository.findByLogin((String) user.getAttributes().get("username"));

@@ -80,11 +80,6 @@ public class DashboardController {
         for (Student el : subjectsList) {
             subjects_set.add(new AbstractMap.SimpleEntry<>(el.getSubject(), el.getGroup()));
         }
-//        for (AbstractMap.SimpleEntry<String,String> entry : subjects_set) {
-//            //System.out.println(entry.getKey(), entry.getValue());
-//        }
-//        System.out.println(subjectsList);
-//        System.out.println(subjects_set);
 
         modelAndView.addObject("subjects_set", subjects_set);
         modelAndView.addObject("subjects_list_size", subjects_set.size());
@@ -156,7 +151,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/teachers", method = RequestMethod.POST)
     public ModelAndView addTeacher(@Valid Teacher teacher, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/teachers");
+        ModelAndView modelAndView = new ModelAndView("redirect:dashboard/teachers");
         Teacher tecaherExists = userService.findTeacherByEmail(teacher.getEmail());
         if (tecaherExists != null) {
             bindingResult
@@ -176,14 +171,14 @@ public class DashboardController {
 
     @RequestMapping(value = "/teachers/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteTeacher(@PathVariable String id) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/teachers");
+        ModelAndView modelAndView = new ModelAndView("redirect:dashboard/teachers");
         userService.deleteTeacher(id);
         return modelAndView;
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable String id) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/users");
+        ModelAndView modelAndView = new ModelAndView("redirect:dashboard/users");
         userService.deleteUser(id);
         return modelAndView;
     }

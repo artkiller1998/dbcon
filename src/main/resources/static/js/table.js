@@ -189,7 +189,7 @@ function saveMarks(elem) {
 			Accept : "text/plain",
 			"Content-Type" : "application/json"
 		},
-		url : '/teacher/'+subjectFile+"/"+groupFile+"/"+elem.attr('data-id'),
+		url : '/dbconnector/teacher/'+subjectFile+"/"+groupFile+"/"+elem.attr('data-id'),
 		method : "PUT",
 		data : elem.html(),
 		dataType : "text",
@@ -231,7 +231,7 @@ function showTable() {
 	subjectFile = subjectFile.toUpperCase()
 	$.ajax({
         //cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
-        url: '/student/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
+        url: '/dbconnector/student/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
         type: "GET",
         data: {
 				subject: subjectFile,
@@ -336,7 +336,7 @@ function delition() {
 					Accept : "text/plain",
 					"Content-Type" : "application/json"
 				},
-				url : '/administrator/delete',
+				url : '/dbconnector/administrator/delete',
 				method : "PUT",
 				data : JSON.stringify(resultInfoFromFiles),
 				dataType : "text",
@@ -381,7 +381,7 @@ function upload() {
           Accept : "text/plain",
           "Content-Type" : "application/json"
         },
-        url : "/administrator/load",
+        url : "/dbconnector/administrator/load",
         method : "PUT",
         data : JSON.stringify(resultInfoFromFiles),
         dataType : "text",

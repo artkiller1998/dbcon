@@ -83,7 +83,7 @@ function showTable() {
 	subjectFile = subjectFile.toUpperCase()
 	$.ajax({
 		//cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
-		url: '/student/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
+		url: '/dbconnector/student/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
 		type: "GET",
 		data: {
 			subject: subjectFile,
