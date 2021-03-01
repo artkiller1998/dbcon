@@ -1,10 +1,12 @@
-<html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>Успеваемость</title>
     <meta name="description" content="" />
-    <base href="/">
+    <base href="/dbconnector/">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -17,7 +19,7 @@
 <!--    <link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">-->
     <link rel="manifest" href="img/manifest/manifest.json">
     <meta name="theme-color" content="#377dff">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" th:href="@{css/custom.css}">
 </head>
 
 
@@ -34,7 +36,7 @@
 
                 <div class="align-items-start">
 
-                    <a class="button17" href="/"><span style="color: white">Панель слушателя</span><span class="sr-only">(current)</span></a>
+                    <a class="button17" th:href="@{/}"><span style="color: white">Панель слушателя</span><span class="sr-only">(current)</span></a>
 
                     <a class="navbar-brand aside-width h-60 d-lg-flex align-lg-items-center">
                         <!-- здесь модно добавть что то, что будет на темно сером фоне сверху -->

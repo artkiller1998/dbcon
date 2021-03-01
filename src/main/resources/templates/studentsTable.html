@@ -9,21 +9,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>Успеваемость</title>
 	<meta name="description" content="" />
-	<meta name="Author" content="mijgvn" />
-	
-	<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link rel="preload" href="/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/css/core.css">
-    <link rel="stylesheet" href="/css/vendor_bundle.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
-<!--	<link rel="shortcut icon" href="../static/favicon.ico?a=1">-->
-<!--	<link rel="apple-touch-icon" href="demo.files/logo/icon_512x512.png">-->
-	<link rel="manifest" href="/img/manifest/manifest.json">
-	<meta name="theme-color" content="#377dff">
-	<link rel="stylesheet" href="/css/custom.css">
+	<base href="/dbconnector">
 </head>	 
 
 <body>
@@ -128,9 +114,9 @@
 	<div layout:fragment="container_js" id="page_js_files">
 		<!-- specific page javascript files here -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script type="text/javascript" src="/js/studentsTable.js"></script>
-		<script type="text/javascript" src="/js/vendor_bundle.js"></script>
-		<script src="/js/core.js"></script>
+		<script type="text/javascript" th:src="@{/js/studentsTable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/vendor_bundle.js}"></script>
+		<script th:src="@{/js/core.js}"></script>
 	</div>
 </div>
 

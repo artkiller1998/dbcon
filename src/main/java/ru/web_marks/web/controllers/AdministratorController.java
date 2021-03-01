@@ -126,7 +126,7 @@ public class AdministratorController {
            // return ResponseEntity.badRequest().body("Error");
         }
 
-        return new RedirectView("/dashboard/subjects");
+        return new RedirectView("/dashboard/subjects", true);
     }
 
     @DeleteMapping(path="/delete/{year_group}")
@@ -170,66 +170,8 @@ public class AdministratorController {
             // return ResponseEntity.badRequest().body("Error");
         }
 
-        return new RedirectView("/dashboard/groups");
+        return new RedirectView("/dashboard/groups", true);
     }
-
-//    @DeleteMapping(path="/delete")
-//    public ResponseEntity<String> delete(@RequestBody List<String> data)
-//            throws ChangeSetPersister.NotFoundException, IOException {
-//
-//        System.out.println("\nDelition detected!\n");
-//        System.out.println("\n"+ data +"\n");
-//        try {
-//            String delition_value = data.get(0);
-//            String delition_type = data.get(1);
-//            System.out.println(delition_value + "\n" + delition_type);
-//            if ( delition_type.equals("configFile") ) {
-//                Query searchInstance = new Query(Criteria.where("ancestors").all(delition_value));
-//                MongoModels resultInstance = mongoOperation.findOne(searchInstance, MongoModels.class);
-//                if (resultInstance == null) {
-//                    return ResponseEntity.badRequest().body("Error");
-//                }
-//                else {
-//                    mongoOperation.remove(searchInstance, MongoModels.class).toString();
-//                }
-//            }
-//            else  {
-//                String csvFile = "src\\main\\resources\\static\\csv\\" + delition_value + ".CSV";
-//
-//                File f = new File(csvFile);
-//                if(!f.exists() || f.isDirectory()) {
-//                    csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + delition_value + ".CSV";
-//                }
-//
-//                Path path  = Paths.get(csvFile);
-//
-//
-////                try {
-////                    input_csv = new InputStreamReader(new
-////                            FileInputStream(csvFile), "UTF-8");
-////                }
-////                catch (FileNotFoundException e) {
-////                    input_csv = new InputStreamReader(new
-////                            FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".csv"), "UTF-8");
-////                }
-//                if(Files.isRegularFile(path))
-//                {
-//                   Files.delete(path);
-//                }
-//                else {
-//                    System.out.println("\nDelition error!\n");
-//                    return ResponseEntity.badRequest().body("Error");
-//                }
-//            }
-//        }
-//        catch (Exception exc)
-//        {
-//            System.out.println("\nDelition error!\n");
-//            return ResponseEntity.badRequest().body("Error");
-//        }
-//
-//        return ResponseEntity.ok("true");
-//    }
 
     @RequestMapping(value = "/create_config", method = RequestMethod.GET)
     public ModelAndView login() {
