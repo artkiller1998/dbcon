@@ -144,6 +144,7 @@ public class AdministratorController {
         try {
             if(Files.isRegularFile(path))
             {
+                System.gc();
                 Files.delete(path);
             }
         }
