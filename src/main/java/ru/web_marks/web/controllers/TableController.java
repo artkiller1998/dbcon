@@ -32,8 +32,6 @@ public class TableController {
     @Autowired
     private RoleRepository roleRepository;
 
-
-
     public ModelAndView fillModel(Principal principal){
         ModelAndView modelAndView = new ModelAndView();
         try {
