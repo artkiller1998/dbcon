@@ -3,24 +3,25 @@ $(function(){
 });
 
 function Color (elem, currentValue, max) {
- 	
+
 	if (max == 10) {
 		max = 9
 		currentValue -= 1
 	}
 	else if (max == 5) {
-		max = 3
-		currentValue -= 2
+		max = 4
+		currentValue -= 1
+		if (currentValue == 1) currentValue = 0
 	}
 	else if (max == 3) {
 		max = 2
 		if (currentValue == "-") currentValue = 0
 		if (currentValue == "*") currentValue = 1
-		if (currentValue == "+") currentValue = 2 
+		if (currentValue == "+") currentValue = 2
 	}
 	else if (max == 2) {
 		if (currentValue == "-") currentValue = 0
-		if (currentValue == "+") currentValue = 2 
+		if (currentValue == "+") currentValue = 2
 	}
 
 	console.log('max',max)
@@ -33,11 +34,11 @@ function Color (elem, currentValue, max) {
 		cur = currentValue
 	}
 
- 	if (currentValue <= (max / 2)) {
- 		changeColor(elem, cur, max / 2, [255,0,0], [255,255,0])	
+	if (currentValue <= (max / 2)) {
+		changeColor(elem, cur, max / 2, [241,23,18], [227,200,0])
 	}
 	else {
-		changeColor(elem, cur, max / 2, [255,255, 0], [0,255,0])
+		changeColor(elem, cur, max / 2, [160,121,67], [76,175,80])
 	}	
 
 }
@@ -61,12 +62,16 @@ function changeColor(elem, currentValue, max , start , end) {
 	G = fromG + currentValue * deltaG;
 	B = fromB + currentValue * deltaB;
 
-	hexR = Number(R).toString(16).padStart(2, '0');
-	hexG = Number(G).toString(16).padStart(2, '0');
-	hexB = Number(B).toString(16).padStart(2, '0');
+	// hexR = Number(R).toString(16).padStart(2, '0');
+	// hexG = Number(G).toString(16).padStart(2, '0');
+	// hexB = Number(B).toString(16).padStart(2, '0');
 
-	$(elem).css('background-color','#'+hexR+hexG+hexB);
-	
+	//$(elem).css('background-color','#'+hexR+hexG+hexB);
+	if (!isNaN(R)) {
+		//$(elem).css('background-color', 'rgba(' + R + ',' + G + ',' + B + ',' + 0.5 + ');');
+		$(elem).css('background-color', 'rgba('+R+','+G+','+B+',0.9)');
+		var rgba='rgb('+R+','+G+','+B+')'
+	}
 }
 
 
@@ -154,6 +159,7 @@ function checkboxChange() {
 	if ($('#showColor')[0].checked) {
 		$('[name="editable"]').each(function(){
 			elem = $(this)
+			$(this).css('font-weight','600');
 			currentValue = elem.html()
 			if (currentValue !== "") {
 				Color(elem, currentValue, elem.attr('value'))	
@@ -163,6 +169,7 @@ function checkboxChange() {
 	else {
 		$('[name="editable"]').each(function(){
 			$(this).css('background-color','#fff');
+			$(this).css('font-weight','normal');
 		})
 	}
 }
