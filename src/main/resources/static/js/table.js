@@ -143,7 +143,6 @@ function editable(el, scale) {
 		e.html('');
 		e.append(val);
 		e.removeClass('p-0');
-		e.attr('value', val)
 		saveMarks(e)
 	}
 	else if (scale == 3) {
@@ -160,7 +159,6 @@ function editable(el, scale) {
 		e.html('');
 		e.append(val);
 		e.removeClass('p-0');
-		e.attr('value', val)
 		saveMarks(e)
 	}
 	else {
@@ -178,7 +176,6 @@ function editable(el, scale) {
 			saveMarks(e)
 		});
 	}
-	
 }
 
 function selectMark(e) {
@@ -229,18 +226,7 @@ function saveMarks(elem) {
 		error : function() {
 			console.log("an error has occurred while putting response!");
 		}
-		// url: 'http://localhost:8080/teacher/'+subjectFile+"/"+groupFile+"/"+String(elem.attr('data-id')), /*название файла, который занимается орабработкой запроса*/
-		// type: "GET",
-        // //contentType: 'text/javascript',
-		// //mark: elem.html()
-		// //contentType: "application/json",
-		// data: JSON.stringify({
-		// 	mark: elem.html()
-		// })
-		//id: String(elem.attr('data-id')),
 	});
-	//newMarks = [elem.attr('data-id'), elem.html()]
-	//console.log(newMarks)
 }
 
 
@@ -249,6 +235,7 @@ function saveMarks(elem) {
 function showTable() {
 
 	//$('#item_list').show()
+
 	groupFile = $('#group_number').val()
 	groupFile = groupFile.toUpperCase()
 
@@ -317,6 +304,9 @@ function showTable() {
 				$('#heightTwoUser').height($('#heightTwo').height())//
 			}
 
+			if ($('#showColor')[0].checked) {
+				checkboxChange()
+			}
         },
         error: function(config) {
 			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
