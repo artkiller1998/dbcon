@@ -61,18 +61,10 @@ function changeColor(elem, currentValue, max , start , end) {
 	G = fromG + currentValue * deltaG;
 	B = fromB + currentValue * deltaB;
 
-	// hexR = Number(R).toString(16).padStart(2, '0');
-	// hexG = Number(G).toString(16).padStart(2, '0');
-	// hexB = Number(B).toString(16).padStart(2, '0');
-
-	//$(elem).css('opacity','0.7');
 	if (!isNaN(R)) {
-		//$(elem).css('background-color', 'rgba(' + R + ',' + G + ',' + B + ',' + 0.5 + ');');
 		$(elem).css('background-color', 'rgba('+R+','+G+','+B+',0.9)');
 		var rgba='rgb('+R+','+G+','+B+')'
 	}
-
-	//$(elem).css('background-color','#'+hexR+hexG+hexB);
 
 }
 
@@ -105,12 +97,9 @@ function editable(el, scale) {
 	console.log(val)
 	//return
 	code = '<div id="sel" class="form-label-group portlet no-height"><select id="select_option" class="form-control bs-select no-height" onchange="selectMark(e);">'
-	// onchange="selectMark(e);"
-	if (scale == 2)
-		code = code + '<option value="+">+</option><option value="-">-</option>'
-	else if (scale == 3)
-		code = code + '<option value="+">+</option><option value="-">-</option><option value="*">*</option>'
-	else if (scale == 5)
+	onchange="selectMark(e);"
+
+	if (scale == 5)
 		code = code + '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>'
 	else if (scale == 10)
 		code = code + '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'
@@ -120,10 +109,11 @@ function editable(el, scale) {
 	if (scale == 100) {
 		code = '<div id="sel" class="form-label-group portlet no-height"><input class="form-control no-height" type="text" id="inputM" value=""/></div>'
 	}
-	//формируем код текстового поля
-	//var code = '<input type="text" id="edit" value="'+val+'" />';
-	//удаляем содержимое ячейки, вставляем в нее сформированное поле   no-height
-	//$(e).empty().append(code);
+
+	if (scale == 2 || scale == 3) {
+		code = '<div id="sel" class="form-label-group portlet no-height"><input class="form-control no-height" value="" type="text" id="inputB"/></div>'
+	}
+
 	e.addClass('p-0')
 	e.html(code)
 
@@ -135,12 +125,43 @@ function editable(el, scale) {
 			var val = $('#inputM').val()	//получаем то, что в поле находится
 			console.log(val)
 			//находим ячейку, опустошаем, вставляем значение из поля
-
 			e.html(val);
 			e.removeClass('p-0');
 			//e.attr('name', 'new')
 			saveMarks(e)
 		});
+	}
+	else if (scale == 2) {
+		e.html(val);
+		if (val == '')
+			val = '+';
+		else if (val == '-')
+			val = '+'
+		else
+			val = '-'
+		//$('#inputB').val(val)
+		e.html('');
+		e.append(val);
+		e.removeClass('p-0');
+		e.attr('value', val)
+		saveMarks(e)
+	}
+	else if (scale == 3) {
+		e.html(val);
+		if (val == '')
+			val = '+';
+		else if (val == '+')
+			val = '*'
+		else if (val == '-')
+			val = '+'
+		else
+			val = '-'
+		//$('#inputB').val(val)
+		e.html('');
+		e.append(val);
+		e.removeClass('p-0');
+		e.attr('value', val)
+		saveMarks(e)
 	}
 	else {
 		$('#select_option').val(val)
