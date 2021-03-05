@@ -170,7 +170,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/teachers/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteTeacher(@PathVariable String id) {
-        ModelAndView modelAndView = new ModelAndView("redirect:");
+        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/teachers");
         userService.deleteTeacher(id);
         return modelAndView;
     }

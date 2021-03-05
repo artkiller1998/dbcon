@@ -70,13 +70,16 @@ public class Application extends SpringBootServletInitializer {
                 roleRepository.save(newUserRole);
             }
 
-            Teacher teacher = teacherRepository.findByEmail("artkiller1998@1.ru");
-            if (teacher == null) {
-                Teacher newTeacher = new Teacher();
-                newTeacher.setEmail("artkiller1998@1.ru");
-                teacherRepository.save(newTeacher);
-            }
+            //Teacher аккаунт по умолчанию
+//            Teacher teacher = teacherRepository.findByEmail("artkiller1998@1.ru");
+//            if (teacher == null) {
+//                Teacher newTeacher = new Teacher();
+//                newTeacher.setEmail("artkiller1998@1.ru");
+//                teacherRepository.save(newTeacher);
+//            }
 
+            //Admin аккаунт по умолчанию
+            //!(Email, Login) hardcoded in html thymeleaf!
             User user = userRepository.findByLogin("admin");
             if (user == null) {
                 User newUser = new User();

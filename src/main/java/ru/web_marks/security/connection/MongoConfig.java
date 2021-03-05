@@ -3,13 +3,22 @@ package ru.web_marks.security.connection;
 import com.mongodb.MongoClient;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.PropertiesPropertySource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Properties;
 
 @Configuration("mongo-config")
-@PropertySource("classpath:application.properties")
+@PropertySource(value = "classpath:application.properties")
 public class MongoConfig extends AbstractMongoConfiguration {
 
     @Value("${spring.data.mongodb.host:127.0.0.1}")
@@ -37,6 +46,13 @@ public class MongoConfig extends AbstractMongoConfiguration {
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
+    }
+
+    @Bean
+    public FilterRegistrationBean HiddenHttpMethodFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());
+        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
+        return filterRegistrationBean;
     }
 
 }

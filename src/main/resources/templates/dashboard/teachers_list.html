@@ -52,7 +52,7 @@
                         <td  th:text="${teacher.getId()}">Id</td>
                         <td class="font-weight-bold" th:text="${teacher.getEmail()}">Email</td>
                         <td>
-                            <form th:action="@{/dashboard/teachers/{id}(id=${teacher.getId()})}" th:method="delete">
+                            <form th:method="delete" th:action="@{/dashboard/teachers/{id}(id=${teacher.getId()})}">
                                 <button class="btn-danger rounded" name="id">
                                     Удалить
                                 </button>
