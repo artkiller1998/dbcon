@@ -80,7 +80,7 @@ public class AdministratorController {
             csvFile = "src\\main\\resources\\static\\csv\\" + group_name;
         }
         else {
-            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + group_name;
+            csvFile = "../webapps/dbconnector/WEB-INF/classes/static/csv/" + group_name;
         }
         File f = new File(csvFile);
 
@@ -135,7 +135,7 @@ public class AdministratorController {
             csvFile = "src\\main\\resources\\static\\csv\\" + year_group + ".CSV";
         }
         else {
-            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/" + year_group + ".CSV";
+            csvFile = "../webapps/dbconnector/WEB-INF/classes/static/csv/" + year_group + ".CSV";
         }
         File f = new File(csvFile);
 

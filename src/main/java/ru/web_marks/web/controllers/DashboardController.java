@@ -119,7 +119,7 @@ public class DashboardController {
             csvFile = "src/main/resources/static/csv/";
         }
         else {
-            csvFile = "../webapps/ROOT/WEB-INF/classes/static/csv/";
+            csvFile = "../webapps/dbconnector/WEB-INF/classes/static/csv/";
         }
 
         File f = new File(csvFile);
@@ -177,7 +177,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable String id) {
-        ModelAndView modelAndView = new ModelAndView("redirect:");
+        ModelAndView modelAndView = new ModelAndView("redirect:redirect:/dashboard/users");
         userService.deleteUser(id);
         return modelAndView;
     }
