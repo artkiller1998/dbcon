@@ -23,8 +23,8 @@ function Color (elem, currentValue, max) {
 		if (currentValue == "+") currentValue = 2 
 	}
 
-	console.log('max',max)
-	console.log('currentValue',currentValue)
+	//console.log('max',max)
+	//console.log('currentValue',currentValue)
 
 	if (currentValue > (max / 2)) {
 		cur = currentValue - (max / 2)
@@ -71,7 +71,7 @@ function changeColor(elem, currentValue, max , start , end) {
 $(document).keyup(function(e) {
 	if (e.key === "Enter" || e.keyCode === 13) {
 		var val = $('#inputM').val()	//получаем то, что в поле находится
-		console.log(val)
+		//console.log(val)
 		//находим ячейку, опустошаем, вставляем значение из поля
 		elem = $('#inputM').closest('td');
 		elem.removeClass('p-0');
@@ -91,10 +91,10 @@ function editable(el, scale) {
 
 	//if(elm_name == 'input')	{return false;}
 	var val = e.html();	//получаем значение ячейки
-	console.log($(val))
+	//console.log($(val))
 	if ($(val)[0] && $(val)[0].tagName == 'DIV')
 		return false
-	console.log(val)
+	//console.log(val)
 	//return
 	code = '<div id="sel" class="form-label-group portlet no-height"><select id="select_option" class="form-control bs-select no-height" onchange="selectMark(e);">'
 	onchange="selectMark(e);"
@@ -123,7 +123,7 @@ function editable(el, scale) {
 		$('#inputM').focus();
 		$('#inputM').blur(function()	{	//устанавливаем обработчик
 			var val = $('#inputM').val()	//получаем то, что в поле находится
-			console.log(val)
+			//console.log(val)
 			//находим ячейку, опустошаем, вставляем значение из поля
 			e.html(val);
 			e.removeClass('p-0');
@@ -168,7 +168,7 @@ function editable(el, scale) {
 		$('#select_option').focus();
 		$('#select_option').blur(function()	{	//устанавливаем обработчик
 			var val = $('#select_option option:selected').text()	//получаем то, что в поле находится
-			console.log(val)
+			//console.log(val)
 			//находим ячейку, опустошаем, вставляем значение из поля
 			e.html(val);
 			e.removeClass('p-0');
@@ -180,7 +180,7 @@ function editable(el, scale) {
 
 function selectMark(e) {
 	var val = $('#select_option option:selected').text()	//получаем то, что в поле находится
-	console.log(val)
+	//console.log(val)
 	//находим ячейку, опустошаем, вставляем значение из поля
 	$(e).closest('td').html(val);
 	$(e).closest('td').removeClass('p-0');
@@ -201,8 +201,8 @@ function saveMarks(elem) {
 	groupFile = $('#group_number').val()
 
 	subjectFile = $('#subject_config').val()
-	console.log($('#group_number'))
-	console.log(subjectFile)
+	//console.log($('#group_number'))
+	//console.log(subjectFile)
 
 	var token = $('#csrfToken').val();
 	var header = $('#csrfHeader').val();
@@ -220,11 +220,11 @@ function saveMarks(elem) {
 		dataType : "text",
 		contentType : "application/json; charset=utf-8",
 		success : function(data) {
-			console.log(data);
-			console.log("Instance has been saved!");
+			//console.log(data);
+			//console.log("Instance has been saved!");
 		},
 		error : function() {
-			console.log("an error has occurred while putting response!");
+			//console.log("an error has occurred while putting response!");
 		}
 	});
 }
@@ -240,8 +240,8 @@ function showTable() {
 	groupFile = groupFile.toUpperCase()
 
 	subjectFile = $('#subject_config').val()
-	console.log($('#group_number'))
-	console.log(subjectFile)
+	//console.log($('#group_number'))
+	//console.log(subjectFile)
 
 	subjectFile = subjectFile.toUpperCase()
 	$.ajax({
@@ -260,7 +260,7 @@ function showTable() {
 			}
 			else {
 				$('#item_list').show()
-				console.log(config)
+				//console.log(config)
 				config=JSON.parse(config)
 				user_table = '<tr id="heightOneUser"><td name="user"></td></tr><tr id="heightTwoUser"><td name="user"></td></tr>'
 				table = '<tr id="heightOne">'
@@ -289,7 +289,7 @@ function showTable() {
 							wid = 91 / countCol
 							//"'+config[i]['tasks'][j]['marks'][k]['date']+'"
 
-							//console.log(arrScale[j][1])
+							////console.log(arrScale[j][1])
 							///onmousedown="getDate(\''+config[i]['tasks'][j]['marks'][k]['date']+'\');"   
 							table = table + '<td name="editable" data-id="'+config[i]['tasks'][j]['marks'][k]['mrk_id']+'" width="'+wid+'%" value="'+config[i]['tasks'][j]['marks'][k]['scale']+'" onclick="editable(this, '+config[i]['tasks'][j]['marks'][k]['scale']+');" data-toggle="tooltip" data-placement="top" title="Оценка поставлена: '+config[i]['tasks'][j]['marks'][k]['date']+'">'+config[i]['tasks'][j]['marks'][k]['mark']+'</td>'
 							//data-name="'+config[i]['fname']+'" data-descr="'+config[i]['tasks'][j]['marks'][k]['descr']+'" data-lesson="'+config[i]['tasks'][j]['lesson']+'" 
@@ -323,7 +323,7 @@ function getDate(date) {
 
 function checkboxChange() {
 
-	console.log($('#showColor')[0].checked)
+	//console.log($('#showColor')[0].checked)
 	if ($('#showColor')[0].checked) {
 
 
@@ -354,7 +354,7 @@ function delition() {
 	arrGroup = [subjectFile, $('#select_option option:selected').val()]
 	
 	resultInfoFromFiles = arrGroup
-	console.log(resultInfoFromFiles)
+	//console.log(resultInfoFromFiles)
 	
 	$.ajax({
 				headers : {
@@ -391,15 +391,15 @@ function upload() {
     reader1.readAsText(tfile1);
     reader1.onload = function(el)
     {
-      console.log('3')
+      //console.log('3')
       str1 = el.target.result;
 		arrConf = [str1, $('input[name="configFile"]').val().match(/fakepath\\([\w\.]+)/)[1].toUpperCase(), $('input[name="configFile"]').val().match(/\.(\w+)/)[1]]
         //resultInfoFromFiles.push("configFile")
 
       resultInfoFromFiles = [arrGroup,arrConf]
-      console.log(resultInfoFromFiles)
+      //console.log(resultInfoFromFiles)
 
-      console.log(JSON.stringify(resultInfoFromFiles))
+      //console.log(JSON.stringify(resultInfoFromFiles))
 
       $.ajax({
         headers : {

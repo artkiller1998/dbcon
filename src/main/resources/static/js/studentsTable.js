@@ -24,8 +24,8 @@ function Color (elem, currentValue, max) {
 		if (currentValue == "+") currentValue = 2
 	}
 
-	console.log('max',max)
-	console.log('currentValue',currentValue)
+	//console.log('max',max)
+	//console.log('currentValue',currentValue)
 
 	if (currentValue > (max / 2)) {
 		cur = currentValue - (max / 2)
@@ -82,8 +82,8 @@ function showTable() {
 	groupFile = groupFile.toUpperCase()
 
 	subjectFile = $('#subject_config').val()
-	console.log($('#group_number'))
-	console.log(subjectFile)
+	//console.log($('#group_number'))
+	//console.log(subjectFile)
 
 	subjectFile = subjectFile.toUpperCase()
 	$.ajax({
@@ -102,7 +102,7 @@ function showTable() {
 			}
 			else {
 				$('#item_list').show()
-				console.log(config)
+				//console.log(config)
 				config=JSON.parse(config)
 				user_table = '<tr id="heightOneUser"><td name="user"></td></tr><tr id="heightTwoUser"><td name="user"></td></tr>'
 				table = '<tr id="heightOne">'
@@ -131,7 +131,7 @@ function showTable() {
 							wid = 91 / countCol
 							//"'+config[i]['tasks'][j]['marks'][k]['date']+'"
 
-							//console.log(arrScale[j][1])
+							////console.log(arrScale[j][1])
 							///onmousedown="getDate(\''+config[i]['tasks'][j]['marks'][k]['date']+'\');"
 							table = table + '<td name="editable" data-id="'+config[i]['tasks'][j]['marks'][k]['mrk_id']+'" width="'+wid+'%" value="'+config[i]['tasks'][j]['marks'][k]['scale']+'" onclick="editable(this, '+config[i]['tasks'][j]['marks'][k]['scale']+');" data-toggle="tooltip" data-placement="top" title="Оценка поставлена: '+config[i]['tasks'][j]['marks'][k]['date']+'">'+config[i]['tasks'][j]['marks'][k]['mark']+'</td>'
 							//data-name="'+config[i]['fname']+'" data-descr="'+config[i]['tasks'][j]['marks'][k]['descr']+'" data-lesson="'+config[i]['tasks'][j]['lesson']+'"
@@ -155,7 +155,7 @@ function showTable() {
 }
 
 function checkboxChange() {
-	console.log($('#showColor')[0].checked)
+	//console.log($('#showColor')[0].checked)
 	if ($('#showColor')[0].checked) {
 		$('[name="editable"]').each(function(){
 			elem = $(this)
