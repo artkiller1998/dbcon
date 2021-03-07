@@ -51,7 +51,7 @@ public class Student extends MongoModels{
             }
             catch (FileNotFoundException e) {
                 input_csv = new InputStreamReader(new
-                        FileInputStream("../webapps/ROOT/WEB-INF/classes/static/csv/" + g_ident + ".CSV"), StandardCharsets.UTF_8);
+                        FileInputStream("../webapps/dbconnector/WEB-INF/classes/static/csv/" + g_ident + ".CSV"), StandardCharsets.UTF_8);
             }
 
             br = new BufferedReader(input_csv);

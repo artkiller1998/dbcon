@@ -88,7 +88,7 @@ public class Application extends SpringBootServletInitializer {
                 newUser.setFullname("admin");
                 newUser.setEmail("admin@1.rus");
                 newUser.setPassword(bCryptPasswordEncoder.encode("a"));
-                newUser.setAvatar_url("/dbconnector/favicon.ico");
+                newUser.setAvatar_url("/dbconnector/static/favicon.ico");
                 newUser.setRole(newAdminRole);
                 userRepository.save(newUser);
             }

@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // "/fonts/**" "/**"
                 .authorizeRequests()
-                .antMatchers("/admin", "/oauth_login", "/favicon.ico", "/fonts/**").permitAll()
+                .antMatchers("/admin", "/oauth_login").permitAll()
                 .antMatchers("/").hasAnyAuthority("USER","TEACHER","ADMIN")
                 .antMatchers( "/signup", "permit_all_url", "/dashboard/**" ).hasAuthority("ADMIN")
                 .antMatchers( "/administrator/load", "/table").hasAnyAuthority("TEACHER","ADMIN")
@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/favicon.ico");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**" , "/fonts/**");
     }
 
 }
