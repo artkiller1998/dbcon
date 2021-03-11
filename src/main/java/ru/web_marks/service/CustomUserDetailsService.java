@@ -36,8 +36,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByLogin(login);
     }
 
-    public Teacher findTeacherByEmail(String email) {
-        return teacherRepository.findByEmail(email);
+    public Teacher findTeacherByLogin(String login) {
+        return teacherRepository.findByLogin(login);
     }
 
     public void saveUser(User user) {

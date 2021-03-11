@@ -17,7 +17,7 @@ public class Teacher {
     private String id;
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
 
-    private String email;
+    private String login;
 
     public String getId() {
         return id;
@@ -27,11 +27,11 @@ public class Teacher {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

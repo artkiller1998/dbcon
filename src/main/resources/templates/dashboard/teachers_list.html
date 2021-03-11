@@ -8,7 +8,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>Вход администратора</title>
     <meta name="description" content="" />
-    <link rel="stylesheet" th:href="@{/css/style_s.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/style_s.css}" />
 </head>
 
 <body>
@@ -27,9 +27,9 @@
                     <form th:action="@{/dashboard/teachers}" method="post">
                         <div class="div-inline">
                             <div class="div-inline-t">
-                                    <label for="inputEmail" class="sr-only">Email address</label>
-                                    <input type="email" name="email" id="inputEmail"
-                                           class="form-control div-inline" placeholder="Email" required="" />
+                                    <label for="inputLogin" class="sr-only">Login</label>
+                                    <input type="login" name="login" id="inputLogin"
+                                           class="form-control div-inline" placeholder="Login" required="" />
                             </div>
                             <button class="btn-success div-inline rounded">
                                 Добавить
@@ -43,14 +43,14 @@
                     <thead class="thead-light">
                     <tr>
                         <th>Id</th>
-                        <th>Email</th>
+                        <th>Login</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody style="background-color: rgba(165,177,166,0.55)">
                     <tr th:each="teacher : ${teachers_list}">
                         <td  th:text="${teacher.getId()}">Id</td>
-                        <td class="font-weight-bold" th:text="${teacher.getEmail()}">Email</td>
+                        <td class="font-weight-bold" th:text="${teacher.getLogin()}">Login</td>
                         <td>
                             <form th:method="delete" th:action="@{/dashboard/teachers/{id}(id=${teacher.getId()})}">
                                 <button class="btn-danger rounded" name="id">

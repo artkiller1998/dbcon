@@ -51,7 +51,7 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             _user.setLogin((String) user.getAttributes().get("username"));
             _user.setAvatar_url((String) user.getAttributes().get("avatar_url"));
 
-            if (teacherRepository.findByEmail(_user.getEmail()) != null) {
+            if (teacherRepository.findByLogin(_user.getLogin()) != null) {
 
                 _user.setRole(teacherRole);
                 authorities.add(new SimpleGrantedAuthority("TEACHER"));
@@ -62,7 +62,7 @@ public class MyCustomOAuth2UserService extends DefaultOAuth2UserService {
             }
             userRepository.save(_user);
         }
-        else if (teacherRepository.findByEmail(user_temp.getEmail()) != null) {
+        else if (teacherRepository.findByLogin(user_temp.getLogin()) != null) {
             if (!user_temp.getRole().getId().equals(teacherRole.getId())) {
                 user_temp.setRole(teacherRole);
             }

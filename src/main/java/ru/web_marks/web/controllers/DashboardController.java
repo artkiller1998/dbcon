@@ -57,7 +57,7 @@ public class DashboardController {
 
         List<Teacher> teacherList;
 
-        Query searchInstance = new Query(Criteria.where("email").exists(true));
+        Query searchInstance = new Query(Criteria.where("login").exists(true));
         teacherList = mongoOperation.find(searchInstance, Teacher.class);
         modelAndView.addObject("teachers_list", teacherList);
         System.out.println(teacherList);
@@ -152,10 +152,10 @@ public class DashboardController {
     @RequestMapping(value = "/teachers", method = RequestMethod.POST)
     public ModelAndView addTeacher(@Valid Teacher teacher, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView("redirect:teachers/");
-        Teacher tecaherExists = userService.findTeacherByEmail(teacher.getEmail());
+        Teacher tecaherExists = userService.findTeacherByLogin(teacher.getLogin());
         if (tecaherExists != null) {
             bindingResult
-                    .rejectValue("email", "error.user",
+                    .rejectValue("login", "error.user",
                             "There is already a user registered with the username provided");
         }
         if (bindingResult.hasErrors()) {
@@ -177,7 +177,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable String id) {
-        ModelAndView modelAndView = new ModelAndView("redirect:redirect:/dashboard/users");
+        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/users");
         userService.deleteUser(id);
         return modelAndView;
     }
