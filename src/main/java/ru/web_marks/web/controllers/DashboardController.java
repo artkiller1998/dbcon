@@ -181,4 +181,16 @@ public class DashboardController {
         userService.deleteUser(id);
         return modelAndView;
     }
+
+    @RequestMapping(value = {"/collections_clear/users"}, method = RequestMethod.GET)
+    public void usersClear(Principal principal) {
+        System.out.println("result = " + userService.deleteUsers());
+    }
+
+    @RequestMapping(value = {"/collections_clear/teachers"}, method = RequestMethod.GET)
+    public void collectionsClear(Principal principal) {
+        System.out.println("result = " + userService.deleteTeachers());
+    }
+
+
 }

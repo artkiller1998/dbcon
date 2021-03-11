@@ -89,6 +89,17 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
     }
 
+    public boolean deleteTeachers() {
+        teacherRepository.deleteAll();
+        return true;
+    }
+
+
+    public boolean deleteUsers() {
+        userRepository.deleteAll();
+        return true;
+    }
+
     public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
