@@ -1,5 +1,6 @@
 package ru.web_marks.service;
 
+import ru.web_marks.model.Student;
 import ru.web_marks.model.domain.Role;
 import ru.web_marks.model.domain.Teacher;
 import ru.web_marks.model.domain.User;
@@ -31,6 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private TeacherRepository teacherRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     public User findUserByLogin(String login) {
         return userRepository.findByLogin(login);
@@ -75,16 +77,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         return grantedAuthorities;
     }
 
-//    public List<Role> getUserRole(Set<Role> userRoles) {
-//        Set<Role> roles = new HashSet<>();
-//        userRoles.forEach((role) -> {
-//            roles.add(new SimpleGrantedAuthority(role.getRole()));
-//        });
-//
-//        List<Role> grantedRoles = new ArrayList<Role>(roles);
-//        return grantedRoles;
-//    }
-
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
     }
@@ -93,7 +85,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         teacherRepository.deleteAll();
         return true;
     }
-
 
     public boolean deleteUsers() {
         userRepository.deleteAll();

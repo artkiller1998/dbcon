@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import ru.web_marks.model.Student;
 import ru.web_marks.security.connection.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
 import ru.web_marks.model.MongoModels;
@@ -107,11 +108,12 @@ public class AdministratorController {
         System.out.println("\nDelition detected!\n");
         try {
             Query searchInstance = new Query(Criteria.where("ancestors").all(subject, year_group));
-            MongoModels resultInstance = mongoOperation.findOne(searchInstance, MongoModels.class);
+            Student resultInstance = mongoOperation.findOne(searchInstance, Student.class);
             if (resultInstance == null) {
                 //return ResponseEntity.badRequest().body("Error");
             }
             else {
+
                 mongoOperation.remove(searchInstance, MongoModels.class).toString();
             }
         }
@@ -146,6 +148,9 @@ public class AdministratorController {
             {
                 System.gc();
                 Files.delete(path);
+                Query searchInstance = new Query(Criteria.where("ancestors").all(year_group));
+                Student resultInstance = mongoOperation.findOne(searchInstance, Student.class);
+                resultInstance.delGroup(year_group);
             }
         }
 

@@ -26,6 +26,13 @@ public class Student extends MongoModels{
         return  ancestors.get(1);
     }
 
+    public void delGroup(String group) {
+        if (loaded_gpoups.contains(group)) {
+            loaded_gpoups.remove(group);
+            current_group.clear();
+        }
+    }
+
     public String getId() {
         return  this.id;
     }
@@ -82,6 +89,7 @@ public class Student extends MongoModels{
     @Override
     public String toString() {
         String g_ident = ancestors.get(1);
+        System.out.println("lg" + loaded_gpoups + "cg" + current_group);
         //ВЫЗЫВАЕТСЯ всегда, но возможно когда получаем список групп и предметов, это не требуется!
         if (!loaded_gpoups.contains(g_ident)) {
             upload_group(g_ident);
