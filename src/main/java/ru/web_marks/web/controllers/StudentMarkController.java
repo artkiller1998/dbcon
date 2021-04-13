@@ -23,6 +23,7 @@ public class StudentMarkController {
     @GetMapping("/{subject}/{year_group}")
     public String list(@PathVariable String subject , @PathVariable String year_group )
             throws ChangeSetPersister.NotFoundException {
+        System.out.println("[INFO] StudentMarkController list -- get marks in json\n");
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
         return mongoOperation.find(searchInstance, Student.class).toString();
     }

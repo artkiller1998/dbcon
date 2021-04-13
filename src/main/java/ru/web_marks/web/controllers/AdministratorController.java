@@ -44,9 +44,7 @@ public class AdministratorController {
 
     @PutMapping(path="/load")
     public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException {
-
-        System.out.println("\nLoad detected!\n");
-        System.out.println("\n"+ data +"\n");
+        System.out.println("[INFO] AdministratorController update -- upload groups\n");
         String group_name;
         String group_content;
         try {
@@ -71,7 +69,7 @@ public class AdministratorController {
         }
         catch (Exception exc)
         {
-            System.out.println("\nLoad error!\n" + exc);
+            System.out.println("[ERROR] AdministratorController update -- upload error\n");
             return ResponseEntity.badRequest().body("Error");
         }
 
@@ -105,7 +103,7 @@ public class AdministratorController {
     public RedirectView delete(@PathVariable String subject, @PathVariable String year_group)
             throws ChangeSetPersister.NotFoundException, IOException {
 
-        System.out.println("\nDelition detected!\n");
+        System.out.println("[INFO] AdministratorController delete -- delete subject\n");
         try {
             Query searchInstance = new Query(Criteria.where("ancestors").all(subject, year_group));
             Student resultInstance = mongoOperation.findOne(searchInstance, Student.class);
@@ -119,7 +117,7 @@ public class AdministratorController {
         }
         catch (Exception exc)
         {
-            System.out.println("\nDelition error!\n");
+            System.out.println("[ERROR] AdministratorController delete -- delete subject error\n");
         }
 
         return new RedirectView("/dashboard/subjects", true);
@@ -128,9 +126,7 @@ public class AdministratorController {
     @DeleteMapping(path="/delete/{year_group}")
     public RedirectView deleteGroup(@PathVariable String year_group)
             throws ChangeSetPersister.NotFoundException, IOException {
-
-        System.out.println("\nDelition detected!\n");
-
+        System.out.println("[INFO] AdministratorController deleteGroup -- delete groups\n");
         String csvFile;
 
         if (profile.equals("local")) {
@@ -156,7 +152,7 @@ public class AdministratorController {
 
         catch (Exception exc)
         {
-            System.out.println("\nDelition error!\n");
+            System.out.println("[ERROR] AdministratorController deleteGroup -- delete groups error\n");
             System.out.println(exc);
             // return ResponseEntity.badRequest().body("Error");
         }

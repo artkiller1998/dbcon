@@ -51,6 +51,7 @@ public class DashboardController {
 
     @RequestMapping(value = {"/teachers"}, method = RequestMethod.GET)
     public ModelAndView dashboard_teachers(Principal principal) {
+        System.out.println("[INFO] DashboardController dashboard_teachers -- show teachers\n");
         ModelAndView modelAndView = tableController.fillModel(principal);
 
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
@@ -60,7 +61,6 @@ public class DashboardController {
         Query searchInstance = new Query(Criteria.where("login").exists(true));
         teacherList = mongoOperation.find(searchInstance, Teacher.class);
         modelAndView.addObject("teachers_list", teacherList);
-        System.out.println(teacherList);
         modelAndView.setViewName("/dashboard/teachers_list");
         return modelAndView;
     }
@@ -68,6 +68,7 @@ public class DashboardController {
 
     @RequestMapping(value = {"/subjects"}, method = RequestMethod.GET)
     public ModelAndView dashboard_subjects(Principal principal) {
+        System.out.println("[INFO] DashboardController dashboard_subjects -- show subjects\n");
         ModelAndView modelAndView = tableController.fillModel(principal);
         Set<AbstractMap.SimpleEntry<String,String>> subjects_set = new HashSet<>();
 
@@ -89,6 +90,7 @@ public class DashboardController {
 
     @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
     public ModelAndView dashboard_users(Principal principal) {
+        System.out.println("[INFO] DashboardController dashboard_users -- show users\n");
         ModelAndView modelAndView = tableController.fillModel(principal);
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         List<User> usersList;
@@ -96,7 +98,6 @@ public class DashboardController {
         Query searchInstance = new Query(Criteria.where("login").exists(true));
         usersList = mongoOperation.find(searchInstance, User.class);
         modelAndView.addObject("users_list", usersList);
-        System.out.println(usersList);
 
         modelAndView.setViewName("/dashboard/users_list");
         return modelAndView;
@@ -104,6 +105,7 @@ public class DashboardController {
 
     @RequestMapping(value = {"/groups"}, method = RequestMethod.GET)
     public ModelAndView dashboard_groups(Principal principal) {
+        System.out.println("[INFO] DashboardController dashboard_groups -- show groups\n");
         ModelAndView modelAndView = tableController.fillModel(principal);
 
         Set<String> groups_set = new HashSet<>();
@@ -151,6 +153,8 @@ public class DashboardController {
 
     @RequestMapping(value = "/teachers", method = RequestMethod.POST)
     public ModelAndView addTeacher(@Valid Teacher teacher, BindingResult bindingResult) {
+        System.out.println("[INFO] DashboardController addTeacher -- add teacher\n");
+
         ModelAndView modelAndView = new ModelAndView("redirect:teachers/");
         Teacher tecaherExists = userService.findTeacherByLogin(teacher.getLogin());
         if (tecaherExists != null) {
@@ -170,6 +174,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/teachers/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteTeacher(@PathVariable String id) {
+        System.out.println("[INFO] DashboardController deleteTeacher -- delete teacher\n");
         ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/teachers");
         userService.deleteTeacher(id);
         return modelAndView;
@@ -177,6 +182,7 @@ public class DashboardController {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable String id) {
+        System.out.println("[INFO] DashboardController deleteUser -- delete user\n");
         ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/users");
         userService.deleteUser(id);
         return modelAndView;
@@ -184,12 +190,14 @@ public class DashboardController {
 
     @RequestMapping(value = {"/collections_clear/users"}, method = RequestMethod.GET)
     public void usersClear(Principal principal) {
-        System.out.println("result = " + userService.deleteUsers());
+        System.out.println("[INFO] DashboardController usersClear -- all users clear\n");
+        userService.deleteUsers();
     }
 
     @RequestMapping(value = {"/collections_clear/teachers"}, method = RequestMethod.GET)
     public void collectionsClear(Principal principal) {
-        System.out.println("result = " + userService.deleteTeachers());
+        System.out.println("[INFO] DashboardController collectionsClear -- all collections clear\n");
+        userService.deleteTeachers();
     }
 
 

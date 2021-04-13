@@ -302,6 +302,10 @@ function showTable() {
 				$('#user_table').html(user_table)
 				$('#heightOneUser').height($('#heightOne').height())//
 				$('#heightTwoUser').height($('#heightTwo').height())//
+
+				$('#div2').doubleScroll({
+					resetOnWindowResize: true
+				});
 			}
 
 			if ($('#showColor')[0].checked) {
@@ -311,8 +315,8 @@ function showTable() {
         error: function(config) {
 			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
 		}
-	}); 
-  
+	});
+
 }
 
 function getDate(date) {
@@ -430,3 +434,4 @@ function upload() {
   };
 
 }
+

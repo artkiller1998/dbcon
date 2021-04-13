@@ -144,6 +144,10 @@ function showTable() {
 				$('#user_table').html(user_table)
 				$('#heightOneUser').height($('#heightOne').height())//
 				$('#heightTwoUser').height($('#heightTwo').height())//
+
+				$('#div2').doubleScroll({
+					resetOnWindowResize: true
+				});
 			}
 
 		},

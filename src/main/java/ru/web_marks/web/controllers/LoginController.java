@@ -20,6 +20,7 @@ public class LoginController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView login() {
+        System.out.println("[INFO] LoginController login -- login\n");
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("role", "USER");

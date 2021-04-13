@@ -23,6 +23,8 @@ public class TeacherMarkController {
 
     public String update(@PathVariable String subject , @PathVariable String year_group,
                          @RequestBody String mark, @PathVariable String id) throws ChangeSetPersister.NotFoundException {
+        System.out.println("[INFO] TeacherMarkController update -- update mark\n");
+
         Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks")
                 .elemMatch(Criteria.where("mrk_id").is(id))));
         Student temp = mongoOperation.findOne(searchInstance, Student.class);
