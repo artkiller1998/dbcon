@@ -94,4 +94,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
+
+    public Role findByRole(String role) {
+        return roleRepository.findByRole(role);
+    }
+
+    public void updateAdminPassword(String newPassword) {
+        User adminTemp = userRepository.findByLogin("admin");
+        userRepository.deleteById(adminTemp.getId());
+        adminTemp.setPassword(newPassword);
+        userRepository.save(adminTemp);
+    }
 }

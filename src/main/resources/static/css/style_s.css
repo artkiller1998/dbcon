@@ -98,3 +98,34 @@
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: checkbox;
 }
+
+
+.password {
+
+    position: relative;
+
+}
+
+.password-control {
+
+    position: absolute;
+
+    top: 11px;
+
+    right: 6px;
+
+    display: inline-block;
+
+    width: 20px;
+
+    height: 20px;
+
+    background: url(/dbconnector/img/manifest/view.svg) 0 0 no-repeat;
+
+}
+
+.password-control.view {
+
+    background: url(/dbconnector/img/manifest/no-view.svg) 0 0 no-repeat;
+
+}

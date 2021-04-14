@@ -10,13 +10,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.web_marks.model.Student;
+import ru.web_marks.model.domain.Role;
 import ru.web_marks.model.domain.Teacher;
 import ru.web_marks.model.domain.User;
 
@@ -36,6 +37,9 @@ public class DashboardController {
     private TableController tableController;
 
     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     ApplicationContext ctx;
 
     @Value("${spring.config.profile}:local")
@@ -46,6 +50,30 @@ public class DashboardController {
         ModelAndView modelAndView = tableController.fillModel(principal);
 
         modelAndView.setViewName("/dashboard/dashboard");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/change_password", method = RequestMethod.GET)
+    public ModelAndView changePassword(Principal principal) {
+        ModelAndView modelAndView = tableController.fillModel(principal);
+        modelAndView.setViewName("/dashboard/change_password");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/change_password", method = RequestMethod.POST)
+    public ModelAndView changePassword(Principal principal, @RequestParam("passOld") String passOld, @RequestParam("passOne") String passOne) {
+        System.out.println("[INFO] DashboardController changePassword -- check password and change\n");
+        ModelAndView modelAndView = tableController.fillModel(principal);
+        User adminObject = userService.findUserByLogin("admin");
+        if (bCryptPasswordEncoder.matches(passOld, adminObject.getPassword())) {
+            userService.updateAdminPassword(bCryptPasswordEncoder.encode(passOne));
+            modelAndView.addObject("message", "Пароль был успешно изменен");
+        }
+        else {
+            modelAndView.addObject("message", "Неверный пароль администратора");
+            modelAndView.addObject("color", "red");
+        }
+
         return modelAndView;
     }
 
