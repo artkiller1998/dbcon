@@ -40,7 +40,7 @@
 		// do not modify
 		// internal stuff
 		$.extend(options, {
-			topScrollBarMarkup: '<div class="doubleScroll-scroll-wrapper scrollable-vertical scrollable-styled-dark "><div class="doubleScroll-scroll"></div></div>',
+			topScrollBarMarkup: '<div class="doubleScroll-scroll-wrapper scrollable-vertical scrollable-styled-dark mb--20"><div class="doubleScroll-scroll"></div></div>',
 			topScrollBarWrapperSelector: '.doubleScroll-scroll-wrapper',
 			topScrollBarInnerSelector: '.doubleScroll-scroll'
 		});
@@ -51,6 +51,7 @@
 				// content doesn't scroll
 				// remove any existing occurrence...
 				$self.prev(options.topScrollBarWrapperSelector).remove();
+				$("#forWidUser").removeClass("mt--40")
 				return;
 			}
 		
@@ -91,6 +92,8 @@
 					$topScrollBar.scrollLeft($self.scrollLeft());
 				};
 				$self.bind('scroll.doubleScroll', selfScrollHandler);
+
+				$("#forWidUser").addClass("mt--40")
 			}
 
 			// find the content element (should be the widest one)	
