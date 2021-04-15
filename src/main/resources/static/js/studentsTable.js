@@ -98,7 +98,7 @@ function showTable() {
 		success: function(config) {
 			if (config == "[]")
 			{
-				$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
+				$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true);
 			}
 			else {
 				$('#item_list').show()
