@@ -71,7 +71,7 @@ function changeColor(elem, currentValue, max , start , end) {
 $(document).keyup(function(e) {
 	if (e.key === "Enter" || e.keyCode === 13) {
 		var val = $('#inputM').val()	//получаем то, что в поле находится
-		val = val.replace(/[^\w\s]/g, '')
+		val = val.replace(/[^\w\sа-яёА-ЯЁ]/g, '')
 		//console.log(val)
 		//находим ячейку, опустошаем, вставляем значение из поля
 		elem = $('#inputM').closest('td');
@@ -124,7 +124,7 @@ function editable(el, scale) {
 		$('#inputM').focus();
 		$('#inputM').blur(function()	{	//устанавливаем обработчик
 			var val = $('#inputM').val()	//получаем то, что в поле находится
-			val = val.replace(/[^\w\s]/g, '')
+			val = val.replace(/[^\w\sа-яёА-ЯЁ]/g, '')
 			//console.log(val)
 			//находим ячейку, опустошаем, вставляем значение из поля
 			e.html(val);
