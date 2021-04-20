@@ -6,5 +6,5 @@ import ru.web_marks.model.domain.User;
 
 
 public interface BackupRepository extends MongoRepository<Backup, String> {
-    User findByAncestors(String login);
+    Backup findByAncestors(String login);
 }

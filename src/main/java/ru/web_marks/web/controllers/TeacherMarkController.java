@@ -40,6 +40,7 @@ public class TeacherMarkController {
         Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks")
                 .elemMatch(Criteria.where("mrk_id").is(id))));
         Student temp = mongoOperation.findOne(searchInstance, Student.class);
+        assert temp != null;
         temp.setInstanceMark(id,mark);
         Update update = new Update();
         update.set("tasks", temp.getTasks());
@@ -74,14 +75,20 @@ public class TeacherMarkController {
         return marks;
     }
 
-    @RequestMapping(value = "/restore/{subject}/{year_group}", method = RequestMethod.GET)
-    public Map<String, String> restore_marks(@PathVariable String subject , @PathVariable String year_group, Map<String, String> marks ) {
+    @RequestMapping(value = "/restore/{subject}/{year_group}/{id}", method = RequestMethod.GET)
+    public Map<String, String> restore_marks(@PathVariable String subject , @PathVariable String year_group, @PathVariable String id) {
         System.out.println("[INFO] TeacherMarkController restore_marks -- restore marks from map\n");
 
+        Backup temp = backupRepository.findById(id)
+                .orElseGet(() -> null);
+        Map<String, String> marks = new HashMap<>();
+        if (temp != null) {
+            marks = temp.getMarks();
+        }
+
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
-
-
         List<Student> studentList = mongoOperation.find(searchInstance, Student.class);
+
         for (Student student : studentList) {
             for (Task task : student.getTasks()) {
                 for (Mark mark : task.getMarks()) {

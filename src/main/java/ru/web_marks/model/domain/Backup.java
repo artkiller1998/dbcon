@@ -20,7 +20,6 @@ public class Backup {
 
     @Id
     private String id;
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
 
     ArrayList<String> ancestors = new ArrayList<String>();
 

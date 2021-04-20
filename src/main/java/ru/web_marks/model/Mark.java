@@ -1,5 +1,8 @@
 package ru.web_marks.model;
 
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,6 +13,7 @@ public class Mark {
     String descr;
     String color;
     Date date;
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     String mrk_id;
 
 
