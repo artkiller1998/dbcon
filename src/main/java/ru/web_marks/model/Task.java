@@ -7,6 +7,10 @@ public class Task {
     ArrayList<Mark> marks = new ArrayList<Mark>();
     String lesson;
 
+    public ArrayList<Mark> getMarks() {
+        return marks;
+    }
+
     @Override
     public String toString() {
         return String.format(

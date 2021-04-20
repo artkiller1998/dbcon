@@ -17,6 +17,14 @@ public class Mark {
         mrk = value;
     }
 
+    public String getMrk() {
+        return mrk;
+    }
+
+    public String getMrk_id() {
+        return mrk_id;
+    }
+
     @Override
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");

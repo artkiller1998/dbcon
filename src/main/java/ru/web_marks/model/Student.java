@@ -86,6 +86,10 @@ public class Student extends MongoModels{
     }
     public ArrayList<Task> getTasks() {return this.tasks;}
 
+    public ArrayList<String> getAncestors() {
+        return ancestors;
+    }
+
     @Override
     public String toString() {
         String g_ident = ancestors.get(1);

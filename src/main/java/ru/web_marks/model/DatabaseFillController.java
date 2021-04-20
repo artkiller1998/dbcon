@@ -89,7 +89,7 @@ public class DatabaseFillController {
                 this.ancestors.add(name.toUpperCase());
                 this.ancestors.add(group.toUpperCase());
                 this.ancestors.add(filename);
-                this.ancestors.add(filename.substring(0, filename.length() - 2));
+//                this.ancestors.add(filename.substring(0, filename.length() - 2));
             }
 
             if (mixed.equals("MIXED"))
