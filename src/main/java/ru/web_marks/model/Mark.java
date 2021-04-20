@@ -13,7 +13,7 @@ public class Mark {
     String descr;
     String color;
     Date date;
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     String mrk_id;
 
 

@@ -84,24 +84,25 @@ public class TeacherMarkController {
         Map<String, String> marks = new HashMap<>();
         if (temp != null) {
             marks = temp.getMarks();
-        }
 
-        Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
-        List<Student> studentList = mongoOperation.find(searchInstance, Student.class);
 
-        for (Student student : studentList) {
-            for (Task task : student.getTasks()) {
-                for (Mark mark : task.getMarks()) {
-                    if (marks.containsKey(mark.getMrk_id())){
-                        student.setInstanceMark(mark.getMrk_id(),marks.get(mark.getMrk_id()));
+            Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
+            List<Student> studentList = mongoOperation.find(searchInstance, Student.class);
+
+            for (Student student : studentList) {
+                for (Task task : student.getTasks()) {
+                    for (Mark mark : task.getMarks()) {
+                        if (marks.containsKey(mark.getMrk_id())){
+                            student.setInstanceMark(mark.getMrk_id(),marks.get(mark.getMrk_id()));
+                        }
+
+                        //marks.put(mark.getMrk_id(), mark.getMrk());
                     }
-
-                    //marks.put(mark.getMrk_id(), mark.getMrk());
                 }
+                Update update = new Update();
+                update.set("tasks", student.getTasks());
+                mongoOperation.save(student);
             }
-            Update update = new Update();
-            update.set("tasks", student.getTasks());
-            mongoOperation.updateFirst(searchInstance, update, Student.class);
         }
 
         return marks;
