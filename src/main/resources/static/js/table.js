@@ -269,7 +269,7 @@ function showTable() {
 				for (var i = 0; i < config[0]['tasks'].length; i++) {
 					for (var j = 0; j < config[0]['tasks'][i]['marks'].length; j++) {
 						if (j == 0) {
-							table = table + '<td colspan="'+config[0]['tasks'][i]['marks'].length+'">' + config[0]['tasks'][i]['lesson'] + '</td>'	
+							table = table + '<td style="border-left: 2px solid #000000" colspan="'+config[0]['tasks'][i]['marks'].length+'">' + config[0]['tasks'][i]['lesson'] + '</td>'
 						}
 					}
 				}
@@ -277,7 +277,12 @@ function showTable() {
 				countCol = 0
 				for (var i = 0; i < config[0]['tasks'].length; i++) {
 					for (var j = 0; j < config[0]['tasks'][i]['marks'].length; j++) {
-						table = table + '<td>' + config[0]['tasks'][i]['marks'][j]['descr'] + '</td>'
+						if (j == 0) {
+							table = table + '<td style="border-left: 2px solid #000000">' + config[0]['tasks'][i]['marks'][j]['descr'] + '</td>'
+						}
+						else {
+							table = table + '<td>' + config[0]['tasks'][i]['marks'][j]['descr'] + '</td>'
+						}
 						countCol++
 					}
 				}
@@ -341,7 +346,7 @@ function removeBackup(id) {
 		},
 		//dataType: "json",//
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			$('#pills-backups-div').html(data);
 			// if (config != "success")
 			// {
@@ -371,7 +376,7 @@ function restoreBackup(id) {
 		},
 		//dataType: "json",//
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			$('#pills-backups-div').html(data);
 			$.SOW.core.toast.show('success', '', "Резервная копия коллекции была восстановлена успешно", 'bottom-right', 4000, true)
 			// if (config != "success")
@@ -411,7 +416,7 @@ function getBackups() {
 		},
 		//dataType: "json",//
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			$('#pills-backups-div').html(data);
 			// if (config != "success")
 			// {
