@@ -40,9 +40,8 @@ public class TeacherMarkController {
     public ModelAndView show_backups(@PathVariable String subject , @PathVariable String year_group, Principal principal) {
 
         System.out.println("[INFO] TeacherMarkController show_backups -- show backups\n");
-        //ModelAndView modelAndView = tableController.fillModel(principal);
-        ModelAndView modelAndView = new ModelAndView("table::pills-backups-div");
-//        Set<AbstractMap.SimpleEntry<String,String>> subjects_set = new HashSet<>();
+        ModelAndView modelAndView = tableController.fillModel(principal);
+        //ModelAndView modelAndView = new ModelAndView("");
 
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
@@ -50,17 +49,12 @@ public class TeacherMarkController {
 
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject, year_group));
         backupsList = mongoOperation.find(searchInstance, Backup.class);
-
-
-//        for (Backup el : backupsList) {
-////            subjects_set.add(new AbstractMap.SimpleEntry<>(el.getSubject(), el.getGroup()));
-//        }
         Collections.reverse(backupsList);
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         modelAndView.addObject("backups_list", backupsList);
         modelAndView.addObject("date_format", dateFormat);
         modelAndView.addObject("backups_list_size", backupsList.size());
-        //modelAndView.setViewName("/table ::pills-backups");
+        modelAndView.setViewName("table::pills-backups-div");
         return modelAndView;
     }
 
@@ -113,16 +107,18 @@ public class TeacherMarkController {
 
 
 
-    @RequestMapping(value = "/restore/{subject}/{year_group}/{id}", method = RequestMethod.GET)
-    public Map<String, String> restore_marks(@PathVariable String subject , @PathVariable String year_group, @PathVariable String id) {
+    @RequestMapping(value = "/restore/{id}", method = RequestMethod.GET)
+    public ModelAndView restore_backup(@PathVariable String id, Principal principal) {
         System.out.println("[INFO] TeacherMarkController restore_marks -- restore marks from map\n");
-
+        ModelAndView modelAndView = tableController.fillModel(principal);
         Backup temp = backupRepository.findById(id)
                 .orElseGet(() -> null);
         Map<String, String> marks = new HashMap<>();
         if (temp != null) {
             marks = temp.getMarks();
 
+            String subject = temp.getAncestors().get(2);
+            String year_group = temp.getAncestors().get(1);
 
             Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
             List<Student> studentList = mongoOperation.find(searchInstance, Student.class);
@@ -142,7 +138,23 @@ public class TeacherMarkController {
                 mongoOperation.save(student);
             }
         }
+        modelAndView.setViewName("/table");
+        return modelAndView;
+    }
 
-        return marks;
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView delete_backup(@PathVariable String id, Principal principal) {
+        System.out.println("[INFO] TeacherMarkController delete_backup -- delete_backup \n");
+        ModelAndView modelAndView = tableController.fillModel(principal);
+        backupRepository.deleteById(id);
+//        Backup temp = backupRepository.findById(id)
+//                .orElseGet(() -> null);
+//        Map<String, String> marks = new HashMap<>();
+//        if (temp != null) {
+//
+//        }
+        modelAndView.setViewName("/table");
+        return modelAndView;
     }
 }

@@ -192,17 +192,15 @@
 														<td class="font-weight-bold" th:text="${backup.getId()}">Id</td>
 														<td class="font-weight-bold" th:text="${date_format.format(backup.getDate())}">Date</td>
 														<td>
-															<form th:action="@{/administrator/delete/{subject}/{year_group}
-                        									(subject = ${backup.getAncestors()}, year_group = ${backup.getAncestors()})}" th:method="delete">
+															<form th:action="@{/teacher/restore/{id} (id = ${backup.getId()})}" th:method="get">
 																<button type="submit" class="btn-indigo rounded" name="idn">
 																	Восстановить
 																</button>
 															</form>
 														</td>
 														<td>
-															<form th:action="@{/administrator/delete/{subject}/{year_group}
-                        									(subject = ${backup.getAncestors()}, year_group = ${backup.getAncestors()})}" th:method="delete">
-																<button type="submit" class="btn-danger rounded" name="id">
+															<form th:action="@{/teacher/delete/{id} (id = ${backup.getId()})}" th:method="get">
+																<button type="submit" class="btn-danger rounded" name="idn">
 																	Удалить
 																</button>
 															</form>
