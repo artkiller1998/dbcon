@@ -32,8 +32,8 @@
 											<a class="nav-link bg-secondary-active" id="pills-downloads-tab" data-toggle="pill" href="#pills-downloads" role="tab" aria-controls="pills-downloads" aria-selected="false" >Загрузить предмет</a>
 										</li>
 
-										<li class="nav-item" id="pills-backups-tab-item" >
-											<a class="nav-link bg-secondary-active"  id="pills-backups-tab" data-toggle="pill" href="#pills-backups"  role="tab" aria-controls="pills-backups" aria-selected="false" >Резервные копии предмета</a>
+										<li class="nav-item" onclick="getBackups()" id="pills-backups-tab-item" >
+											<a class="nav-link bg-secondary-active" id="pills-backups-tab" data-toggle="pill" href="#pills-backups"  role="tab" aria-controls="pills-backups" aria-selected="false" >Резервные копии предмета</a>
 										</li>
 <!--										<li class="nav-item">-->
 <!--											<a class="nav-link bg-secondary-active" id="pills-delitions-tab" data-toggle="pill" href="#pills-delitions" role="tab" aria-controls="pills-downloads" aria-selected="false" >Удалить предмет</a>-->
@@ -171,8 +171,8 @@
 
 										</div>
 
-										<div class="tab-pane fade" id="pills-backups" role="tabpanel" aria-labelledby="pills-downloads-tab">
-											<div class="table-center">
+										<div class="tab-pane fade" id="pills-backups" role="tabpanel" aria-labelledby="pills-backups-tab">
+											<div th:fragment="pills-backups-div" id="pills-backups-div" class="table-center">
 												<br/>
 												<h2 th:text="|Cписок резервных копий (${backups_list_size})|">Список резервных копий ()</h2>
 												<br/>

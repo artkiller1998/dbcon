@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.web_marks.model.Mark;
@@ -29,16 +31,19 @@ public class TeacherMarkController {
     @Autowired
     BackupRepository backupRepository;
 
+    @Autowired
+    TableController tableController;
+
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
     @RequestMapping(value = "/backups/{subject}/{year_group}", method = RequestMethod.GET)
-    public ModelAndView show_backups(@PathVariable String subject , @PathVariable String year_group) {
+    public ModelAndView show_backups(@PathVariable String subject , @PathVariable String year_group, Principal principal) {
 
         System.out.println("[INFO] TeacherMarkController show_backups -- show backups\n");
-//        ModelAndView modelAndView = tableController.fillModel(principal);
-        ModelAndView modelAndView = new ModelAndView();
+        //ModelAndView modelAndView = tableController.fillModel(principal);
+        ModelAndView modelAndView = new ModelAndView("table::pills-backups-div");
 //        Set<AbstractMap.SimpleEntry<String,String>> subjects_set = new HashSet<>();
 
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
@@ -54,9 +59,10 @@ public class TeacherMarkController {
         modelAndView.addObject("backups_list", backupsList);
         modelAndView.addObject("date_format", dateFormat);
         modelAndView.addObject("backups_list_size", backupsList.size());
-        modelAndView.setViewName("/table");
+        //modelAndView.setViewName("/table ::pills-backups");
         return modelAndView;
     }
+
 
     @PutMapping(path="/{subject}/{year_group}/{id}")
     public String update(@PathVariable String subject , @PathVariable String year_group,

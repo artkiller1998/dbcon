@@ -318,7 +318,7 @@ function showTable() {
 			if ($('#showColor')[0].checked) {
 				checkboxChange()
 			}
-			getBackups();
+
 
         },
         error: function(config) {
@@ -330,16 +330,28 @@ function showTable() {
 }
 
 function getBackups() {
+	groupFile = $('#group_number').val()
+	groupFile = groupFile.toUpperCase()
+
+	subjectFile = $('#subject_config').val()
+	//console.log($('#group_number'))
+	//console.log(subjectFile)
+
+	subjectFile = subjectFile.toUpperCase()
+
 	$.ajax({
 		//cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
 		url: '/dbconnector/teacher/backups/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
 		type: "GET",
+		cache: false,
 		data: {
 			// subject: subjectFile,
 			// year_group: groupFile
 		},
 		//dataType: "json",//
-		success: function(config) {
+		success: function(data) {
+			console.log(data);
+			$('#pills-backups-div').html(data);
 			// if (config != "success")
 			// {
 			// 	$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
@@ -347,8 +359,10 @@ function getBackups() {
 			// else {
 			// 	$.SOW.core.toast.show('success', '', "Резервная копия коллекции была создана успешно", 'bottom-right', 4000, true)
 			// }
+			//window.location.href='/dbconnector/teacher/backups/'+subjectFile+"/"+groupFile;
+
 		},
-		error: function(config) {
+		error: function(data) {
 			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
 		}
 	});
