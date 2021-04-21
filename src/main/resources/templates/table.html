@@ -192,18 +192,18 @@
 														<td class="font-weight-bold" th:text="${backup.getId()}">Id</td>
 														<td class="font-weight-bold" th:text="${date_format.format(backup.getDate())}">Date</td>
 														<td>
-															<form th:action="@{/teacher/restore/{id} (id = ${backup.getId()})}" th:method="get">
-																<button type="submit" class="btn-indigo rounded" name="idn">
+<!--															<form th:action="@{/teacher/restore/{id} (id = ${backup.getId()})}" th:method="get">-->
+																<button  type="submit" th:field="${backup.getId()}" onclick="restoreBackup(this.getAttribute('field'))" class="btn-indigo rounded" name="idn">
 																	Восстановить
 																</button>
-															</form>
+<!--															</form>-->
 														</td>
 														<td>
-															<form th:action="@{/teacher/delete/{id} (id = ${backup.getId()})}" th:method="get">
-																<button type="submit" class="btn-danger rounded" name="idn">
+<!--															<form th:action="@{/teacher/delete/{id} (id = ${backup.getId()})}" th:method="get">-->
+																<button type="submit" th:field="${backup.getId()}" onclick="removeBackup(this.getAttribute('field'))" class="btn-danger rounded" name="idn">
 																	Удалить
 																</button>
-															</form>
+<!--															</form>-->
 														</td>
 													</tr>
 													</tbody>

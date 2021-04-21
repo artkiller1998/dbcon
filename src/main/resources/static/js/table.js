@@ -329,6 +329,67 @@ function showTable() {
 
 }
 
+function removeBackup(id) {
+	$.ajax({
+		//cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
+		url: '/dbconnector/teacher/delete/'+id,  /*название файла, который занимается орабработкой запроса*/
+		type: "GET",
+		cache: false,
+		data: {
+			// subject: subjectFile,
+			// year_group: groupFile
+		},
+		//dataType: "json",//
+		success: function(data) {
+			console.log(data);
+			$('#pills-backups-div').html(data);
+			// if (config != "success")
+			// {
+			// 	$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
+			// }
+			// else {
+			// 	$.SOW.core.toast.show('success', '', "Резервная копия коллекции была создана успешно", 'bottom-right', 4000, true)
+			// }
+			//window.location.href='/dbconnector/teacher/backups/'+subjectFile+"/"+groupFile;
+
+		},
+		error: function(data) {
+			$.SOW.core.toast.show('danger', '', "Что то пошло не так", 'bottom-right', 4000, true)
+		}
+	});
+}
+
+function restoreBackup(id) {
+	$.ajax({
+		//cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
+		url: '/dbconnector/teacher/restore/'+id,  /*название файла, который занимается орабработкой запроса*/
+		type: "GET",
+		cache: false,
+		data: {
+			// subject: subjectFile,
+			// year_group: groupFile
+		},
+		//dataType: "json",//
+		success: function(data) {
+			console.log(data);
+			$('#pills-backups-div').html(data);
+			$.SOW.core.toast.show('success', '', "Резервная копия коллекции была восстановлена успешно", 'bottom-right', 4000, true)
+			// if (config != "success")
+			// {
+			// 	$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
+			// }
+			// else {
+			// 	$.SOW.core.toast.show('success', '', "Резервная копия коллекции была создана успешно", 'bottom-right', 4000, true)
+			// }
+			//window.location.href='/dbconnector/teacher/backups/'+subjectFile+"/"+groupFile;
+
+		},
+		error: function(data) {
+			$.SOW.core.toast.show('danger', '', "Что то пошло не так", 'bottom-right', 4000, true)
+		}
+	});
+}
+
 function getBackups() {
 	groupFile = $('#group_number').val()
 	groupFile = groupFile.toUpperCase()

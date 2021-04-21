@@ -5,6 +5,9 @@ package ru.web_marks.model;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -13,6 +16,7 @@ public class Student extends MongoModels{
     private static Set loaded_gpoups = new HashSet<String>();
     ArrayList<String> ancestors = new ArrayList<String>();
     String parent = "";
+    String edited = "";
     ArrayList<Task> tasks = new ArrayList<Task>();
     public Student() {
         // выполнение конструктора родителя для инициализации параметров
@@ -37,12 +41,15 @@ public class Student extends MongoModels{
         return  this.id;
     }
 
-    public void setInstanceMark(String id,String value) {
+    public void setInstanceMark(String id, String value, Principal principal) {
+        String login = principal.getName();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         for ( Task task  : tasks) {
             for (Mark mark : task.marks) {
                 if (mark.mrk_id.equals(id)) {
                     mark.mrk = value;
                     mark.date = new Date();
+                    edited = "Eddited by " + login + " at:" + dateFormat.format(mark.date);
                 }
             }
         }
