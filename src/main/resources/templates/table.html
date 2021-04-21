@@ -31,6 +31,10 @@
 										<li class="nav-item">
 											<a class="nav-link bg-secondary-active" id="pills-downloads-tab" data-toggle="pill" href="#pills-downloads" role="tab" aria-controls="pills-downloads" aria-selected="false" >Загрузить предмет</a>
 										</li>
+
+										<li class="nav-item" id="pills-backups-tab-item" >
+											<a class="nav-link bg-secondary-active"  id="pills-backups-tab" data-toggle="pill" href="#pills-backups"  role="tab" aria-controls="pills-backups" aria-selected="false" >Резервные копии предмета</a>
+										</li>
 <!--										<li class="nav-item">-->
 <!--											<a class="nav-link bg-secondary-active" id="pills-delitions-tab" data-toggle="pill" href="#pills-delitions" role="tab" aria-controls="pills-downloads" aria-selected="false" >Удалить предмет</a>-->
 <!--										</li>-->
@@ -62,8 +66,12 @@
 											</div>
 											<br>
 											<button type="button" class="btn btn-success" onclick="showTable();">
-												<i class="fi fi-task-list"></i> 
+												<i class="fi fi-task-list"></i>
 												Показать таблицу
+											</button>
+											<button type="button" id="backup_btn" class="btn btn-primary"  hidden="" onclick="backup();">
+												<i class="fi fi-cloud-upload"></i>
+												Создать резервную копию предмета
 											</button>
 											<div id="table_show" class="container no-width py-3">
 												<div id="item_list">
@@ -91,28 +99,29 @@
 		  										</div>
 											</div>
 										</div>
+
 										<div class="tab-pane fade" id="pills-downloads" role="tabpanel" aria-labelledby="pills-downloads-tab">
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="input-group">
-													  <div class="custom-file custom-file-secondary">
-													    <input 	name="groupFile"
-													    		type="file"
-													    		data-file-ext=" txt, json, csv"
-													    		data-file-max-size-kb-per-file="30000"
-													    		data-file-ext-err-msg="Допустимый тип:"
-													    		data-file-size-err-item-msg="Файл слишком велик!"
-													    		data-file-size-err-total-msg="Общий допустимый размер превышен!"
-													    		data-file-toast-position="bottom-center"
-													    		data-file-preview-container=".js-file-input-preview-single-container1"
-													    		data-file-preview-img-height="120"
-													    		data-file-preview-show-info="true"
-													    		data-file-btn-clear="a.js-file-upload-clear1"
+														<div class="custom-file custom-file-secondary">
+															<input 	name="groupFile"
+																	  type="file"
+																	  data-file-ext=" txt, json, csv"
+																	  data-file-max-size-kb-per-file="30000"
+																	  data-file-ext-err-msg="Допустимый тип:"
+																	  data-file-size-err-item-msg="Файл слишком велик!"
+																	  data-file-size-err-total-msg="Общий допустимый размер превышен!"
+																	  data-file-toast-position="bottom-center"
+																	  data-file-preview-container=".js-file-input-preview-single-container1"
+																	  data-file-preview-img-height="120"
+																	  data-file-preview-show-info="true"
+																	  data-file-btn-clear="a.js-file-upload-clear1"
 
-													    		class="custom-file-input"
-													    		id="groupFile">
-													    <label class="custom-file-label" for="groupFile">Выбрать файл с группой</label>
-													  </div>
+																	  class="custom-file-input"
+																	  id="groupFile">
+															<label class="custom-file-label" for="groupFile">Выбрать файл с группой</label>
+														</div>
 													</div>
 													<div class="js-file-input-preview-single-container1 ml--n6 mr--n6"><!-- preview container --></div>
 													<div class="mt-1">
@@ -123,24 +132,24 @@
 												</div>
 												<div class="col-lg-6">
 													<div class="input-group">
-													  <div class="custom-file custom-file-primary">
-													    <input 	name="configFile"
-													    		type="file"
-													    		data-file-ext=" txt, json, csv"
-													    		data-file-max-size-kb-per-file="30000"
-													    		data-file-ext-err-msg="Допустимый тип:"
-													    		data-file-size-err-item-msg="Файл слишком велик!"
-													    		data-file-size-err-total-msg="Общий допустимый размер превышен!"
-													    		data-file-toast-position="bottom-center"
-													    		data-file-preview-container=".js-file-input-preview-single-container2"
-													    		data-file-preview-img-height="120"
-													    		data-file-preview-show-info="true"
-													    		data-file-btn-clear="a.js-file-upload-clear2"
-													    		class="custom-file-input"
-													    		id="configFile">
-													    <label class="custom-file-label" for="configFile">Выбрать файл с конфигурацией предмета</label>
+														<div class="custom-file custom-file-primary">
+															<input 	name="configFile"
+																	  type="file"
+																	  data-file-ext=" txt, json, csv"
+																	  data-file-max-size-kb-per-file="30000"
+																	  data-file-ext-err-msg="Допустимый тип:"
+																	  data-file-size-err-item-msg="Файл слишком велик!"
+																	  data-file-size-err-total-msg="Общий допустимый размер превышен!"
+																	  data-file-toast-position="bottom-center"
+																	  data-file-preview-container=".js-file-input-preview-single-container2"
+																	  data-file-preview-img-height="120"
+																	  data-file-preview-show-info="true"
+																	  data-file-btn-clear="a.js-file-upload-clear2"
+																	  class="custom-file-input"
+																	  id="configFile">
+															<label class="custom-file-label" for="configFile">Выбрать файл с конфигурацией предмета</label>
 
-													  </div>
+														</div>
 													</div>
 													<p><a th:href="@{/administrator/create_config}">Создать файл конфигурации</a></p>
 													<div class="js-file-input-preview-single-container2 ml--n6 mr--n6"><!-- preview container --></div>
@@ -149,18 +158,62 @@
 															Удалить
 														</a>
 													</div>
-													
+
 												</div>
 											</div>
 											<br>
 											<button type="button" class="btn btn-success" onclick="upload();">
-												<i class="fi fi-plus"></i> 
+												<i class="fi fi-plus"></i>
 												Загрузить
 											</button>
 											<br>
 											<br>
-											
+
 										</div>
+
+										<div class="tab-pane fade" id="pills-backups" role="tabpanel" aria-labelledby="pills-downloads-tab">
+											<div class="table-center">
+												<br/>
+												<h2 th:text="|Cписок резервных копий (${backups_list_size})|">Список резервных копий ()</h2>
+												<br/>
+												<table id="subjects_table" class=
+														"table table-hover table-teacher" style="width: 95%;">
+													<thead class="thead-light">
+													<tr>
+														<th>Id</th>
+														<th>Дата</th>
+														<th></th>
+														<th></th>
+													</tr>
+													</thead>
+													<tbody style="background-color: rgba(165,177,166,0.55)">
+													<tr th:each="backup : ${backups_list}">
+														<!--                    <td  th:text="${subject.getId()}">Id</td>-->
+														<td class="font-weight-bold" th:text="${backup.getId()}">Id</td>
+														<td class="font-weight-bold" th:text="${date_format.format(backup.getDate())}">Date</td>
+														<td>
+															<form th:action="@{/administrator/delete/{subject}/{year_group}
+                        									(subject = ${backup.getAncestors()}, year_group = ${backup.getAncestors()})}" th:method="delete">
+																<button type="submit" class="btn-indigo rounded" name="idn">
+																	Восстановить
+																</button>
+															</form>
+														</td>
+														<td>
+															<form th:action="@{/administrator/delete/{subject}/{year_group}
+                        									(subject = ${backup.getAncestors()}, year_group = ${backup.getAncestors()})}" th:method="delete">
+																<button type="submit" class="btn-danger rounded" name="id">
+																	Удалить
+																</button>
+															</form>
+														</td>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+
 									</div>
 								</div>
 							</div>

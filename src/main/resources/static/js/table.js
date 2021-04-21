@@ -251,8 +251,8 @@ function showTable() {
         url: '/dbconnector/student/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
         type: "GET",
         data: {
-				subject: subjectFile,
-				year_group: groupFile
+				// subject: subjectFile,
+				// year_group: groupFile
 			},
         //dataType: "json",//
         success: function(config) {
@@ -308,13 +308,83 @@ function showTable() {
 				$('#div2').doubleScroll({
 					resetOnWindowResize: true
 				});
+
+				$('#backup_btn').removeAttr('hidden');
+				$('#pills-backups-tab-item').removeAttr('hidden');
+
+
 			}
 
 			if ($('#showColor')[0].checked) {
 				checkboxChange()
 			}
+			getBackups();
+
         },
         error: function(config) {
+			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
+		}
+	});
+
+
+}
+
+function getBackups() {
+	$.ajax({
+		//cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
+		url: '/dbconnector/teacher/backups/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
+		type: "GET",
+		data: {
+			// subject: subjectFile,
+			// year_group: groupFile
+		},
+		//dataType: "json",//
+		success: function(config) {
+			// if (config != "success")
+			// {
+			// 	$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
+			// }
+			// else {
+			// 	$.SOW.core.toast.show('success', '', "Резервная копия коллекции была создана успешно", 'bottom-right', 4000, true)
+			// }
+		},
+		error: function(config) {
+			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
+		}
+	});
+}
+
+
+function backup() {
+
+	//$('#item_list').show()
+
+	groupFile = $('#group_number').val()
+	groupFile = groupFile.toUpperCase()
+
+	subjectFile = $('#subject_config').val()
+	subjectFile = subjectFile.toUpperCase()
+
+	$.ajax({
+		//cache: false,// ../../java/ru/web_marks/web/controllers/MarkController.java
+		url: '/dbconnector/teacher/backup/'+subjectFile+"/"+groupFile,  /*название файла, который занимается орабработкой запроса*/
+		type: "GET",
+		data: {
+			// subject: subjectFile,
+			// year_group: groupFile
+		},
+		//dataType: "json",//
+		success: function(config) {
+			if (config != "success")
+			{
+				$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
+			}
+			else {
+				$.SOW.core.toast.show('success', '', "Резервная копия коллекции была создана успешно", 'bottom-right', 4000, true)
+				getBackups();
+			}
+		},
+		error: function(config) {
 			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
 		}
 	});

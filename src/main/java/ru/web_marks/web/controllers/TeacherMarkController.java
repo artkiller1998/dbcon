@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.web_marks.model.Mark;
 import ru.web_marks.model.Task;
 import ru.web_marks.model.domain.Backup;
@@ -16,10 +17,10 @@ import ru.web_marks.repository.BackupRepository;
 import ru.web_marks.security.connection.MongoConfig;
 import ru.web_marks.model.Student;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "teacher", method = RequestMethod.PUT)
@@ -31,6 +32,31 @@ public class TeacherMarkController {
     ApplicationContext ctx = new AnnotationConfigApplicationContext(MongoConfig.class);
     // интерфейс для использования mongoTemplate
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+
+    @RequestMapping(value = "/backups/{subject}/{year_group}", method = RequestMethod.GET)
+    public ModelAndView show_backups(@PathVariable String subject , @PathVariable String year_group) {
+
+        System.out.println("[INFO] TeacherMarkController show_backups -- show backups\n");
+//        ModelAndView modelAndView = tableController.fillModel(principal);
+        ModelAndView modelAndView = new ModelAndView();
+//        Set<AbstractMap.SimpleEntry<String,String>> subjects_set = new HashSet<>();
+
+        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+
+        List<Backup> backupsList;
+
+        Query searchInstance = new Query(Criteria.where("ancestors").all(subject, year_group));
+        backupsList = mongoOperation.find(searchInstance, Backup.class);
+//        for (Backup el : backupsList) {
+////            subjects_set.add(new AbstractMap.SimpleEntry<>(el.getSubject(), el.getGroup()));
+//        }
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        modelAndView.addObject("backups_list", backupsList);
+        modelAndView.addObject("date_format", dateFormat);
+        modelAndView.addObject("backups_list_size", backupsList.size());
+        modelAndView.setViewName("/table");
+        return modelAndView;
+    }
 
     @PutMapping(path="/{subject}/{year_group}/{id}")
     public String update(@PathVariable String subject , @PathVariable String year_group,
@@ -51,7 +77,7 @@ public class TeacherMarkController {
     }
 
     @RequestMapping(value = "/backup/{subject}/{year_group}", method = RequestMethod.GET)
-    public Map<String, String> backup_marks(@PathVariable String subject , @PathVariable String year_group ) {
+    public String backup_marks(@PathVariable String subject , @PathVariable String year_group ) {
         System.out.println("[INFO] TeacherMarkController backup_marks -- backup marks in map\n");
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
         List<Student> studentList = mongoOperation.find(searchInstance, Student.class);
@@ -72,8 +98,13 @@ public class TeacherMarkController {
             backupRepository.save(backup);
             //restore_marks(subject, year_group, marks);
         }
-        return marks;
+        else {
+            return "";
+        }
+        return "success";
     }
+
+
 
     @RequestMapping(value = "/restore/{subject}/{year_group}/{id}", method = RequestMethod.GET)
     public Map<String, String> restore_marks(@PathVariable String subject , @PathVariable String year_group, @PathVariable String id) {
