@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.web_marks.model.Mark;
@@ -52,9 +50,12 @@ public class TeacherMarkController {
 
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject, year_group));
         backupsList = mongoOperation.find(searchInstance, Backup.class);
+
+
 //        for (Backup el : backupsList) {
 ////            subjects_set.add(new AbstractMap.SimpleEntry<>(el.getSubject(), el.getGroup()));
 //        }
+        Collections.reverse(backupsList);
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         modelAndView.addObject("backups_list", backupsList);
         modelAndView.addObject("date_format", dateFormat);
