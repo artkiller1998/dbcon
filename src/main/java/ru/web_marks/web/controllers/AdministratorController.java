@@ -19,12 +19,24 @@ import ru.web_marks.security.connection.MongoConfig;
 import ru.web_marks.model.DatabaseFillController;
 import ru.web_marks.model.MongoModels;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.List;
 
@@ -43,10 +55,11 @@ public class AdministratorController {
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
     @PutMapping(path="/load")
-    public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException {
+    public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException {
         System.out.println("[INFO] AdministratorController update -- upload groups\n");
         String group_name;
         String group_content;
+
         try {
             Gson gson = new Gson();
             String jsonOutput = data;
@@ -85,15 +98,40 @@ public class AdministratorController {
 
         final Path path = Paths.get(csvFile);
 
+        // ENCODE CSV FILES
+
+        ByteBuffer buffer = StandardCharsets.UTF_8.encode(group_content);
+        String key = "AsT16232Qsd84231";
+
+
+        Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        // encrypt the text
+        cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+        byte[] encrypted = cipher.doFinal(group_content.getBytes());
+
         if (!Files.isReadable(path) && !Files.isWritable(path) && !Files.isExecutable(path))
         {
             f.getParentFile().mkdirs();
             f.createNewFile();
-            try (OutputStreamWriter writer =
-                         new OutputStreamWriter(new FileOutputStream(path.toString()), StandardCharsets.UTF_8))
+            try
             {
-                writer.write(group_content);
+                // append or overwrite the file
+                boolean append = false;
+
+                FileChannel channel = new FileOutputStream(path.toString(), append).getChannel();
+
+                // Flips this buffer.  The limit is set to the current position and then
+                // the position is set to zero.  If the mark is defined then it is discarded.
+                //buffer.flip();
+
+                // Writes a sequence of bytes to this channel from the given buffer.
+                channel.write(ByteBuffer.wrap(encrypted));
+
+                // close the channel
+                channel.close();
             }
+            catch (Exception e) {}
         }
 
         return ResponseEntity.ok("true");

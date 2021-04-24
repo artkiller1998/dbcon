@@ -3,12 +3,24 @@
 */
 package ru.web_marks.model;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Student extends MongoModels{
@@ -55,38 +67,45 @@ public class Student extends MongoModels{
         }
     }
 
-    private void upload_group(String g_ident) {
-        BufferedReader br = null;
+    private void upload_group(String g_ident) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        byte[] array = new byte[0];
         try {
-            InputStreamReader input_csv;
-            try {
-                input_csv = new InputStreamReader(new
-                        FileInputStream("src/main/resources/static/csv/" + g_ident + ".CSV"), StandardCharsets.UTF_8);
-            }
-            catch (FileNotFoundException e) {
-                input_csv = new InputStreamReader(new
-                        FileInputStream("../webapps/dbconnector/WEB-INF/classes/static/csv/" + g_ident + ".CSV"), StandardCharsets.UTF_8);
-            }
+            //InputStreamReader input_csv;
 
-            br = new BufferedReader(input_csv);
+//            try {
+//                array = Files.readAllBytes(Paths.get("src/main/resources/static/csv/" + g_ident + ".CSV"));
+//            }
+            //catch (FileNotFoundException e) {
+                array = Files.readAllBytes(Paths.get("../webapps/dbconnector/WEB-INF/classes/static/csv/" + g_ident + ".CSV"));
+           // }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         String line = "";
 
-        while(true){
-            try {
-                if ((line = br.readLine()) == null) break;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String[] str = line.split(";");
-            for(int i=0;i<str.length;i++){
-                current_group.put(str[0], str[1]);
-            }
+        String key = "AsT16232Qsd84231";
+        Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, aesKey);
+
+        String decrypted = new String(cipher.doFinal(array));
+        System.out.println(decrypted);
+
+        String lines[] = decrypted.split("\\r?\\n");
+
+        for(String row : lines){
+//        try {
+//            if ((line = lines.readLine()) == null) break;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        String[] str = row.split(";");
+        for(int i=0;i<str.length;i++){
+            current_group.put(str[0], str[1]);
         }
-        loaded_gpoups.add(g_ident);
     }
+        loaded_gpoups.add(g_ident);
+}
 
     public Student getStudent(){
         return this;
@@ -102,7 +121,11 @@ public class Student extends MongoModels{
         String g_ident = ancestors.get(1);
         //System.out.println("lg" + loaded_gpoups + "cg" + current_group);
         if (!loaded_gpoups.contains(g_ident)) {
-            upload_group(g_ident);
+            try {
+                upload_group(g_ident);
+            } catch (IOException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
+                e.printStackTrace();
+            }
         }
 
         String fname = (String) current_group.get(parent);

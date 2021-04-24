@@ -7,15 +7,10 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Properties;
 
 @Configuration("mongo-config")
 @PropertySource(value = "classpath:application.properties")
