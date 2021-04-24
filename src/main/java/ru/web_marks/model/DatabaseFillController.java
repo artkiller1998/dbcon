@@ -77,6 +77,7 @@ public class DatabaseFillController {
 
     static class Note {
         public List<String> ancestors;
+        public String edited;
         public String parent;
         List<Task> tasks;
 
@@ -84,6 +85,9 @@ public class DatabaseFillController {
             this.tasks = new ArrayList<>();
 
             for (int j = 0; j < marknote.size(); j++) {
+                if (j == 0) {
+                    this.edited = "admin *без изменений*";
+                }
                 this.tasks.add(new Task(marknote.get(j)));
                 this.ancestors = new ArrayList<>();
                 this.ancestors.add(name.toUpperCase());

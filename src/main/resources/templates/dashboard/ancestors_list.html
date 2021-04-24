@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{default.html}"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Список преподавателей</title>
+    <meta name="description" content="" />
+    <link rel="stylesheet" th:href="@{/css/style_s.css}" />
+</head>
+
+<body>
+    <div id="wrapper" class="d-flex align-items-stretch flex-column">
+
+        <!-- HEADER from default.html -->
+        <!-- /HEADER -->
+
+        <!-- MIDDLE -->
+        <div layout:fragment="container">
+            <div class="table-center">
+                <br/>
+                <h1  th:text="| ${subject} ${year_group}|">Предмет</h1>
+                <h2 th:text="|Список преподавателей (${ancestors_list.size()})|">Список преподавателей</h2>
+
+                <p>
+                    <form th:action="@{/dashboard/teachers/{subject}/{year_group}
+                     (subject = ${subject}, year_group =  ${year_group})}" method="post">
+                        <div class="div-inline">
+                            <div class="div-inline-t">
+                                    <label for="inputLogin" class="sr-only">Login</label>
+                                    <input type="login" name="login" id="inputLogin"
+                                           class="form-control div-inline" placeholder="Login" required="" />
+                            </div>
+                            <button class="btn-success div-inline rounded">
+                                Добавить
+                            </button>
+                        </div>
+                    </form>
+                </p>
+                <br/>
+                <table id="teachers_table" class=
+                        "table table-hover table-teacher" >
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Login</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody style="background-color: rgba(165,177,166,0.55)">
+                    <tr th:each="ancestor : ${ancestors_list}">
+<!--                        <td  th:text="${teacher.getId()}">Id</td>-->
+                        <td class="font-weight-bold" th:text="${ancestor}">Login</td>
+                        <td>
+                            <form th:method="delete" th:action=
+                                    "@{/dashboard/teachers/{subject}/{year_group}/{id}
+                                    (subject = ${subject}, year_group =  ${year_group}, id=${ancestor})}">
+                                <button class="btn-danger rounded" name="id">
+                                    Удалить
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /MIDDLE -->
+
+        <!-- FOOTER -->
+        <!-- /FOOTER default.html-->
+
+    </div><!-- /#wrapper -->
+</body>
+

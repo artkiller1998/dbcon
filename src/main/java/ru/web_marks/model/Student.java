@@ -8,9 +8,8 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
@@ -20,7 +19,6 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Student extends MongoModels{
@@ -28,11 +26,13 @@ public class Student extends MongoModels{
     private static Set loaded_gpoups = new HashSet<String>();
     ArrayList<String> ancestors = new ArrayList<String>();
     String parent = "";
-    String edited = "";
+    String edited = "";;
     ArrayList<Task> tasks = new ArrayList<Task>();
     public Student() {
         // выполнение конструктора родителя для инициализации параметров
     }
+
+
 
     public String getSubject() {
         return ancestors.get(2);
@@ -49,19 +49,25 @@ public class Student extends MongoModels{
         }
     }
 
+    public String getEdited() {
+        return edited;
+    }
+
+    public void setEdited(String edited) {
+        this.edited = edited;
+    }
+
     public String getId() {
         return  this.id;
     }
 
-    public void setInstanceMark(String id, String value, Principal principal) {
-        String login = principal.getName();
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+    public void setInstanceMark(String id, String value) {
+
         for ( Task task  : tasks) {
             for (Mark mark : task.marks) {
                 if (mark.mrk_id.equals(id)) {
                     mark.mrk = value;
                     mark.date = new Date();
-                    edited = "Eddited by " + login + " at:" + dateFormat.format(mark.date);
                 }
             }
         }
@@ -89,7 +95,7 @@ public class Student extends MongoModels{
         cipher.init(Cipher.DECRYPT_MODE, aesKey);
 
         String decrypted = new String(cipher.doFinal(array));
-        System.out.println(decrypted);
+        //System.out.println(decrypted);
 
         String lines[] = decrypted.split("\\r?\\n");
 
@@ -131,8 +137,8 @@ public class Student extends MongoModels{
         String fname = (String) current_group.get(parent);
 
         return String.format(
-                "{ \"parent\":\"%s\", \"fname\":\"%s\", \"tasks\":%s }",
-                parent, fname, tasks);
+                "{ \"parent\":\"%s\", \"fname\":\"%s\", \"edited\":\"%s\", \"tasks\":%s }",
+                parent, fname, edited, tasks);
     }
 }
 

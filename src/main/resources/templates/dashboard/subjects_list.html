@@ -36,7 +36,11 @@
                 <tbody style="background-color: rgba(165,177,166,0.55)">
                 <tr th:each="subject : ${subjects_set}">
 <!--                    <td  th:text="${subject.getId()}">Id</td>-->
-                    <td class="font-weight-bold" th:text="${subject.getKey()}">Subject</td>
+
+                        <td class="font-weight-bold">
+                            <a  target="_blank" th:href="@{/dashboard/teachers/{subject}/{group} (subject = ${subject.getKey()}, group=${subject.getValue()})}" th:text="${subject.getKey()}"></a>
+                        </td>
+
                     <td class="font-weight-bold" th:text="${subject.getValue()}">Group</td>
                     <td>
                         <form th:action="@{/administrator/delete/{subject}/{year_group}

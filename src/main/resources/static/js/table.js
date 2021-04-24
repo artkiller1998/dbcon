@@ -1,5 +1,6 @@
 $(function(){
 	$('#item_list').hide()
+	$('#changes_show').hide()
 });
 
 function Color (elem, currentValue, max) {
@@ -200,16 +201,19 @@ function saveMarks(elem) {
 	}
 	elem = $(elem)
 	///////elem.attr('data-lesson'),elem.attr('data-name'),elem.attr('data-descr'), elem.html()
-	groupFile = $('#group_number').val()
 
-	subjectFile = $('#subject_config').val()
 	//console.log($('#group_number'))
 	//console.log(subjectFile)
 
 	var token = $('#csrfToken').val();
 	var header = $('#csrfHeader').val();
 
+	groupFile = $('#group_number').val()
+	groupFile = groupFile.toUpperCase()
+
+	subjectFile = $('#subject_config').val()
 	subjectFile = subjectFile.toUpperCase()
+
 	//jqXHR.setRequestHeader('CSRFToken', ACC.config.CSRFToken);
 	$.ajax({
 		headers : {
@@ -262,8 +266,14 @@ function showTable() {
 			}
 			else {
 				$('#item_list').show()
-				//console.log(config)
+				$('#changes_show').show()
+
+
+				console.log(config)
 				config=JSON.parse(config)
+
+				$('#changes').html(config[0]['edited'])
+
 				user_table = '<tr id="heightOneUser"><td name="user"></td></tr><tr id="heightTwoUser"><td name="user"></td></tr>'
 				table = '<tr id="heightOne">'
 				for (var i = 0; i < config[0]['tasks'].length; i++) {

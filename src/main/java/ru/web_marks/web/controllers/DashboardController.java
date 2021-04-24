@@ -93,6 +93,30 @@ public class DashboardController {
         return modelAndView;
     }
 
+    @RequestMapping(value = {"/teachers/{subject}/{year_group}"}, method = RequestMethod.GET)
+    public ModelAndView subject_dashboard_teachers(@PathVariable String subject , @PathVariable String year_group, Principal principal) {
+        System.out.println("[INFO] DashboardController subject_dashboard_teachers -- show subject_dashboard_teachers\n");
+        ModelAndView modelAndView = tableController.fillModel(principal);
+
+        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+
+        Query all_group_q = new Query(Criteria.where("ancestors").all(subject,year_group));
+        List<Student> all_group = mongoOperation.find(all_group_q, Student.class);
+
+        Query first_object_q = Query.query(Criteria.where("id").is(all_group.get(0).getId()));
+
+        Student first_object = mongoOperation.findOne(first_object_q, Student.class);
+        List<String> ancestors = first_object.getAncestors();
+        ancestors.remove(1);
+        ancestors.remove(0);
+
+        modelAndView.addObject("ancestors_list", ancestors);
+        modelAndView.addObject("subject", subject);
+        modelAndView.addObject("year_group", year_group);
+        modelAndView.setViewName("/dashboard/ancestors_list");
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = {"/subjects"}, method = RequestMethod.GET)
     public ModelAndView dashboard_subjects(Principal principal) {

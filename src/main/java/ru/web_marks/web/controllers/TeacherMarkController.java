@@ -70,17 +70,36 @@ public class TeacherMarkController {
                          @RequestBody String mark, @PathVariable String id, Principal principal) throws ChangeSetPersister.NotFoundException {
         System.out.println("[INFO] TeacherMarkController update -- update mark\n");
 
+        String login = principal.getName();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+
         Query searchInstance = Query.query(Criteria.where("tasks").elemMatch(Criteria.where("marks")
                 .elemMatch(Criteria.where("mrk_id").is(id))));
         Student temp = mongoOperation.findOne(searchInstance, Student.class);
         assert temp != null;
-        temp.setInstanceMark(id,mark, principal);
+        temp.setInstanceMark(id,mark);
         Update update = new Update();
         update.set("tasks", temp.getTasks());
         mongoOperation.updateFirst(searchInstance, update, Student.class);
 
 
-        return mongoOperation.findOne(searchInstance, Student.class).toString();
+        Query all_group_q = new Query(Criteria.where("ancestors").all(subject,year_group));
+        List<Student> all_group = mongoOperation.find(all_group_q, Student.class);
+
+        Query first_object_q = Query.query(Criteria.where("id").is(all_group.get(0).getId()));
+
+        Student first_object = mongoOperation.findOne(first_object_q, Student.class);
+        assert first_object != null;
+        first_object.setEdited(login + " " + dateFormat.format(new Date()));
+
+        Update update_edited = new Update();
+        update_edited.set("edited", first_object.getEdited());
+
+        System.out.println("Предмет " + subject + " группы " + year_group + "  изменен "  + first_object.getEdited() );
+
+        mongoOperation.updateFirst(first_object_q, update_edited, Student.class);
+
+        return "success";
     }
 
     @RequestMapping(value = "/backup/{subject}/{year_group}", method = RequestMethod.GET)
@@ -133,7 +152,7 @@ public class TeacherMarkController {
                 for (Task task : student.getTasks()) {
                     for (Mark mark : task.getMarks()) {
                         if (marks.containsKey(mark.getMrk_id())){
-                            student.setInstanceMark(mark.getMrk_id(),marks.get(mark.getMrk_id()), principal);
+                            student.setInstanceMark(mark.getMrk_id(),marks.get(mark.getMrk_id()));
                         }
 
                         //marks.put(mark.getMrk_id(), mark.getMrk());
