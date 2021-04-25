@@ -3,6 +3,7 @@ package ru.web_marks.model;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,7 +82,7 @@ public class DatabaseFillController {
         public String parent;
         List<Task> tasks;
 
-        public Note(List<MarkNote> marknote, String name, String group, String mixed, String filename) {
+        public Note(List<MarkNote> marknote, String name, String group, String mixed, String filename, Principal principal) {
             this.tasks = new ArrayList<>();
 
             for (int j = 0; j < marknote.size(); j++) {
@@ -93,6 +94,9 @@ public class DatabaseFillController {
                 this.ancestors.add(name.toUpperCase());
                 this.ancestors.add(group.toUpperCase());
                 this.ancestors.add(filename);
+                this.ancestors.add("admin");
+                if (!principal.getName().equals("admin"))
+                    this.ancestors.add(principal.getName());
 //                this.ancestors.add(filename.substring(0, filename.length() - 2));
             }
 
@@ -104,7 +108,7 @@ public class DatabaseFillController {
 
 
 
-    public DatabaseFillController(String config_content, String group_content, String group_name) throws IOException {
-        new LoadData(config_content,  group_content, group_name);
+    public DatabaseFillController(String config_content, String group_content, String group_name, Principal principal) throws IOException {
+        new LoadData(config_content,  group_content, group_name, principal);
     }
 }

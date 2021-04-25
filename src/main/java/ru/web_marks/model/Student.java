@@ -49,6 +49,10 @@ public class Student extends MongoModels{
         }
     }
 
+    public void setAncestors(ArrayList<String> ancestors) {
+        this.ancestors = ancestors;
+    }
+
     public String getEdited() {
         return edited;
     }

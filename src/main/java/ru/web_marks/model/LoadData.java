@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import ru.web_marks.security.connection.MongoConfig;
 
 import java.io.*;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 
 class LoadData {
 
-    public LoadData (String config_content, String group_content, String group_name) throws IOException {
+    public LoadData (String config_content, String group_content, String group_name, Principal principal) throws IOException {
 
         ApplicationContext context = new AnnotationConfigApplicationContext("ru.web_marks.security.connection");
         MongoConfig configure = (MongoConfig) context.getBean("mongo-config");
@@ -113,7 +114,7 @@ class LoadData {
             }
 
             String fname = group_name.substring(group_name.lastIndexOf('/') + 1, group_name.lastIndexOf('.')).toUpperCase();
-            DatabaseFillController.Note note = new DatabaseFillController.Note(ListMN, names.get(i), names.get(i).substring(0, 4), mxd, fname); //MIXED
+            DatabaseFillController.Note note = new DatabaseFillController.Note(ListMN, names.get(i), names.get(i).substring(0, 4), mxd, fname, principal); //MIXED
             Gson gson = new Gson();
             String json = gson.toJson(note);
             Document doc = Document.parse(json);

@@ -56,10 +56,32 @@ public class TeacherMarkController {
         return modelAndView;
     }
 
+    public boolean check_access(String subject, String  year_group, Principal principal) {
+        String login = principal.getName();
+
+        Query all_group_q = new Query(Criteria.where("ancestors").all(subject,year_group));
+        List<Student> all_group = mongoOperation.find(all_group_q, Student.class);
+
+        Query first_object_q = Query.query(Criteria.where("id").is(all_group.get(0).getId()));
+        Student first_object = mongoOperation.findOne(first_object_q, Student.class);
+        List<String> ancestors = first_object.getAncestors();
+
+        if (!ancestors.contains(login))
+            return false;
+
+        return true;
+    }
+
     @RequestMapping(value = "/backups/{subject}/{year_group}", method = RequestMethod.GET)
     public ModelAndView show_backups(@PathVariable String subject , @PathVariable String year_group, Principal principal) {
 
         System.out.println("[INFO] TeacherMarkController show_backups -- show backups\n");
+
+        if (!check_access(subject,year_group,principal)) {
+            subject = "";
+            year_group = "";
+        }
+
         ModelAndView modelAndView = fill_model_backup(principal, subject, year_group);
         return modelAndView;
     }
@@ -69,6 +91,9 @@ public class TeacherMarkController {
     public String update(@PathVariable String subject , @PathVariable String year_group,
                          @RequestBody String mark, @PathVariable String id, Principal principal) throws ChangeSetPersister.NotFoundException {
         System.out.println("[INFO] TeacherMarkController update -- update mark\n");
+
+        if (!check_access(subject,year_group,principal))
+            return "access_denied";
 
         String login = principal.getName();
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
@@ -103,8 +128,12 @@ public class TeacherMarkController {
     }
 
     @RequestMapping(value = "/backup/{subject}/{year_group}", method = RequestMethod.GET)
-    public String backup_marks(@PathVariable String subject , @PathVariable String year_group ) {
+    public String backup_marks(@PathVariable String subject , @PathVariable String year_group, Principal principal ) {
         System.out.println("[INFO] TeacherMarkController backup_marks -- backup marks in map\n");
+
+        if (!check_access(subject,year_group,principal))
+            return "access_denied";
+
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
         List<Student> studentList = mongoOperation.find(searchInstance, Student.class);
         Map<String, String> marks = new HashMap<>();
@@ -135,6 +164,7 @@ public class TeacherMarkController {
     @RequestMapping(value = "/restore/{id}", method = RequestMethod.GET)
     public ModelAndView restore_backup(@PathVariable String id, Principal principal) {
         System.out.println("[INFO] TeacherMarkController restore_marks -- restore marks from map\n");
+
         Backup temp = backupRepository.findById(id)
                 .orElseGet(() -> null);
         Map<String, String> marks = new HashMap<>();

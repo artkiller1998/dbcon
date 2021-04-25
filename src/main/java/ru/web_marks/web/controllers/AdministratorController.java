@@ -55,7 +55,7 @@ public class AdministratorController {
     MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
     @PutMapping(path="/load")
-    public ResponseEntity<String> update(@RequestBody String data) throws ChangeSetPersister.NotFoundException, IOException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException {
+    public ResponseEntity<String> update(@RequestBody String data, Principal principal) throws ChangeSetPersister.NotFoundException, IOException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException {
         System.out.println("[INFO] AdministratorController update -- upload groups\n");
         String group_name;
         String group_content;
@@ -78,7 +78,7 @@ public class AdministratorController {
                 return ResponseEntity.badRequest().body("Collection exists");
             }
 
-            DatabaseFillController databaseFillController = new DatabaseFillController(config_content, group_content, config_name);
+            DatabaseFillController databaseFillController = new DatabaseFillController(config_content, group_content, config_name, principal);
         }
         catch (Exception exc)
         {

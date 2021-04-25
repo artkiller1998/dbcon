@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -109,11 +110,82 @@ public class DashboardController {
         List<String> ancestors = first_object.getAncestors();
         ancestors.remove(1);
         ancestors.remove(0);
+        ancestors.remove(0);
 
         modelAndView.addObject("ancestors_list", ancestors);
         modelAndView.addObject("subject", subject);
         modelAndView.addObject("year_group", year_group);
         modelAndView.setViewName("/dashboard/ancestors_list");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/teachers/{subject}/{year_group}", method = RequestMethod.POST)
+    public ModelAndView addSubjectTeacher(@PathVariable String subject , @PathVariable String year_group, @Valid Teacher teacher, BindingResult bindingResult) {
+        System.out.println("[INFO] DashboardController addSubjectTeacher --  addSubjectTeacher\n");
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/teachers/{subject}/{year_group}");
+
+        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+        Query all_group_q = new Query(Criteria.where("ancestors").all(subject,year_group));
+        List<Student> all_group = mongoOperation.find(all_group_q, Student.class);
+
+        Query first_object_q = Query.query(Criteria.where("id").is(all_group.get(0).getId()));
+        Student first_object = mongoOperation.findOne(first_object_q, Student.class);
+
+        List<String> ancestors = first_object.getAncestors();
+        List<String> copy = new ArrayList<>(ancestors);
+        copy.remove(1);
+        copy.remove(0);
+        copy.remove(0);
+
+        Teacher tecaherExists = userService.findTeacherByLogin(teacher.getLogin());
+        if (tecaherExists == null) {
+            userService.saveTeacher(teacher);
+            modelAndView.addObject("teacher", new Teacher());
+        }
+
+        if (copy.contains(teacher.getLogin()))
+            bindingResult
+                .rejectValue("login", "error.user",
+                        "Такой пользователь уже существует");
+        else {
+            Update update = new Update();
+            ancestors.add(teacher.getLogin());
+            first_object.setAncestors((ArrayList<String>) ancestors);
+            update.set("ancestors", first_object.getAncestors());
+            mongoOperation.updateFirst(first_object_q, update, Student.class);
+        }
+
+
+//        if (bindingResult.hasErrors()) {
+//            //modelAndView.setViewName("/dashboard/teacher_list");
+//        } else {
+//
+//        }
+        //modelAndView.setViewName("/dashboard/teacher_list");
+//
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/teachers/{subject}/{year_group}/{teacher_name}", method = RequestMethod.DELETE)
+    public ModelAndView deleteSubjectTeacher(@PathVariable String subject , @PathVariable String year_group, @PathVariable String teacher_name) {
+        System.out.println("[INFO] DashboardController deleteTeacher -- delete deleteSubjectTeacher\n");
+        ModelAndView modelAndView = new ModelAndView("redirect:/dashboard/teachers/{subject}/{year_group}");
+
+        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+        Query all_group_q = new Query(Criteria.where("ancestors").all(subject,year_group));
+        List<Student> all_group = mongoOperation.find(all_group_q, Student.class);
+
+        Query first_object_q = Query.query(Criteria.where("id").is(all_group.get(0).getId()));
+        Student first_object = mongoOperation.findOne(first_object_q, Student.class);
+
+        List<String> ancestors = first_object.getAncestors();
+        ancestors.remove(teacher_name);
+        first_object.setAncestors((ArrayList<String>) ancestors);
+
+        Update update = new Update();
+        update.set("ancestors", first_object.getAncestors());
+        mongoOperation.updateFirst(first_object_q, update, Student.class);
         return modelAndView;
     }
 

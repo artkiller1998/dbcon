@@ -150,6 +150,10 @@ function showTable() {
 				});
 			}
 
+			if ($('#showColor')[0].checked) {
+				checkboxChange()
+			}
+
 		},
 		error: function(config) {
 			$.SOW.core.toast.show('danger', '', "Что то пошло не так, попробуйте загрузить файл с конфигурацией предмета", 'bottom-right', 4000, true)
