@@ -269,7 +269,7 @@ function showTable() {
 				$('#changes_show').show()
 
 
-				console.log(config)
+				//console.log(config)
 				config=JSON.parse(config)
 
 				$('#changes').html(config[0]['edited'])
@@ -309,7 +309,7 @@ function showTable() {
 							////console.log(arrScale[j][1])
 							///onmousedown="getDate(\''+config[i]['tasks'][j]['marks'][k]['date']+'\');"   
 							table = table + '<td name="editable" data-id="'+config[i]['tasks'][j]['marks'][k]['mrk_id']+'" width="'+wid+'%" value="'+config[i]['tasks'][j]['marks'][k]['scale']+'" onclick="editable(this, '+config[i]['tasks'][j]['marks'][k]['scale']+');" data-toggle="tooltip" data-placement="top" title="Оценка поставлена: '+config[i]['tasks'][j]['marks'][k]['date']+'">'+config[i]['tasks'][j]['marks'][k]['mark']+'</td>'
-							//data-name="'+config[i]['fname']+'" data-descr="'+config[i]['tasks'][j]['marks'][k]['descr']+'" data-lesson="'+config[i]['tasks'][j]['lesson']+'" 
+							//data-name="'+config[i]['fname']+'" data-descr="'+config[i]['tasks'][j]['marks'][k]['descr']+'" data-lesson="'+config[i]['tasks'][j]['lesson']+'"
 						}
 					}
 

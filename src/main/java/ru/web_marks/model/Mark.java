@@ -29,6 +29,10 @@ public class Mark {
         return mrk_id;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");

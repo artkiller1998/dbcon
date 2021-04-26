@@ -56,7 +56,7 @@ public class TeacherMarkController {
         return modelAndView;
     }
 
-    public boolean check_access(String subject, String  year_group, Principal principal) {
+    private boolean check_access(String subject, String year_group, Principal principal) {
         String login = principal.getName();
 
         Query all_group_q = new Query(Criteria.where("ancestors").all(subject,year_group));
@@ -64,12 +64,10 @@ public class TeacherMarkController {
 
         Query first_object_q = Query.query(Criteria.where("id").is(all_group.get(0).getId()));
         Student first_object = mongoOperation.findOne(first_object_q, Student.class);
+        assert first_object != null;
         List<String> ancestors = first_object.getAncestors();
 
-        if (!ancestors.contains(login))
-            return false;
-
-        return true;
+        return !ancestors.contains(login);
     }
 
     @RequestMapping(value = "/backups/{subject}/{year_group}", method = RequestMethod.GET)
@@ -77,13 +75,12 @@ public class TeacherMarkController {
 
         System.out.println("[INFO] TeacherMarkController show_backups -- show backups\n");
 
-        if (!check_access(subject,year_group,principal)) {
+        if (check_access(subject, year_group, principal)) {
             subject = "";
             year_group = "";
         }
 
-        ModelAndView modelAndView = fill_model_backup(principal, subject, year_group);
-        return modelAndView;
+        return fill_model_backup(principal, subject, year_group);
     }
 
 
@@ -92,7 +89,7 @@ public class TeacherMarkController {
                          @RequestBody String mark, @PathVariable String id, Principal principal) throws ChangeSetPersister.NotFoundException {
         System.out.println("[INFO] TeacherMarkController update -- update mark\n");
 
-        if (!check_access(subject,year_group,principal))
+        if (check_access(subject, year_group, principal))
             return "access_denied";
 
         String login = principal.getName();
@@ -131,17 +128,17 @@ public class TeacherMarkController {
     public String backup_marks(@PathVariable String subject , @PathVariable String year_group, Principal principal ) {
         System.out.println("[INFO] TeacherMarkController backup_marks -- backup marks in map\n");
 
-        if (!check_access(subject,year_group,principal))
+        if (check_access(subject, year_group, principal))
             return "access_denied";
 
         Query searchInstance = new Query(Criteria.where("ancestors").all(subject,year_group));
         List<Student> studentList = mongoOperation.find(searchInstance, Student.class);
-        Map<String, String> marks = new HashMap<>();
+        Map<String, Mark> marks = new HashMap<>();
         if (!studentList.isEmpty()) {
             for (Student student : studentList) {
                 for (Task task : student.getTasks()) {
                     for (Mark mark : task.getMarks()) {
-                        marks.put(mark.getMrk_id(), mark.getMrk());
+                        marks.put(mark.getMrk_id(), mark);
                     }
                 }
             }
@@ -167,7 +164,7 @@ public class TeacherMarkController {
 
         Backup temp = backupRepository.findById(id)
                 .orElseGet(() -> null);
-        Map<String, String> marks = new HashMap<>();
+        Map<String, Mark> marks = new HashMap<>();
         ModelAndView modelAndView = new ModelAndView();
         if (temp != null) {
             marks = temp.getMarks();

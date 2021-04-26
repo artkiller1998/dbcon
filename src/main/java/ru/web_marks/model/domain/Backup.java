@@ -6,9 +6,8 @@
 package ru.web_marks.model.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.web_marks.model.Mark;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +22,7 @@ public class Backup {
 
     ArrayList<String> ancestors = new ArrayList<String>();
 
-    Map<String, String> marks = new HashMap<>();
+    Map<String, Mark> marks = new HashMap<>();
 
     Date date;
 
@@ -43,11 +42,11 @@ public class Backup {
         this.ancestors = ancestors;
     }
 
-    public Map<String, String> getMarks() {
+    public Map<String, Mark> getMarks() {
         return marks;
     }
 
-    public void setMarks(Map<String, String> marks) {
+    public void setMarks(Map<String, Mark> marks) {
         this.marks = marks;
     }
 

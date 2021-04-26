@@ -15,9 +15,6 @@ import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.security.Principal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -76,6 +73,19 @@ public class Student extends MongoModels{
             }
         }
     }
+
+    public void setInstanceMark(String id, Mark value) {
+
+        for ( Task task  : tasks) {
+            for (Mark mark : task.marks) {
+                if (mark.mrk_id.equals(id)) {
+                    mark.mrk = value.mrk;
+                    mark.date = value.date;
+                }
+            }
+        }
+    }
+
 
     private void upload_group(String g_ident) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         byte[] array = new byte[0];
